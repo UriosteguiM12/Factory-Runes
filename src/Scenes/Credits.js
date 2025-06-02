@@ -6,10 +6,28 @@ class Credits extends Phaser.Scene{
 
     preload() {
 
+        this.load.setPath("./assets/");
+        this.load.image('homeButton', 'homeButton.png');
     }
 
     create() {
-        console.log("loaded the Credits!");
+
+        const titleText = this.add.text(425, 100, 'CREDITS', {
+            fontFamily: '"Press Start 2P"',
+            fontSize: '32px',
+            color: '#ffffff'
+        }).setOrigin(0.9);
+
+        titleText.setResolution(2); 
+
+        const homeButton = this.add.image(450, 950, 'homeButton').setInteractive();
+
+        homeButton.on('pointerdown', () => {
+            this.scene.start('TitleScreen');
+        });
+
+
+
     }
 
     update() {
