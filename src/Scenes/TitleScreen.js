@@ -14,7 +14,6 @@ class TitleScreen extends Phaser.Scene{
     }
 
     create() {
-        console.log("loaded the Title Screen!");
 
         const controlButton = this.add.image(375, 950, 'controlButton').setInteractive();
         const creditButton = this.add.image(525, 950, 'creditButton').setInteractive();
