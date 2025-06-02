@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factory Runes</title>
+    <script src="./lib/phaser.js"></script>
+    <script src="./src/Scenes/Controls.js"></script>
+    <script src="./src/Scenes/Credits.js"></script>
+    <script src="./src/Scenes/LevelOne.js"></script>
+    <script src="./src/Scenes/TitleScreen.js"></script>
+    <script src="./src/main.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: lightgrey; /* this changes the window background */
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        #phaser-game canvas {
+            display: block;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="phaser-game"></div>
+    <span id="description"></span>
+</body>
+</html>
