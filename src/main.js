@@ -10,7 +10,7 @@ let config = {
     },
     width: 900,
     height: 1075,
-    scene: [TitleScreen, Controls, Credits, LevelOne],
+    scene: [Load, Controls, Credits, LevelOne, TitleScreen],
     scale: {
         mode: Phaser.Scale.FIT,        
         autoCenter: Phaser.Scale.CENTER_BOTH
