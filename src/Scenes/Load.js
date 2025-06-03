@@ -25,10 +25,10 @@ class Load extends Phaser.Scene {
         this.anims.create({
             key: 'walk',
             frames: [
-                {key: 'characters', frame: 209},
-                {key: 'characters', frame: 210},
-                {key: 'characters', frame: 211},
-                {key: 'characters', frame: 212}
+                {key: 'characters', frame: 261},
+                {key: 'characters', frame: 262},
+                {key: 'characters', frame: 263},
+                {key: 'characters', frame: 264}
             ],
             frameRate: 8,
             repeat: -1
@@ -37,17 +37,17 @@ class Load extends Phaser.Scene {
         this.anims.create({
             key: 'idle',
             frames: [
-                {key: 'characters', frame: 208},
-                {key: 'characters', frame: 213}
+                {key: 'characters', frame: 260},
+                {key: 'characters', frame: 266}
             ],
-            frameRate: 8,
+            frameRate: 1,
             repeat: -1
         });
 
         this.anims.create({
             key: 'jump',
             frames: [
-                {key: 'characters', frame: 214}
+                {key: 'characters', frame: 265}
             ],
             frameRate: 8,
             repeat: -1

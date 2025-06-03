@@ -62,21 +62,15 @@ class LevelOne extends Phaser.Scene{
 
     update() {
 
-        // player movement
+        // First, handle movement
         if (this.cursors.left.isDown || this.keys.A.isDown) {
             this.player.setAccelerationX(-this.ACCELERATION);
-            this.player.resetFlip();
-
+            this.player.setFlip(true, false);
         } else if (this.cursors.right.isDown || this.keys.D.isDown) {
             this.player.setAccelerationX(this.ACCELERATION);
-            this.player.setFlip(true, false);
-
+            this.player.resetFlip();
         } else {
             this.player.setAccelerationX(0);
-        }
-
-        if ((this.cursors.up.isDown || this.keys.W.isDown) && this.player.body.blocked.down) {
-            this.player.setVelocityY(-300);
         }
 
         // Apply max speed
@@ -85,22 +79,38 @@ class LevelOne extends Phaser.Scene{
         }
 
         // Grounded drag
-        if (this.player.body.blocked.down) {
-            this.player.setDragX(this.DRAG);
-        } else {
-            this.player.setDragX(0);
-        }
+        this.player.setDragX(this.player.body.blocked.down ? this.DRAG : 0);
 
-        // Gravity multiplier when falling
-        if (!this.player.body.blocked.down && this.player.body.velocity.y > 0) {
-            this.player.setGravityY(this.physics.world.gravity.y);
-        } else {
-            this.player.setGravityY(0);
-        }
+        // Gravity
+        this.player.setGravityY(!this.player.body.blocked.down && this.player.body.velocity.y > 0 ? this.physics.world.gravity.y : 0);
 
-        // Jumping
-        if (this.player.body.blocked.down && (Phaser.Input.Keyboard.JustDown(this.cursors.up) || Phaser.Input.Keyboard.JustDown('W'))) {
+        // Handle jumping input
+        if (this.player.body.blocked.down && (Phaser.Input.Keyboard.JustDown(this.cursors.up) || Phaser.Input.Keyboard.JustDown(this.keys.W))) {
             this.player.setVelocityY(this.JUMP_VELOCITY);
+        }
+
+        // JUMP FRAME CONTROL
+        if (!this.player.body.blocked.down) {
+            // In air
+            if (this.player.body.velocity.x > 10) {
+                // Jumping right
+                this.player.setFrame(264);
+                this.player.resetFlip(); // facing right
+            } else if (this.player.body.velocity.x < -10) {
+                // Jumping left
+                this.player.setFrame(264);
+                this.player.setFlip(true, false); // facing left
+            } else {
+                // Jumping straight up
+                this.player.setFrame(265);
+            }
+        } else {
+            // On ground - play walk/idle animations
+            if (this.player.body.velocity.x !== 0) {
+                this.player.anims.play('walk', true);
+            } else {
+                this.player.anims.play('idle', true);
+            }
         }
         
     }
