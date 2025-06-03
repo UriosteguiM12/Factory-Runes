@@ -4,16 +4,23 @@ class LevelOne extends Phaser.Scene{
         super("LevelOne");
     }
 
+    init() {
+        this.ACCELERATION = 500;
+        this.MAX_VELOCITY = 512;
+        this.DRAG = 2000;
+        this.JUMP_VELOCITY = -550;
+        this.physics.world.gravity.y = 1600;
+    }
+
     preload() {
 
     }
 
     create() {
-
         console.log("loaded the Level!");
 
-        const tileWidth = 16;
-        const tileHeight = 16;
+        this.cursors = this.input.keyboard.createCursorKeys();
+        this.keys = this.input.keyboard.addKeys("W,S,A,D");
 
         // Create a new tilemap game object which uses 18x18 pixel tiles, and is
         // 45 tiles wide and 25 tiles tall.
@@ -27,7 +34,7 @@ class LevelOne extends Phaser.Scene{
         const tilesets = [oneBit, oneBitTransparent];
 
         // Create a layer
-        this.groundLayer = this.map.createLayer("Ground-n-Platforms", tilesets, 0, 0);
+        this.groundLayer = this.map.createLayer("Ground-n-Platforms", tilesets, 0, -3000);
         this.groundLayer.setScale(2.0);
 
         // Make it collidable
@@ -36,9 +43,10 @@ class LevelOne extends Phaser.Scene{
         });
 
         // set up player avatar
-        this.player = this.physics.add.sprite(100, 100, "characters", 260);
+        this.player = this.physics.add.sprite(160, 400, "characters", 260);
         this.player.setCollideWorldBounds(true);
-        this.player.setScale(5.0);
+        this.player.setScale(2.0);
+        this.player.setOrigin(0, 0);
 
         // Enable collision handling
         this.physics.add.collider(this.player, this.groundLayer);
@@ -47,6 +55,19 @@ class LevelOne extends Phaser.Scene{
     }
 
     update() {
+
+        // player movement
+        if (this.cursors.left.isDown || this.keys.A.isDown) {
+            this.player.setVelocityX(-160);
+        } else if (this.cursors.right.isDown || this.keys.D.isDown) {
+            this.player.setVelocityX(160);
+        } else {
+            this.player.setVelocityX(0);
+        }
+
+        if ((this.cursors.up.isDown || this.keys.W.isDown) && this.player.body.blocked.down) {
+            this.player.setVelocityY(-300);
+        }
         
     }
 
