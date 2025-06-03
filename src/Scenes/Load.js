@@ -8,44 +8,50 @@ class Load extends Phaser.Scene {
 
         // Load tilemap information
         this.load.image("monochrome_tilemap", "monochrome_tilemap_packed.png");
-        this.load.image("monochrome_tilemap_transparent", "monochrome_tilemap_transparent_packed.png");    
+        this.load.image("monochrome_tilemap_transparent", "monochrome_tilemap_transparent_packed.png"); 
+        
+        this.load.spritesheet('characters', 'monochrome_tilemap_transparent_packed2.png', {
+            frameWidth: 16,  
+            frameHeight: 16
+        });
         
         // Packed tilemap
         this.load.tilemapTiledJSON("level-one", "final_game.tmj");   // Tilemap in JSON
+
     }
 
     create() {
-        /*
+    
         this.anims.create({
             key: 'walk',
-            frames: this.anims.generateFrameNames('platformer_characters', {
-                prefix: "tile_",
-                start: 0,
-                end: 1,
-                suffix: ".png",
-                zeroPad: 4
-            }),
-            frameRate: 15,
+            frames: [
+                {key: 'characters', frame: 209},
+                {key: 'characters', frame: 210},
+                {key: 'characters', frame: 211},
+                {key: 'characters', frame: 212}
+            ],
+            frameRate: 8,
             repeat: -1
         });
 
         this.anims.create({
             key: 'idle',
-            defaultTextureKey: "platformer_characters",
             frames: [
-                { frame: "tile_0000.png" }
+                {key: 'characters', frame: 208},
+                {key: 'characters', frame: 213}
             ],
+            frameRate: 8,
             repeat: -1
         });
 
         this.anims.create({
             key: 'jump',
-            defaultTextureKey: "platformer_characters",
             frames: [
-                { frame: "tile_0001.png" }
+                {key: 'characters', frame: 214}
             ],
+            frameRate: 8,
+            repeat: -1
         });
-        */
 
          // ...and pass to the next Scene
          this.scene.start("TitleScreen");

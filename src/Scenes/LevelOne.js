@@ -9,7 +9,11 @@ class LevelOne extends Phaser.Scene{
     }
 
     create() {
+
         console.log("loaded the Level!");
+
+        const tileWidth = 16;
+        const tileHeight = 16;
 
         // Create a new tilemap game object which uses 18x18 pixel tiles, and is
         // 45 tiles wide and 25 tiles tall.
@@ -24,12 +28,21 @@ class LevelOne extends Phaser.Scene{
 
         // Create a layer
         this.groundLayer = this.map.createLayer("Ground-n-Platforms", tilesets, 0, 0);
-        this.groundLayer.setScale(1.0);
+        this.groundLayer.setScale(2.0);
 
         // Make it collidable
         this.groundLayer.setCollisionByProperty({
             collides: true
         });
+
+        // set up player avatar
+        this.player = this.physics.add.sprite(100, 100, "characters", 260);
+        this.player.setCollideWorldBounds(true);
+        this.player.setScale(5.0);
+
+        // Enable collision handling
+        this.physics.add.collider(this.player, this.groundLayer);
+
 
     }
 
