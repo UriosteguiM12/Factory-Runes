@@ -8,7 +8,7 @@ class LevelOne extends Phaser.Scene{
         this.ACCELERATION = 500;
         this.MAX_VELOCITY = 512;
         this.DRAG = 2000;
-        this.JUMP_VELOCITY = -550;
+        this.JUMP_VELOCITY = -750;
         this.physics.world.gravity.y = 1600;
     }
 
@@ -45,28 +45,62 @@ class LevelOne extends Phaser.Scene{
         // set up player avatar
         this.player = this.physics.add.sprite(160, 400, "characters", 260);
         this.player.setCollideWorldBounds(true);
-        this.player.setScale(2.0);
+        this.player.setScale(2.5);
         this.player.setOrigin(0, 0);
 
         // Enable collision handling
         this.physics.add.collider(this.player, this.groundLayer);
 
-
+        // camera code
+        this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+        this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+        this.cameras.main.startFollow(this.player, true, 0.25, 0.25, 100, 0); // (target, [,roundPixels][,lerpX][,lerpY])
+        this.cameras.main.setDeadzone(50, 50);
+        this.cameras.main.setZoom(2.0);
+        this.cameras.main.followOffset.set(0, 150);
     }
 
     update() {
 
         // player movement
         if (this.cursors.left.isDown || this.keys.A.isDown) {
-            this.player.setVelocityX(-160);
+            this.player.setAccelerationX(-this.ACCELERATION);
+            this.player.resetFlip();
+
         } else if (this.cursors.right.isDown || this.keys.D.isDown) {
-            this.player.setVelocityX(160);
+            this.player.setAccelerationX(this.ACCELERATION);
+            this.player.setFlip(true, false);
+
         } else {
-            this.player.setVelocityX(0);
+            this.player.setAccelerationX(0);
         }
 
         if ((this.cursors.up.isDown || this.keys.W.isDown) && this.player.body.blocked.down) {
             this.player.setVelocityY(-300);
+        }
+
+        // Apply max speed
+        if (Math.abs(this.player.body.velocity.x) > this.MAX_VELOCITY) {
+            this.player.setVelocityX(Phaser.Math.Clamp(this.player.body.velocity.x, -this.MAX_VELOCITY, this.MAX_VELOCITY));
+        }
+
+        // Grounded drag
+        if (this.player.body.blocked.down) {
+            this.player.setDragX(this.DRAG);
+        } else {
+            this.player.setDragX(0);
+        }
+
+        // Gravity multiplier when falling
+        if (!this.player.body.blocked.down && this.player.body.velocity.y > 0) {
+            this.player.setGravityY(this.physics.world.gravity.y);
+        } else {
+            this.player.setGravityY(0);
+        }
+
+        // Jumping
+        if (this.player.body.blocked.down && (Phaser.Input.Keyboard.JustDown(this.cursors.up) || Phaser.Input.Keyboard.JustDown('W'))) {
+            this.player.setVelocityY(this.JUMP_VELOCITY);
         }
         
     }
