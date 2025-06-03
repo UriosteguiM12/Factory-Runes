@@ -5,11 +5,11 @@ class LevelOne extends Phaser.Scene{
     }
 
     init() {
-        this.ACCELERATION = 500;
-        this.MAX_VELOCITY = 512;
-        this.DRAG = 2000;
-        this.JUMP_VELOCITY = -750;
-        this.physics.world.gravity.y = 1600;
+        this.ACCELERATION = 1500;
+        this.MAX_VELOCITY = 250;
+        this.DRAG = 3000;
+        this.JUMP_VELOCITY = -530;
+        this.physics.world.gravity.y = 1000;
     }
 
     preload() {
@@ -33,7 +33,7 @@ class LevelOne extends Phaser.Scene{
         const oneBitTransparent = this.map.addTilesetImage("1-bit-transparent", "monochrome_tilemap_transparent");
         const tilesets = [oneBit, oneBitTransparent];
 
-        // Create a layer
+        // Create level layers
         this.groundLayer = this.map.createLayer("Ground-n-Platforms", tilesets, 0, -3000);
         this.groundLayer.setScale(2.0);
 
@@ -42,10 +42,21 @@ class LevelOne extends Phaser.Scene{
             collides: true
         });
 
+        // Find coins in the "Coins" layer in Phaser
+        // Look for them by finding objects with the name "coin"
+        // Assign the coin texture from the tilemap_sheet sprite sheet
+        this.coins = this.map.createFromObjects("Coins", {
+            name: "coin",
+            key: "characters",
+            frame: 2,
+            scale: 2
+        });
+
+
         // set up player avatar
         this.player = this.physics.add.sprite(160, 400, "characters", 260);
         this.player.setCollideWorldBounds(true);
-        this.player.setScale(2.5);
+        this.player.setScale(2);
         this.player.setOrigin(0, 0);
 
         // Enable collision handling
