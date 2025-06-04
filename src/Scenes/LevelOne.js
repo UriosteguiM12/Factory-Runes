@@ -14,6 +14,8 @@ class LevelOne extends Phaser.Scene{
 
     preload() {
 
+        this.load.setPath("./assets/");
+        this.load.image("player", "tile_266.png");
     }
 
     create() {
@@ -43,7 +45,7 @@ class LevelOne extends Phaser.Scene{
         });
 
         // set up player avatar
-        this.player = this.physics.add.sprite(160, 400, "characters", 260);
+        this.player = this.physics.add.sprite(160, 400, "player");
         this.player.setCollideWorldBounds(true);
         this.player.setScale(2.5);
         this.player.setOrigin(0, 0);
@@ -62,6 +64,7 @@ class LevelOne extends Phaser.Scene{
 
     update() {
 
+        /*
         // First, handle movement
         if (this.cursors.left.isDown || this.keys.A.isDown) {
             this.player.setAccelerationX(-this.ACCELERATION);
@@ -112,6 +115,7 @@ class LevelOne extends Phaser.Scene{
                 this.player.anims.play('idle', true);
             }
         }
+            */
         
     }
 
