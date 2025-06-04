@@ -16,6 +16,8 @@ class LevelOne extends Phaser.Scene{
 
         this.load.setPath("./assets/");
         this.load.image('key', 'tile_0096.png');
+        this.load.image('shellIdle', 'tile_1365.png');
+        this.load.image('shellEnemy', 'tile_1360.png')
     }
 
     create() {
@@ -69,8 +71,12 @@ class LevelOne extends Phaser.Scene{
         this.player.setScale(2);
         this.player.setOrigin(0, 0);
 
+        this.enemy = new ShellEnemy(this, 200, 3500, 'shellEnemy', 1, 70);
+        this.enemy.setScale(2.0);
+
         // Enable collision handling
         this.physics.add.collider(this.player, this.groundLayer);
+        this.physics.add.collider(this.enemy, this.groundLayer);
 
         // camera code
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, 5000);
@@ -83,6 +89,8 @@ class LevelOne extends Phaser.Scene{
 
     update() {
 
+        this.enemy.update();
+        
         // First, handle movement
         if (this.cursors.left.isDown || this.keys.A.isDown) {
             this.player.setAccelerationX(-this.ACCELERATION);
@@ -139,7 +147,6 @@ class LevelOne extends Phaser.Scene{
             obj2.destroy(); // remove coin on overlap
         });
             
-        
     }
 
 }

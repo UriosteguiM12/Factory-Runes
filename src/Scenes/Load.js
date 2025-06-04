@@ -45,7 +45,39 @@ class Load extends Phaser.Scene {
         });
 
         this.anims.create({
-            key: 'jump',
+            key: 'shellWalking',
+            frames: [
+                {key: 'characters', frame: 360},
+                {key: 'characters', frame: 361},
+                {key: 'characters', frame: 362},
+                {key: 'characters', frame: 363},
+                {key: 'characters', frame: 364},
+            ],
+            frameRate: 8,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'shellDie',
+            frames: [
+                {key: 'characters', frame: 366},
+                {key: 'characters', frame: 1}
+            ],
+            frameRate: 8,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'flyingIdle',
+            frames: [
+                {key: 'characters', frame: 265}
+            ],
+            frameRate: 8,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'flyingDie',
             frames: [
                 {key: 'characters', frame: 265}
             ],

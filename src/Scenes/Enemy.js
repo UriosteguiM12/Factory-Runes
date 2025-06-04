@@ -1,10 +1,18 @@
 class Enemy extends Phaser.Physics.Arcade.Sprite {
 
-    constructor(scene, x, y, texture, [frame], id) {
+    constructor(scene, x, y, texture, id, patrolDistance) {
 
-        super(scene, x, y, texture, [frame]);
+        super(scene, x, y, texture);
         this.scene = scene;
         this.id = id;
+
+        // pathing stuff
+        this.startX = x;     // save original spawn point
+        this.startY = y;
+        this.patrolDistance = patrolDistance; // how far left/right to move
+        this.direction = 1;  // 1 = right, -1 = left
+
+        // collision stuff
         this.health = 500;
         this.hasKey = false;
         this.alive = true;
@@ -27,15 +35,20 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     takeDamage() {
         if (!this.alive) return;
 
-        this.alive = false;
-        this.play('die'); // your death animation
-        this.setVelocity(0, 0);
-        this.setCollideWorldBounds(false);
-        this.setImmovable(true);
-        this.disableBody(false, false);
+        this.health -= 100;
+        
+        if (this.health <= 0) {
+            this.play('die'); // 
+            this.setVelocity(0, 0);
+            this.setCollideWorldBounds(false);
+            this.setImmovable(true);
+            this.disableBody(false, false);
 
-        if (this.hasKey) {
-            this.spawnKey();
+            /*
+            if (this.hasKey) {
+                this.spawnKey();
+            }
+                */
         }
     }
 
@@ -46,26 +59,48 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         return true;
     }
 
+    // eventually, add a function that spawns the key after the enemy dies if it has one
+    /*
     spawnKey() {
         // drop a key at current position -> will only happen if the enemy is dead
         this.scene.spawnKeyAt(this.x, this.y);
     }
+        */
 }
 
 class ShellEnemy extends Enemy {
-    constructor(scene, x, y, id) {
-        super(scene, x, y, 'enemy1', id);
-        this.speed = 100;
-    }
-
-    initAnimations() {
-        this.anims.play('enemy1_idle');
+    constructor(scene, x, y, texture, id, patrolDistance) {
+        super(scene, x, y, texture, id, patrolDistance);
+        this.speed = 50;   // pixels per sec
     }
 
     update() {
-        if (this.alive) {
-            this.setVelocityX(this.speed);
-            // handle turn-around logic here
+
+        // if the enemy isn't alive, return
+        if (!this.alive) return;
+
+        // if the player is too close to the enemy, hide
+        if (this.closeProximity(this.scene.player)) {
+            this.setTexture('shellIdle');
+            this.setVelocityX(0); // stop all movement
+        }
+
+        else {
+            // WALKING
+            // set the velocity in the direction that the enemy is moving
+            this.setVelocityX(this.speed * this.direction);
+
+            // Check if enemy has reached patrol limit
+            if (this.x > this.startX + this.patrolDistance) {
+                this.direction = -1;
+                this.anims.play('shellWalking', true);
+                this.setFlip(true, false); // face left
+
+            } else if (this.x < this.startX - this.patrolDistance) {
+                this.direction = 1;
+                this.anims.play('shellWalking', true);
+                this.setFlip(false, false); // face right
+            }
         }
     }
 }
