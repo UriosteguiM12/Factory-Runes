@@ -70,7 +70,8 @@ class Load extends Phaser.Scene {
         this.anims.create({
             key: 'flyingIdle',
             frames: [
-                {key: 'characters', frame: 265}
+                {key: 'characters', frame: 380},
+                {key: 'characters', frame: 381}
             ],
             frameRate: 8,
             repeat: -1
@@ -79,7 +80,10 @@ class Load extends Phaser.Scene {
         this.anims.create({
             key: 'flyingDie',
             frames: [
-                {key: 'characters', frame: 265}
+                {key: 'characters', frame: 380},
+                {key: 'characters', frame: 1},
+                {key: 'characters', frame: 381},
+                {key: 'characters', frame: 1}
             ],
             frameRate: 8,
             repeat: -1
