@@ -106,19 +106,30 @@ class ShellEnemy extends Enemy {
 }
 
 class FlyingEnemy extends Enemy {
-    constructor(scene, x, y, id) {
-        super(scene, x, y, 'enemy2', id);
-        this.speed = 80;
-    }
-
-    initAnimations() {
-        this.anims.play('enemy2_idle');
+    constructor(scene, x, y, texture, id, patrolDistance) {
+        super(scene, x, y, texture, id, patrolDistance);
+        this.speed = 50;   // pixels per sec
     }
 
     update() {
-        if (this.alive) {
-            this.setVelocityY(this.speed);
-            // handle vertical bouncing logic here
+
+        // if the enemy isn't alive, return
+        if (!this.alive) return;
+
+        else {
+            // FLYING
+            // set the velocity in the direction that the enemy is moving
+            this.setVelocityY(this.speed * this.direction);
+
+            // Check if enemy has reached patrol limit
+            if (this.y > this.startY + this.patrolDistance) {
+                this.direction = -1;
+                this.anims.play('flyingIdle', true);
+
+            } else if (this.y < this.startY - this.patrolDistance) {
+                this.direction = 1;
+                this.anims.play('flyingIdle', true);
+            }
         }
     }
 }

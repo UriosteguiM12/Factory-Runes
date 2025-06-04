@@ -18,6 +18,7 @@ class LevelOne extends Phaser.Scene{
         this.load.image('key', 'tile_0096.png');
         this.load.image('shellIdle', 'tile_1365.png');
         this.load.image('shellEnemy', 'tile_1360.png')
+        this.load.image('flyingEnemy', 'tile_0381.png')
     }
 
     create() {
@@ -73,10 +74,13 @@ class LevelOne extends Phaser.Scene{
 
         this.enemy = new ShellEnemy(this, 200, 3500, 'shellEnemy', 1, 70);
         this.enemy.setScale(2.0);
+        this.fly = new FlyingEnemy(this, 300, 3475, 'flyingEnemy', 2, 50);
+        this.fly.setScale(2.0);
 
         // Enable collision handling
         this.physics.add.collider(this.player, this.groundLayer);
         this.physics.add.collider(this.enemy, this.groundLayer);
+        this.physics.add.collider(this.fly, this.groundLayer);
 
         // camera code
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, 5000);
@@ -90,7 +94,8 @@ class LevelOne extends Phaser.Scene{
     update() {
 
         this.enemy.update();
-        
+        this.fly.update();
+
         // First, handle movement
         if (this.cursors.left.isDown || this.keys.A.isDown) {
             this.player.setAccelerationX(-this.ACCELERATION);
