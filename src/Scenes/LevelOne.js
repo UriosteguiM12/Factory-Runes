@@ -116,6 +116,10 @@ class LevelOne extends Phaser.Scene{
         // Handle jumping input
         if (this.player.body.blocked.down && (Phaser.Input.Keyboard.JustDown(this.cursors.up) || Phaser.Input.Keyboard.JustDown(this.keys.W))) {
             this.player.setVelocityY(this.JUMP_VELOCITY);
+            this.sound.play("jump", {
+                    volume: 0.5,
+                    rate: Phaser.Math.FloatBetween(0.85, 1.15)
+                });
         }
 
         // JUMP FRAME CONTROL
@@ -145,6 +149,10 @@ class LevelOne extends Phaser.Scene{
          // Handle collision detection with coins
         this.physics.add.overlap(this.player, this.coinGroup, (obj1, obj2) => {
             obj2.destroy(); // remove coin on overlap
+            this.sound.play("coinCollect", {
+                    volume: 0.5
+                });
+
         });
             
     }
