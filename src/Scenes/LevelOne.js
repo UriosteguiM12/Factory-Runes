@@ -5,9 +5,9 @@ class LevelOne extends Phaser.Scene{
     }
 
     init() {
-        this.ACCELERATION = 1500;
+        this.ACCELERATION = 1000;
         this.MAX_VELOCITY = 250;
-        this.DRAG = 3000;
+        this.DRAG = 5000;
         this.JUMP_VELOCITY = -530;
         this.physics.world.gravity.y = 1000;
     }
@@ -15,7 +15,7 @@ class LevelOne extends Phaser.Scene{
     preload() {
 
         this.load.setPath("./assets/");
-        this.load.image("player", "tile_266.png");
+        this.load.image('key', 'tile_0096.png');
     }
 
     create() {
@@ -36,7 +36,7 @@ class LevelOne extends Phaser.Scene{
         const tilesets = [oneBit, oneBitTransparent];
 
         // Create level layers
-        this.groundLayer = this.map.createLayer("Ground-n-Platforms", tilesets, 0, -3000);
+        this.groundLayer = this.map.createLayer("Ground-n-Platforms", tilesets, 0, 0);
         this.groundLayer.setScale(2.0);
 
         // Make it collidable
@@ -54,9 +54,17 @@ class LevelOne extends Phaser.Scene{
             scale: 2
         });
 
+        // Since createFromObjects returns an array of regular Sprites, we need to convert 
+        // them into Arcade Physics sprites (STATIC_BODY, so they don't move) 
+        this.physics.world.enable(this.coins, Phaser.Physics.Arcade.STATIC_BODY);
+
+        // Create a Phaser group out of the array this.coins
+        // This will be used for collision detection below.
+        this.coinGroup = this.add.group(this.coins);
+
 
         // set up player avatar
-        this.player = this.physics.add.sprite(160, 400, "player");
+        this.player = this.physics.add.sprite(160, 3500, "characters", 260);
         this.player.setCollideWorldBounds(true);
         this.player.setScale(2);
         this.player.setOrigin(0, 0);
@@ -65,17 +73,16 @@ class LevelOne extends Phaser.Scene{
         this.physics.add.collider(this.player, this.groundLayer);
 
         // camera code
-        this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
-        this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+        this.cameras.main.setBounds(0, 0, this.map.widthInPixels, 5000);
+        this.physics.world.setBounds(0, 0, this.map.widthInPixels, 5000);
         this.cameras.main.startFollow(this.player, true, 0.25, 0.25, 100, 0); // (target, [,roundPixels][,lerpX][,lerpY])
         this.cameras.main.setDeadzone(50, 50);
         this.cameras.main.setZoom(2.0);
-        this.cameras.main.followOffset.set(0, 150);
+        this.cameras.main.followOffset.set(0, 100);
     }
 
     update() {
 
-        /*
         // First, handle movement
         if (this.cursors.left.isDown || this.keys.A.isDown) {
             this.player.setAccelerationX(-this.ACCELERATION);
@@ -126,7 +133,12 @@ class LevelOne extends Phaser.Scene{
                 this.player.anims.play('idle', true);
             }
         }
-            */
+
+         // Handle collision detection with coins
+        this.physics.add.overlap(this.player, this.coinGroup, (obj1, obj2) => {
+            obj2.destroy(); // remove coin on overlap
+        });
+            
         
     }
 
