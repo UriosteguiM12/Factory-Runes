@@ -80,16 +80,43 @@ class LevelOne extends Phaser.Scene{
         this.player.setScale(2);
         this.player.setOrigin(0, 0);
 
+        // for key randomization:
+        // Pick 4 unique random indices between 1 and 19
+        let remainingKeyIndices = Phaser.Utils.Array.NumberArray(1, 19);
+        Phaser.Utils.Array.Shuffle(remainingKeyIndices);  // randomize order
+        let keyIndices = remainingKeyIndices.slice(0, 4);  // pick first 4
+
         // enemy setup
-        this.enemy = new ShellEnemy(this, 200, 3500, 'shellEnemy', 1, 70);
-        this.enemy.setScale(2.0);
-        this.fly = new FlyingEnemy(this, 300, 3475, 'flyingEnemy', 2, 50);
-        this.fly.setScale(2.0);
+        this.enemies = this.physics.add.group(); // this is going to contain all enemies, regardless of type
+        const enemySpawns = [ { x: 200, y: 3500 },
+                              { x: 300, y: 3475 },
+         ];
+
+        enemySpawns.forEach((spawnPoint, index) => {
+            
+            // make 10 shell enemies and 10 flying enemies which will be scattered across the map based on the spawn points
+            let enemy = (index % 2 === 0)
+            ? new ShellEnemy(this, spawnPoint.x, spawnPoint.y, 'shellEnemy', 50)
+            : new FlyingEnemy(this, spawnPoint.x, spawnPoint.y, 'flyingEnemy', 70);
+
+            // First enemy always has a key
+            if (index === 0) {
+                enemy.hasKey = true;
+            }
+            // Give key to 4 other random enemies
+            else if (keyIndices.includes(index)) {
+                enemy.hasKey = true;
+            } else {
+                enemy.hasKey = false;
+            }
+
+            enemy.setScale(2.0);
+            this.enemies.add(enemy);
+        });
 
         // collisions
         this.physics.add.collider(this.player, this.groundLayer);
-        this.physics.add.collider(this.enemy, this.groundLayer);
-        this.physics.add.collider(this.fly, this.groundLayer);
+        this.physics.add.collider(this.enemies, this.groundLayer);
 
         // gun setup
         this.gun = this.add.sprite(this.player.x + 25, this.player.y + 20, 'gun');
@@ -116,6 +143,23 @@ class LevelOne extends Phaser.Scene{
         this.lastFired = 0;
         this.fireRate = 150;
 
+        this.physics.add.overlap(this.bullets, this.enemies, (bullet, enemy) => {
+            bullet.disableBody(true, true);  // bullet disappears
+            enemy.takeDamage();
+        });
+
+        // key collection
+        this.keyGroup = this.physics.add.group();
+        this.physics.add.collider(this.keyGroup, this.groundLayer);
+        this.keysCollected = 0;
+
+        this.physics.add.overlap(this.player, this.keyGroup, (player, key) => {
+            key.destroy();
+            this.keysCollected++;
+
+            // add a condition for when the player collects all 5 keys
+        });
+
         // camera code
         this.cameras.main.setBounds(0, 0, 2570, 4000);
         this.physics.world.setBounds(0, 0, 2570, 4000);
@@ -136,8 +180,11 @@ class LevelOne extends Phaser.Scene{
     update() {
 
         // have to put update for each class since Phaser doesn't do it automatically :/
-        this.enemy.update();
-        this.fly.update();
+        this.enemies.children.iterate(enemy => {
+            if (enemy && enemy.update) {
+                enemy.update();
+            }
+        });
 
         // First, handle movement
         if (this.cursors.left.isDown || this.keys.A.isDown) {
@@ -242,7 +289,9 @@ class LevelOne extends Phaser.Scene{
         // OPTIMIZATION: set enemies invisible if they're not close to the player -> lags otherwise
         const cam = this.cameras.main;
 
-        [this.enemy, this.fly].forEach(enemy => {
+        this.enemies.children.iterate(enemy => {
+            if (!enemy) return;
+
             if (!Phaser.Geom.Intersects.RectangleToRectangle(cam.worldView, enemy.getBounds())) {
                 enemy.body.enable = false;
                 enemy.setVisible(false);
@@ -250,7 +299,7 @@ class LevelOne extends Phaser.Scene{
                 enemy.body.enable = true;
                 enemy.setVisible(true);
             }
-        });          
+        });      
     }
 
     fireBullet() {

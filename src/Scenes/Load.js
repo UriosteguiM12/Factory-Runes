@@ -65,10 +65,10 @@ class Load extends Phaser.Scene {
             key: 'shellDie',
             frames: [
                 {key: 'characters', frame: 366},
-                {key: 'characters', frame: 1}
+                {key: 'characters', frame: 0}
             ],
             frameRate: 8,
-            repeat: -1
+            repeat: 8
         });
 
         this.anims.create({
@@ -85,19 +85,13 @@ class Load extends Phaser.Scene {
             key: 'flyingDie',
             frames: [
                 {key: 'characters', frame: 380},
-                {key: 'characters', frame: 1},
-                {key: 'characters', frame: 381},
-                {key: 'characters', frame: 1}
+                {key: 'characters', frame: 0}
             ],
             frameRate: 8,
-            repeat: -1
+            repeat: 8
         });
 
          // ...and pass to the next Scene
          this.scene.start("TitleScreen");
-    }
-
-    // Never get here since a new scene is started in create()
-    update() {
     }
 }

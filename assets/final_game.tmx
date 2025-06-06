@@ -1096,7 +1096,7 @@
 379,379,379,379,379,379,379,379,379,379,379,379,379,379,280,197,277,197,197,277,277,197,197,277,2147483848,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,379,280,197,197,277,197,277,197,197,197,277,197,197,197,340,260
 </data>
  </layer>
- <objectgroup id="7" name="Spikes">
+ <objectgroup id="7" name="Spikes" visible="0" locked="1">
   <object id="177" name="spike" gid="3221226039" x="32" y="1504" width="16" height="16" rotation="90"/>
   <object id="178" name="spike" gid="3221226039" x="32" y="1488" width="16" height="16" rotation="90"/>
   <object id="179" name="spike" gid="3221226039" x="32" y="1472" width="16" height="16" rotation="90"/>
@@ -1371,7 +1371,7 @@
   <object id="484" name="spike" gid="1073742408" x="368" y="1168" width="16" height="16"/>
   <object id="485" name="spike" gid="1073742408" x="384" y="1168" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="6" name="Coins">
+ <objectgroup id="6" name="Coins" visible="0" locked="1">
   <object id="3" name="coin" gid="403" x="272" y="1664" width="16" height="16"/>
   <object id="4" name="coin" gid="403" x="304" y="1664" width="16" height="16"/>
   <object id="5" name="coin" gid="403" x="336" y="1664" width="16" height="16"/>

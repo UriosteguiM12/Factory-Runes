@@ -1,10 +1,9 @@
 class Enemy extends Phaser.Physics.Arcade.Sprite {
 
-    constructor(scene, x, y, texture, id, patrolDistance) {
+    constructor(scene, x, y, texture, patrolDistance) {
 
         super(scene, x, y, texture);
         this.scene = scene;
-        this.id = id;
 
         // pathing stuff
         this.startX = x;     // save original spawn point
@@ -31,41 +30,6 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
             return true;
         }
     }
-
-    takeDamage() {
-        if (!this.alive) return;
-
-        this.health -= 100;
-        
-        if (this.health <= 0) {
-            this.play('die'); // 
-            this.setVelocity(0, 0);
-            this.setCollideWorldBounds(false);
-            this.setImmovable(true);
-            this.disableBody(false, false);
-
-            /*
-            if (this.hasKey) {
-                this.spawnKey();
-            }
-                */
-        }
-    }
-
-    // function to determine if projectiles are colliding with the enemy
-    collides(a, b) {
-        if (Math.abs(a.x - b.x) > (a.displayWidth/2 + b.displayWidth/2)) return false;
-        if (Math.abs(a.y - b.y) > (a.displayHeight/2 + b.displayHeight/2)) return false;
-        return true;
-    }
-
-    // eventually, add a function that spawns the key after the enemy dies if it has one
-    /*
-    spawnKey() {
-        // drop a key at current position -> will only happen if the enemy is dead
-        this.scene.spawnKeyAt(this.x, this.y);
-    }
-        */
 }
 
 class ShellEnemy extends Enemy {
@@ -103,6 +67,38 @@ class ShellEnemy extends Enemy {
             }
         }
     }
+
+    takeDamage() {
+        if (!this.alive) return;
+
+        this.health -= 100;
+
+        if (this.health <= 0) {
+            this.alive = false;
+
+            // remove physics and collisions
+            this.setVelocity(0, 0);
+            this.setCollideWorldBounds(false);
+            this.setImmovable(true);
+            this.body.enable = false;
+
+            // play death animation
+            this.play('shellDie');
+
+            this.on('animationcomplete', () => {
+                this.disableBody(true, true);  // removes from scene
+
+                if (this.hasKey) {
+                    const key = this.scene.keyGroup.create(this.x, this.y, 'key');
+                    key.setScale(2);
+                    key.setBounce(0.2);
+                    key.setCollideWorldBounds(true);
+                }
+
+                this.destroy();
+            });
+        }
+    }
 }
 
 class FlyingEnemy extends Enemy {
@@ -130,6 +126,38 @@ class FlyingEnemy extends Enemy {
                 this.direction = 1;
                 this.anims.play('flyingIdle', true);
             }
+        }
+    }
+
+    takeDamage() {
+        if (!this.alive) return;
+
+        this.health -= 100;
+
+        if (this.health <= 0) {
+            this.alive = false;
+
+            // remove physics and collisions
+            this.setVelocity(0, 0);
+            this.setCollideWorldBounds(false);
+            this.setImmovable(true);
+            this.body.enable = false;
+
+            // play death animation
+            this.play('flyingDie');
+
+            this.on('animationcomplete', () => {
+                this.disableBody(true, true);  // removes from scene
+                // if the enemy has a key, it will spawn after the death animation
+                if (this.hasKey) {
+                    const key = this.scene.keyGroup.create(this.x, this.y, 'key');
+                    key.setScale(2);
+                    key.setBounce(0.2);
+                    key.setCollideWorldBounds(true);
+                }
+
+                this.destroy();
+            });
         }
     }
 }
