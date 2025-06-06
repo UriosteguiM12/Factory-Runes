@@ -30,6 +30,16 @@ class LevelOne extends Phaser.Scene{
         this.load.image('gun', 'tile_0261.png');
         this.load.image('playerGun', 'tile_1261.png');
         this.load.image('bullet', 'tile_0001.png');
+
+        // counters
+        this.load.image('heart', 'tile_0041.png')
+        this.load.image('coin', 'tile_0002.png')
+
+        // digits
+        for (let i = 0; i <= 9; i++) {
+            this.load.image(`digit_${i}`, `tile_016${i}.png`);
+        }
+        this.load.image('multiplier', 'tile_0158.png');
     }
 
     create() {
@@ -77,7 +87,7 @@ class LevelOne extends Phaser.Scene{
         // player setup
         this.player = this.physics.add.sprite(160, 3500, "characters", 260);
         this.player.setCollideWorldBounds(true);
-        this.player.setScale(2);
+        this.player.setScale(2.0);
         this.player.setOrigin(0, 0);
 
         // for key randomization:
@@ -185,12 +195,38 @@ class LevelOne extends Phaser.Scene{
         this.cameras.main.setZoom(2.0);
         this.cameras.main.followOffset.set(0, 100);
 
+        // counters
+        this.coinCount = 0;
+        this.health = 5;
+
+        // COIN UI
+        this.coin = this.add.image(250, 300, 'coin').setScrollFactor(0).setScale(2);
+        this.coinMultiplier = this.add.image(270, 303, 'multiplier').setScrollFactor(0).setScale(1);
+
+        this.coinDigits = [];
+        for (let i = 0; i < 2; i++) {
+            let digit = this.add.image(290 + i * 24, 300, 'digit_0').setScrollFactor(0).setScale(2.0);
+            this.coinDigits.push(digit);
+        }
+
+        // HEALTH UI
+        this.heart = this.add.image(250, 340, 'heart').setScrollFactor(0).setScale(2);
+        this.heartMultiplier = this.add.image(270, 343, 'multiplier').setScrollFactor(0).setScale(1);
+
+        this.heartDigits = [];
+        for (let i = 0; i < 1; i++) {
+            let digit = this.add.image(290 + i * 24, 340, 'digit_5').setScrollFactor(0).setScale(2);
+            this.heartDigits.push(digit);
+        }
+
         // Handle collision detection with coins
         this.physics.add.overlap(this.player, this.coinGroup, (obj1, obj2) => {
             obj2.destroy(); // remove coin on overlap
             this.sound.play("coinCollect", {
                     volume: 0.5
                 });
+            this.coinCount += 1;
+            this.updateDigitImages(this.coinCount, this.coinDigits);
         })
     }
 
@@ -360,5 +396,12 @@ class LevelOne extends Phaser.Scene{
 
         bullet.setVisible(true);
         bullet.setActive(true);
+    }
+
+    updateDigitImages(value, imageArray) {
+        const str = value.toString().padStart(imageArray.length, '0');
+        for (let i = 0; i < imageArray.length; i++) {
+            imageArray[i].setTexture(`digit_${str[i]}`);
+        }
     }
 }
