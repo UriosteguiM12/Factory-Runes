@@ -17,8 +17,9 @@ let config = {
                 x: 0,
                 y: 0
             },
-            fps: 120,           
-            fixedStep: true 
+            fps: 50,           
+            fixedStep: true,
+            timeScale: 0.9 
         }
     },
     width: 900,

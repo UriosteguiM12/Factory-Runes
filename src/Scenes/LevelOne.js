@@ -5,6 +5,8 @@ class LevelOne extends Phaser.Scene{
     }
 
     init() {
+
+        // modify values to modify player jump
         this.ACCELERATION = 1000;
         this.MAX_VELOCITY = 250;
         this.DRAG = 5000;
@@ -15,25 +17,34 @@ class LevelOne extends Phaser.Scene{
     preload() {
 
         this.load.setPath("./assets/");
+
         this.load.image('key', 'tile_0096.png');
+
+        // enemy animations
         this.load.image('shellIdle', 'tile_1365.png');
         this.load.image('shellEnemy', 'tile_1360.png')
         this.load.image('flyingEnemy', 'tile_0381.png')
+
+        // gun related assets
+        this.load.image('gun', 'tile_0261.png');
+        this.load.image('playerGun', 'tile_1261.png');
+        this.load.image('bullet', 'tile_0001.png');
     }
 
     create() {
         console.log("loaded the Level!");
 
+        // keyboard input
         this.cursors = this.input.keyboard.createCursorKeys();
         this.keys = this.input.keyboard.addKeys("W,S,A,D");
+        this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
 
-        // Create a new tilemap game object which uses 18x18 pixel tiles, and is
-        // 45 tiles wide and 25 tiles tall.
+        // Create a new tilemap game object which uses 16x16 pixel tiles, and is
+        // 480 tiles wide and 120 tiles tall.
         this.map = this.add.tilemap("level-one", 16, 16, 80, 120);
 
         // Add a tileset to the map
-        // First parameter: name we gave the tileset in Tiled
-        // Second parameter: key for the tilesheet (from this.load.image in Load.js)
         const oneBit = this.map.addTilesetImage("1-bit-tileset", "monochrome_tilemap");
         const oneBitTransparent = this.map.addTilesetImage("1-bit-transparent", "monochrome_tilemap_transparent");
         const tilesets = [oneBit, oneBitTransparent];
@@ -41,15 +52,9 @@ class LevelOne extends Phaser.Scene{
         // Create level layers
         this.groundLayer = this.map.createLayer("Ground-n-Platforms", tilesets, 0, 0);
         this.groundLayer.setScale(2.0);
+        this.groundLayer.setCollisionByProperty({ collides: true });
 
-        // Make it collidable
-        this.groundLayer.setCollisionByProperty({
-            collides: true
-        });
-
-        // Find coins in the "Coins" layer in Phaser
-        // Look for them by finding objects with the name "coin"
-        // Assign the coin texture from the tilemap_sheet sprite sheet
+        // Create coins from objects in the map
         this.coins = this.map.createFromObjects("Coins", {
             name: "coin",
             key: "characters",
@@ -57,42 +62,76 @@ class LevelOne extends Phaser.Scene{
             scale: 2
         });
 
-        // Since createFromObjects returns an array of regular Sprites, we need to convert 
-        // them into Arcade Physics sprites (STATIC_BODY, so they don't move) 
-        this.physics.world.enable(this.coins, Phaser.Physics.Arcade.STATIC_BODY);
+        // Add each coin sprite to the physics group
+        this.coinGroup = this.physics.add.staticGroup();
 
-        // Create a Phaser group out of the array this.coins
-        // This will be used for collision detection below.
-        this.coinGroup = this.add.group(this.coins);
+        this.coins.forEach(coin => {
+            coin.setScale(2);
+            coin.setOrigin(0, 0);
+            coin.x *= 2;
+            coin.y *= 2;
+            this.coinGroup.add(coin);
+        });
 
-
-        // set up player avatar
+        // player setup
         this.player = this.physics.add.sprite(160, 3500, "characters", 260);
         this.player.setCollideWorldBounds(true);
         this.player.setScale(2);
         this.player.setOrigin(0, 0);
 
+        // enemy setup
         this.enemy = new ShellEnemy(this, 200, 3500, 'shellEnemy', 1, 70);
         this.enemy.setScale(2.0);
         this.fly = new FlyingEnemy(this, 300, 3475, 'flyingEnemy', 2, 50);
         this.fly.setScale(2.0);
 
-        // Enable collision handling
+        // collisions
         this.physics.add.collider(this.player, this.groundLayer);
         this.physics.add.collider(this.enemy, this.groundLayer);
         this.physics.add.collider(this.fly, this.groundLayer);
 
+        // gun setup
+        this.gun = this.add.sprite(this.player.x + 25, this.player.y + 20, 'gun');
+        this.gunActive = false;
+        this.gun.setScale(2.5);
+        this.gun.setVisible(false);
+        this.gun.setOrigin(0.2, 0.5);
+        this.gun.rotationSpeed = 0.03;
+        this.gun.minAngle = Phaser.Math.DegToRad(-45);
+        this.gun.maxAngle = Phaser.Math.DegToRad(45);
+        this.gun.currentAngle = 0;
+        this.gun.direction = 1;
+
+        // bullets group
+        this.bullets = this.physics.add.group({
+            classType: Phaser.Physics.Arcade.Image,
+            maxSize: 3
+        });
+
+        this.physics.add.collider(this.bullets, this.groundLayer, (bullet, tile) => {
+            bullet.disableBody(true, true);
+        });
+
+        this.lastFired = 0;
+        this.fireRate = 150;
+
         // camera code
-        this.cameras.main.setBounds(0, 0, this.map.widthInPixels, 5000);
-        this.physics.world.setBounds(0, 0, this.map.widthInPixels, 5000);
-        this.cameras.main.startFollow(this.player, true, 0.25, 0.25, 100, 0); // (target, [,roundPixels][,lerpX][,lerpY])
+        this.cameras.main.setBounds(0, 0, 2570, 4000);
+        this.physics.world.setBounds(0, 0, 2570, 4000);
+        this.cameras.main.startFollow(this.player, true, 0.25, 0.25, 100, 0);
         this.cameras.main.setDeadzone(50, 50);
         this.cameras.main.setZoom(2.0);
         this.cameras.main.followOffset.set(0, 100);
+
+        // coin collision detection
+        this.physics.add.overlap(this.player, this.coinGroup, (player, coin) => {
+            coin.destroy();
+        });
     }
 
     update() {
 
+        // have to put update for each class since Phaser doesn't do it automatically :/
         this.enemy.update();
         this.fly.update();
 
@@ -124,7 +163,7 @@ class LevelOne extends Phaser.Scene{
         }
 
         // JUMP FRAME CONTROL
-        if (!this.player.body.blocked.down) {
+        if ((!this.player.body.blocked.down) && (!this.gunActive)) {
             // In air
             if (this.player.body.velocity.x > 10) {
                 // Jumping right
@@ -147,11 +186,106 @@ class LevelOne extends Phaser.Scene{
             }
         }
 
-         // Handle collision detection with coins
-        this.physics.add.overlap(this.player, this.coinGroup, (obj1, obj2) => {
-            obj2.destroy(); // remove coin on overlap
+        // If Q is just pressed, enable the gun and reset angle/direction
+        if (Phaser.Input.Keyboard.JustDown(this.keyQ)) {
+            this.gunActive = true;
+            this.gun.currentAngle = 0;
+            this.gun.direction = 1;
+            this.gun.setVisible(true);
+        }
+
+        // If gun is active, keep rotating it
+        if (this.gunActive) {
+            this.player.setTexture('playerGun');
+
+            // Update gun position and flip based on direction
+            if (this.player.flipX) {
+                this.gun.setOrigin(0.8, 0.5);
+                this.gun.setFlipX(true);
+                this.gun.x = this.player.x + 10;
+            } else {
+                this.gun.setOrigin(0.2, 0.5);
+                this.gun.setFlipX(false);
+                this.gun.x = this.player.x + 25;
+            }
+            this.gun.y = this.player.y + 20;
+
+            // Rotate the gun
+            this.gun.currentAngle += this.gun.rotationSpeed * this.gun.direction;
+            if (this.gun.currentAngle >= this.gun.maxAngle || this.gun.currentAngle <= this.gun.minAngle) {
+                this.gun.direction *= -1;
+            }
+            this.gun.rotation = this.gun.currentAngle;
+        }
+
+        if (Phaser.Input.Keyboard.JustUp(this.keyQ)) {
+            this.gunActive = false;
+            this.gun.setVisible(false);
+        }
+
+        const isShooting = this.keyE.isDown;
+        const now = this.time.now;
+
+        if (this.gunActive && isShooting && now - this.lastFired > this.fireRate) {
+            this.fireBullet();
+            this.lastFired = now;
+        }
+
+        // OPTIMIZATION: set enemies invisible if they're not close to the player -> lags otherwise
+        const cam = this.cameras.main;
+
+        [this.enemy, this.fly].forEach(enemy => {
+            if (!Phaser.Geom.Intersects.RectangleToRectangle(cam.worldView, enemy.getBounds())) {
+                enemy.body.enable = false;
+                enemy.setVisible(false);
+            } else {
+                enemy.body.enable = true;
+                enemy.setVisible(true);
+            }
         });
-            
+                
     }
 
+    fireBullet() {
+        const bullet = this.bullets.get();
+
+        if (!bullet) {
+            console.warn("No bullets available in pool!");
+            return;
+        }
+
+        bullet.setTexture('bullet');
+
+        // Gun rotation is relative to the player's direction
+        let angle = this.gun.rotation;
+
+        // Adjust angle if the player is facing left
+        if (this.player.flipX) {
+            angle = Phaser.Math.Angle.Reverse(angle); // flip across vertical axis
+        }
+
+        const offset = 25;
+        const startX = this.gun.x + Math.cos(angle) * offset;
+        const startY = this.gun.y + Math.sin(angle) * offset;
+
+        bullet.enableBody(true, startX, startY, true, true);
+        bullet.setAngle(Phaser.Math.RadToDeg(angle));
+        bullet.setGravityY(0);
+
+        const speed = 400;
+        bullet.setVelocity(
+            Math.cos(angle) * speed,
+            Math.sin(angle) * speed
+        );
+
+        bullet.setCollideWorldBounds(true);
+        bullet.body.onWorldBounds = true;
+
+        bullet.once('worldbounds', () => {
+            bullet.disableBody(true, true);
+        });
+
+        bullet.setVisible(true);
+        bullet.setActive(true);
+    }
 }
