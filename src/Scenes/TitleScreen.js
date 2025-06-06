@@ -11,6 +11,9 @@ class TitleScreen extends Phaser.Scene{
         this.load.image('creditButton', 'creditButton.png');
         this.load.image('startButton', 'startButton.png');
 
+        //load fonts
+        this.load.bitmapFont("alagard", "alagard.tff");
+
     }
 
     create() {

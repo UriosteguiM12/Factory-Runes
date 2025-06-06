@@ -230,7 +230,7 @@ class LevelOne extends Phaser.Scene{
             this.player.setVelocityY(this.JUMP_VELOCITY);
             this.sound.play("jump", {
                     volume: 0.5,
-                    rate: Phaser.Math.FloatBetween(0.85, 1.15)
+                    rate: Phaser.Math.FloatBetween(0.95, 1.15)
                 });
         }
 
@@ -301,6 +301,9 @@ class LevelOne extends Phaser.Scene{
         if (this.gunActive && isShooting && now - this.lastFired > this.fireRate) {
             this.fireBullet();
             this.lastFired = now;
+            this.sound.play("shoot", {
+                volume: 0.5
+            });
         }
 
         // OPTIMIZATION: set enemies invisible if they're not close to the player -> lags otherwise
