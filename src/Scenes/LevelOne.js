@@ -64,6 +64,9 @@ class LevelOne extends Phaser.Scene{
         this.groundLayer = this.map.createLayer("Ground-n-Platforms", tilesets, 0, 0);
         this.groundLayer.setScale(2.0);
         this.groundLayer.setCollisionByProperty({ collides: true });
+        this.bgLayer = this.map.createLayer("Background", tilesets, 0, 0);
+        this.bgLayer.setScale(2.0);
+        this.bgLayer.setCollisionByProperty({ collides: false });
 
 
         // Create coins from objects in the map
@@ -74,12 +77,20 @@ class LevelOne extends Phaser.Scene{
             scale: 2
         });
 
+        // Create spikes from objects in the map
+        this.spikes = this.map.createFromObjects("Spikes", {
+            name: "spike",
+            key: "characters",
+            frame: 2,
+            scale: 2
+        });
+
         // Add each coin sprite to the physics group
         this.coinGroup = this.physics.add.staticGroup();
 
         this.coins.forEach(coin => {
-            coin.setScale(2);
-            coin.setOrigin(0, 0);
+            coin.setScale(1.8);
+            coin.setOrigin(0.5, 0.5);
             coin.x *= 2;
             coin.y *= 2;
             this.coinGroup.add(coin);
@@ -88,7 +99,7 @@ class LevelOne extends Phaser.Scene{
         // player setup
         this.player = this.physics.add.sprite(160, 3500, "characters", 260);
         this.player.setCollideWorldBounds(true);
-        this.player.setScale(2.0);
+        this.player.setScale(1.8);
         this.player.setOrigin(0, 0);
 
         // for key randomization:
@@ -137,7 +148,7 @@ class LevelOne extends Phaser.Scene{
                 enemy.hasKey = false;
             }
 
-            enemy.setScale(2.0);
+            enemy.setScale(1.8);
             this.enemies.add(enemy);
         });
 
