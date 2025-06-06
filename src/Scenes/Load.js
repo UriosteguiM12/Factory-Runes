@@ -18,6 +18,10 @@ class Load extends Phaser.Scene {
         // Packed tilemap
         this.load.tilemapTiledJSON("level-one", "final_game.tmj");   // Tilemap in JSON
 
+        // Load audio
+        this.load.audio("coinCollect", "coin_collect.mp3");
+        this.load.audio("jump", "jump.mp3");
+
     }
 
     create() {
