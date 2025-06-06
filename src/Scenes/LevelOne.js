@@ -1,3 +1,4 @@
+
 class LevelOne extends Phaser.Scene{
 
     constructor() {
@@ -130,7 +131,6 @@ class LevelOne extends Phaser.Scene{
                     volume: 0.5
                 });
         })
-
     }
 
     update() {
@@ -194,7 +194,6 @@ class LevelOne extends Phaser.Scene{
             }
         }
 
-<<<<<<< HEAD
         // If Q is just pressed, enable the gun and reset angle/direction
         if (Phaser.Input.Keyboard.JustDown(this.keyQ)) {
             this.gunActive = true;
@@ -251,17 +250,7 @@ class LevelOne extends Phaser.Scene{
                 enemy.body.enable = true;
                 enemy.setVisible(true);
             }
-=======
-         // Handle collision detection with coins
-        this.physics.add.overlap(this.player, this.coinGroup, (obj1, obj2) => {
-            obj2.destroy(); // remove coin on overlap
-            this.sound.play("coinCollect", {
-                    volume: 0.5
-                });
-
->>>>>>> 1bdd3f020b4ef7cee8730a2c4ed2e7f45daab65e
-        });
-                
+        });          
     }
 
     fireBullet() {
