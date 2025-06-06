@@ -65,6 +65,7 @@ class LevelOne extends Phaser.Scene{
         this.groundLayer.setScale(2.0);
         this.groundLayer.setCollisionByProperty({ collides: true });
 
+
         // Create coins from objects in the map
         this.coins = this.map.createFromObjects("Coins", {
             name: "coin",
