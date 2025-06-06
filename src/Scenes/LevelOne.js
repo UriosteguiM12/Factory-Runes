@@ -90,6 +90,22 @@ class LevelOne extends Phaser.Scene{
         this.enemies = this.physics.add.group(); // this is going to contain all enemies, regardless of type
         const enemySpawns = [ { x: 200, y: 3500 },
                               { x: 300, y: 3475 },
+                              { x: 200, y: 3500 },
+                              { x: 300, y: 3475 },
+                              { x: 200, y: 3500 },
+                              { x: 300, y: 3475 },
+                              { x: 200, y: 3500 },
+                              { x: 300, y: 3475 },
+                              { x: 200, y: 3500 },
+                              { x: 300, y: 3475 },
+                              { x: 200, y: 3500 },
+                              { x: 300, y: 3475 },
+                              { x: 200, y: 3500 },
+                              { x: 300, y: 3475 },
+                              { x: 200, y: 3500 },
+                              { x: 300, y: 3475 },
+                              { x: 200, y: 3500 },
+                              { x: 300, y: 3475 },
          ];
 
         enemySpawns.forEach((spawnPoint, index) => {
@@ -97,7 +113,7 @@ class LevelOne extends Phaser.Scene{
             // make 10 shell enemies and 10 flying enemies which will be scattered across the map based on the spawn points
             let enemy = (index % 2 === 0)
             ? new ShellEnemy(this, spawnPoint.x, spawnPoint.y, 'shellEnemy', 50)
-            : new FlyingEnemy(this, spawnPoint.x, spawnPoint.y, 'flyingEnemy', 70);
+            : new FlyingEnemy(this, spawnPoint.x, spawnPoint.y, 'flyingEnemy', 50);
 
             // First enemy always has a key
             if (index === 0) {
@@ -156,6 +172,7 @@ class LevelOne extends Phaser.Scene{
         this.physics.add.overlap(this.player, this.keyGroup, (player, key) => {
             key.destroy();
             this.keysCollected++;
+            console.log('key has been collected!');
 
             // add a condition for when the player collects all 5 keys
         });

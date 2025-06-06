@@ -33,8 +33,8 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
 }
 
 class ShellEnemy extends Enemy {
-    constructor(scene, x, y, texture, id, patrolDistance) {
-        super(scene, x, y, texture, id, patrolDistance);
+    constructor(scene, x, y, texture, patrolDistance) {
+        super(scene, x, y, texture, patrolDistance);
         this.speed = 50;   // pixels per sec
     }
 
@@ -102,8 +102,8 @@ class ShellEnemy extends Enemy {
 }
 
 class FlyingEnemy extends Enemy {
-    constructor(scene, x, y, texture, id, patrolDistance) {
-        super(scene, x, y, texture, id, patrolDistance);
+    constructor(scene, x, y, texture, patrolDistance) {
+        super(scene, x, y, texture, patrolDistance);
         this.speed = 50;   // pixels per sec
     }
 
