@@ -22,7 +22,7 @@ let config = {
             timeScale: 0.9 
         }
     },
-    width: 1075,
+    width: 900,
     height: 1075,
     scene: [Load, Controls, Credits, LevelOne, TitleScreen],
     scale: {
