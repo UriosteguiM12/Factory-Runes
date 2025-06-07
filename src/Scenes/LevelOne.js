@@ -141,6 +141,8 @@ class LevelOne extends Phaser.Scene{
             }
 
             if (frameInt === 166) {
+                if (obj.flippedVertical && obj.flippedHorizontal && obj.rotation === 0) bodyY = 25, offsetY = -14;
+                else bodyX = 25, bodyY = 32, offsetY = 8;
 
             }
 
@@ -230,7 +232,7 @@ class LevelOne extends Phaser.Scene{
         this.gun.setScale(2.5);
         this.gun.setVisible(false);
         this.gun.setOrigin(0.2, 0.5);
-        this.gun.rotationSpeed = 0.03;
+        this.gun.rotationSpeed = 0.02;
         this.gun.minAngle = Phaser.Math.DegToRad(-45);
         this.gun.maxAngle = Phaser.Math.DegToRad(45);
         this.gun.currentAngle = 0;
@@ -307,7 +309,10 @@ class LevelOne extends Phaser.Scene{
                     volume: 0.5
                 });
             this.coinCount ++;
-            if (this.coinCount != 0 && this.countCount % 10 == 0) this.health ++;
+            if (this.coinCount % 10 == 0) {
+                this.health++;
+                this.updateDigitImages(this.health, this.heartDigits)
+            }
             this.updateDigitImages(this.coinCount, this.coinDigits);
         })
     }
