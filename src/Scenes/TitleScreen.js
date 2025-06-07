@@ -46,6 +46,12 @@ class TitleScreen extends Phaser.Scene{
         graphics.lineTo(1000, 750);     // end point
         graphics.strokePath();
 
+        this.add.text(70, 100, 'Factory Runes', {
+            fontFamily: 'Alagard',
+            fontSize: '120px',
+            color: '#ffffff'
+        });
+
     }
 
     update() {

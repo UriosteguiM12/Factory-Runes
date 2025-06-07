@@ -14,7 +14,7 @@ class Controls extends Phaser.Scene{
     create() {
 
         const titleText = this.add.text(450, 100, 'CONTROLS', {
-            fontFamily: '"Press Start 2P"',
+            fontFamily: 'Alagard',
             fontSize: '32px',
             color: '#ffffff'
         }).setOrigin(1.0);

@@ -13,7 +13,7 @@ class Credits extends Phaser.Scene{
     create() {
 
         const titleText = this.add.text(425, 100, 'CREDITS', {
-            fontFamily: '"Press Start 2P"',
+            fontFamily: 'Alagard',
             fontSize: '32px',
             color: '#ffffff'
         }).setOrigin(0.9);
