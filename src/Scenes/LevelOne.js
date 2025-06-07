@@ -488,6 +488,7 @@ class LevelOne extends Phaser.Scene{
         
         // WIN / LOSE CONDITIONS
         if (this.keysCollected == 5) {
+            this.health += 5;
             this.endScreen();
         }
         if (this.health <= 0) {
