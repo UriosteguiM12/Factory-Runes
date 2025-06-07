@@ -63,12 +63,12 @@ class LevelOne extends Phaser.Scene{
         this.bgLayer = this.map.createLayer("Background", tilesets, 0, 0);
         this.bgLayer.setScale(2.0);
         this.bgLayer.setCollisionByProperty({ collides: false });
-        this.foregroundLayer = this.map.createLayer("Foreground", tilesets, 0, 0);
-        this.foregroundLayer.setScale(2.0);
-        this.foregroundLayer.setCollisionByProperty({ collides: false });
         this.groundLayer = this.map.createLayer("Ground-n-Platforms", tilesets, 0, 0);
         this.groundLayer.setScale(2.0);
         this.groundLayer.setCollisionByProperty({ collides: true });
+        this.foregroundLayer = this.map.createLayer("Foreground", tilesets, 0, 0);
+        this.foregroundLayer.setScale(2.0);
+        this.foregroundLayer.setCollisionByProperty({ collides: true });
 
 
         // Create coins from objects in the map
@@ -141,7 +141,7 @@ class LevelOne extends Phaser.Scene{
             }
 
             if (frameInt === 166) {
-                
+
             }
 
             spike.body.setSize(bodyX, bodyY);
@@ -221,6 +221,7 @@ class LevelOne extends Phaser.Scene{
 
         // collisions
         this.physics.add.collider(this.player, this.groundLayer);
+        this.physics.add.collider(this.player, this.foregroundLayer);
         this.physics.add.collider(this.enemies, this.groundLayer);
 
         // gun setup
@@ -305,7 +306,8 @@ class LevelOne extends Phaser.Scene{
             this.sound.play("coinCollect", {
                     volume: 0.5
                 });
-            this.coinCount += 1;
+            this.coinCount ++;
+            if (this.coinCount != 0 && this.countCount % 10 == 0) this.health ++;
             this.updateDigitImages(this.coinCount, this.coinDigits);
         })
     }
