@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Factory Runes</title>
+
+    <style> /* Need to load fonts before it tries to load Phaser */
+        @font-face {
+        font-family: 'Alagard';
+        src: url('assets/alagard.ttf') format('truetype');
+        }
+
+        @font-face {
+        font-family: 'PressStart';
+        src: url('assets/PressStart2P.tff') format('truetype');
+        }
+    </style>
+    <div style="font-family:font1; position:absolute; left:-1000px; visibility:hidden;">.</div>
+    
     <script src="./lib/phaser.js"></script>
     <script src="./src/Scenes/Controls.js"></script>
     <script src="./src/Scenes/Credits.js"></script>
@@ -30,6 +44,8 @@
             display: block;
         }
     </style>
+    
+
 
 </head>
 <body>
