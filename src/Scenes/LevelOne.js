@@ -357,10 +357,6 @@ class LevelOne extends Phaser.Scene{
             }
         });
 
-        if (Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
-            console.log("Player X:", this.player.x, "Player Y:", this.player.y);
-        }
-
         if (this.inputEnabled) {
             // First, handle movement
             if (this.cursors.left.isDown || this.keys.A.isDown) {
@@ -387,7 +383,7 @@ class LevelOne extends Phaser.Scene{
             //this.player.setGravityY(!this.player.body.blocked.down && this.player.body.velocity.y > 0 ? this.physics.world.gravity.y : 0);
 
             // Handle jumping input
-            if (this.player.body.blocked.down && (Phaser.Input.Keyboard.JustDown(this.cursors.up) || Phaser.Input.Keyboard.JustDown(this.keys.W))) {
+            if (this.player.body.blocked.down && (Phaser.Input.Keyboard.JustDown(this.cursors.up) || Phaser.Input.Keyboard.JustDown(this.keys.W) || Phaser.Input.Keyboard.JustDown(this.spaceKey))) {
                 this.player.setVelocityY(this.JUMP_VELOCITY);
                 this.sound.play("jump", {
                         volume: 0.5,
