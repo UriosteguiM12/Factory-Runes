@@ -794,7 +794,7 @@
    </properties>
   </tile>
  </tileset>
- <layer id="5" name="Black" width="80" height="120" visible="0">
+ <layer id="5" name="Black" width="80" height="120">
   <data encoding="csv">
 132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
 132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
@@ -1167,278 +1167,1366 @@
 </data>
  </layer>
  <objectgroup id="7" name="Spikes">
-  <object id="177" name="spike" gid="3221226039" x="32" y="1504" width="16" height="16" rotation="90"/>
-  <object id="178" name="spike" gid="3221226039" x="32" y="1488" width="16" height="16" rotation="90"/>
-  <object id="179" name="spike" gid="3221226039" x="32" y="1472" width="16" height="16" rotation="90"/>
-  <object id="180" name="spike" gid="3221226039" x="32" y="1456" width="16" height="16" rotation="90"/>
-  <object id="181" name="spike" gid="3221226039" x="32" y="1440" width="16" height="16" rotation="90"/>
-  <object id="182" name="spike" gid="3221226039" x="32" y="1424" width="16" height="16" rotation="90"/>
-  <object id="183" name="spike" gid="3221226039" x="32" y="1376" width="16" height="16" rotation="90"/>
-  <object id="184" name="spike" gid="3221226039" x="32" y="1360" width="16" height="16" rotation="90"/>
-  <object id="185" name="spike" gid="3221226039" x="32" y="1344" width="16" height="16" rotation="90"/>
-  <object id="186" name="spike" gid="3221226039" x="32" y="1328" width="16" height="16" rotation="90"/>
-  <object id="187" name="spike" gid="3221226039" x="32" y="1312" width="16" height="16" rotation="90"/>
-  <object id="188" name="spike" gid="3221226039" x="32" y="1264" width="16" height="16" rotation="90"/>
-  <object id="189" name="spike" gid="3221226039" x="32" y="1248" width="16" height="16" rotation="90"/>
-  <object id="190" name="spike" gid="3221226039" x="32" y="1232" width="16" height="16" rotation="90"/>
-  <object id="191" name="spike" gid="3221226039" x="32" y="1216" width="16" height="16" rotation="90"/>
-  <object id="192" name="spike" gid="3221226039" x="32" y="1200" width="16" height="16" rotation="90"/>
-  <object id="193" name="spike" gid="3221226039" x="256" y="1808" width="16" height="16"/>
-  <object id="194" name="spike" gid="3221226039" x="272" y="1824" width="16" height="16"/>
-  <object id="195" name="spike" gid="3221226039" x="288" y="1824" width="16" height="16"/>
-  <object id="196" name="spike" gid="3221226039" x="304" y="1840" width="16" height="16"/>
-  <object id="197" name="spike" gid="3221226039" x="320" y="1840" width="16" height="16"/>
-  <object id="198" name="spike" gid="3221226039" x="336" y="1840" width="16" height="16"/>
-  <object id="218" name="spike" gid="584" x="416" y="1856" width="16" height="16"/>
-  <object id="219" name="spike" gid="584" x="432" y="1856" width="16" height="16"/>
-  <object id="220" name="spike" gid="584" x="448" y="1856" width="16" height="16"/>
-  <object id="221" name="spike" gid="584" x="464" y="1856" width="16" height="16"/>
-  <object id="222" name="spike" gid="584" x="480" y="1856" width="16" height="16"/>
-  <object id="223" name="spike" gid="584" x="496" y="1856" width="16" height="16"/>
-  <object id="224" name="spike" gid="584" x="512" y="1856" width="16" height="16"/>
-  <object id="225" name="spike" gid="584" x="528" y="1856" width="16" height="16"/>
-  <object id="226" name="spike" gid="584" x="544" y="1872" width="16" height="16"/>
-  <object id="227" name="spike" gid="584" x="560" y="1872" width="16" height="16"/>
-  <object id="228" name="spike" gid="584" x="576" y="1872" width="16" height="16"/>
-  <object id="229" name="spike" gid="584" x="592" y="1872" width="16" height="16"/>
-  <object id="230" name="spike" gid="584" x="608" y="1872" width="16" height="16"/>
-  <object id="231" name="spike" gid="584" x="624" y="1872" width="16" height="16"/>
-  <object id="232" name="spike" gid="584" x="640" y="1872" width="16" height="16"/>
-  <object id="233" name="spike" gid="584" x="656" y="1872" width="16" height="16"/>
-  <object id="234" name="spike" gid="584" x="672" y="1792" width="16" height="16"/>
-  <object id="235" name="spike" gid="584" x="688" y="1792" width="16" height="16"/>
-  <object id="236" name="spike" gid="584" x="752" y="1792" width="16" height="16"/>
-  <object id="237" name="spike" gid="584" x="768" y="1792" width="16" height="16"/>
-  <object id="238" name="spike" gid="584" x="784" y="1792" width="16" height="16"/>
-  <object id="244" name="spike" gid="2147484232" x="1056" y="1360" width="16" height="16" rotation="90"/>
-  <object id="245" name="spike" gid="2147484232" x="1056" y="1376" width="16" height="16" rotation="90"/>
-  <object id="246" name="spike" gid="2147484232" x="1056" y="1392" width="16" height="16" rotation="90"/>
-  <object id="247" name="spike" gid="2147484232" x="1056" y="1408" width="16" height="16" rotation="90"/>
-  <object id="248" name="spike" gid="2147484232" x="1056" y="1424" width="16" height="16" rotation="90"/>
-  <object id="249" name="spike" gid="2147484232" x="1056" y="1456" width="16" height="16" rotation="90"/>
-  <object id="250" name="spike" gid="2147484232" x="1056" y="1440" width="16" height="16" rotation="90"/>
-  <object id="252" name="spike" gid="3221226056" x="1232" y="1360" width="16" height="16" rotation="90"/>
-  <object id="253" name="spike" gid="3221226056" x="1232" y="1376" width="16" height="16" rotation="90"/>
-  <object id="254" name="spike" gid="3221226056" x="1232" y="1392" width="16" height="16" rotation="90"/>
-  <object id="255" name="spike" gid="3221226056" x="1232" y="1408" width="16" height="16" rotation="90"/>
-  <object id="256" name="spike" gid="3221226056" x="1232" y="1424" width="16" height="16" rotation="90"/>
-  <object id="257" name="spike" gid="3221226056" x="1232" y="1456" width="16" height="16" rotation="90"/>
-  <object id="258" name="spike" gid="3221226056" x="1232" y="1440" width="16" height="16" rotation="90"/>
-  <object id="259" name="spike" gid="3221226056" x="1232" y="1472" width="16" height="16" rotation="90"/>
-  <object id="260" name="spike" gid="3221226056" x="1232" y="1488" width="16" height="16" rotation="90"/>
-  <object id="261" name="spike" gid="3221226056" x="1232" y="1504" width="16" height="16" rotation="90"/>
-  <object id="262" name="spike" gid="3221226056" x="1232" y="1520" width="16" height="16" rotation="90"/>
-  <object id="263" name="spike" gid="3221226056" x="1232" y="1536" width="16" height="16" rotation="90"/>
-  <object id="264" name="spike" gid="3221226056" x="1232" y="1552" width="16" height="16" rotation="90"/>
-  <object id="265" name="spike" gid="2147484232" x="1088" y="1344" width="16" height="16" rotation="180"/>
-  <object id="266" name="spike" gid="2147484232" x="1104" y="1344" width="16" height="16" rotation="180"/>
-  <object id="267" name="spike" gid="2147484232" x="1120" y="1344" width="16" height="16" rotation="180"/>
-  <object id="268" name="spike" gid="2147484232" x="1152" y="1344" width="16" height="16" rotation="180"/>
-  <object id="269" name="spike" gid="2147484232" x="1168" y="1344" width="16" height="16" rotation="180"/>
-  <object id="270" name="spike" gid="2147484232" x="1184" y="1344" width="16" height="16" rotation="180"/>
-  <object id="271" name="spike" gid="2147484232" x="1200" y="1344" width="16" height="16" rotation="180"/>
-  <object id="272" name="spike" gid="2147484232" x="1216" y="1344" width="16" height="16" rotation="180"/>
-  <object id="273" name="spike" gid="2147484232" x="1232" y="1344" width="16" height="16" rotation="180"/>
-  <object id="274" name="spike" gid="2147484232" x="1072" y="1344" width="16" height="16" rotation="180"/>
-  <object id="275" name="spike" gid="2147484232" x="1248" y="1344" width="16" height="16" rotation="180"/>
-  <object id="276" name="spike" gid="2147484232" x="1056" y="1232" width="16" height="16" rotation="180"/>
-  <object id="277" name="spike" gid="2147484232" x="1072" y="1232" width="16" height="16" rotation="180"/>
-  <object id="278" name="spike" gid="2147484232" x="1088" y="1232" width="16" height="16" rotation="180"/>
-  <object id="279" name="spike" gid="2147484232" x="1104" y="1232" width="16" height="16" rotation="180"/>
-  <object id="280" name="spike" gid="2147484232" x="1136" y="1232" width="16" height="16" rotation="180"/>
-  <object id="281" name="spike" gid="2147484232" x="1152" y="1232" width="16" height="16" rotation="180"/>
-  <object id="282" name="spike" gid="2147484232" x="1168" y="1232" width="16" height="16" rotation="180"/>
-  <object id="283" name="spike" gid="2147484232" x="1184" y="1232" width="16" height="16" rotation="180"/>
-  <object id="284" name="spike" gid="584" x="960" y="1216" width="16" height="16" rotation="-90"/>
-  <object id="285" name="spike" gid="584" x="960" y="1232" width="16" height="16" rotation="-90"/>
-  <object id="286" name="spike" gid="584" x="960" y="1248" width="16" height="16" rotation="-90"/>
-  <object id="287" name="spike" gid="584" x="960" y="1296" width="16" height="16" rotation="-90"/>
-  <object id="288" name="spike" gid="584" x="960" y="1312" width="16" height="16" rotation="-90"/>
-  <object id="289" name="spike" gid="584" x="960" y="1328" width="16" height="16" rotation="-90"/>
-  <object id="290" name="spike" gid="584" x="960" y="1344" width="16" height="16" rotation="-90"/>
-  <object id="291" name="spike" gid="584" x="960" y="1392" width="16" height="16" rotation="-90"/>
-  <object id="292" name="spike" gid="584" x="960" y="1408" width="16" height="16" rotation="-90"/>
-  <object id="293" name="spike" gid="584" x="960" y="1424" width="16" height="16" rotation="-90"/>
-  <object id="294" name="spike" gid="584" x="960" y="1440" width="16" height="16" rotation="-90"/>
-  <object id="295" name="spike" gid="584" x="960" y="1488" width="16" height="16" rotation="-90"/>
-  <object id="296" name="spike" gid="584" x="960" y="1504" width="16" height="16" rotation="-90"/>
-  <object id="297" name="spike" gid="1073742408" x="832" y="1184" width="16" height="16" rotation="-90"/>
-  <object id="298" name="spike" gid="1073742408" x="832" y="1200" width="16" height="16" rotation="-90"/>
-  <object id="299" name="spike" gid="1073742408" x="832" y="1216" width="16" height="16" rotation="-90"/>
-  <object id="300" name="spike" gid="1073742408" x="832" y="1232" width="16" height="16" rotation="-90"/>
-  <object id="301" name="spike" gid="1073742408" x="832" y="1248" width="16" height="16" rotation="-90"/>
-  <object id="302" name="spike" gid="1073742408" x="832" y="1264" width="16" height="16" rotation="-90"/>
-  <object id="303" name="spike" gid="1073742408" x="832" y="1280" width="16" height="16" rotation="-90"/>
-  <object id="304" name="spike" gid="1073742408" x="832" y="1296" width="16" height="16" rotation="-90"/>
-  <object id="305" name="spike" gid="1073742408" x="832" y="1344" width="16" height="16" rotation="-90"/>
-  <object id="306" name="spike" gid="1073742408" x="832" y="1360" width="16" height="16" rotation="-90"/>
-  <object id="307" name="spike" gid="1073742408" x="832" y="1376" width="16" height="16" rotation="-90"/>
-  <object id="308" name="spike" gid="1073742408" x="832" y="1392" width="16" height="16" rotation="-90"/>
-  <object id="309" name="spike" gid="1073742408" x="832" y="1440" width="16" height="16" rotation="-90"/>
-  <object id="310" name="spike" gid="1073742408" x="832" y="1456" width="16" height="16" rotation="-90"/>
-  <object id="311" name="spike" gid="1073742408" x="832" y="1472" width="16" height="16" rotation="-90"/>
-  <object id="312" name="spike" gid="1073742408" x="832" y="1488" width="16" height="16" rotation="-90"/>
-  <object id="313" name="spike" gid="1073742408" x="832" y="1504" width="16" height="16" rotation="-90"/>
-  <object id="314" name="spike" gid="1073742408" x="1136" y="880" width="16" height="16" rotation="-90"/>
-  <object id="315" name="spike" gid="1073742408" x="1136" y="976" width="16" height="16" rotation="-90"/>
-  <object id="317" name="spike" gid="1073742408" x="1136" y="1056" width="16" height="16" rotation="-90"/>
-  <object id="319" name="spike" gid="584" x="1184" y="928" width="16" height="16" rotation="-90"/>
-  <object id="320" name="spike" gid="584" x="1184" y="1024" width="16" height="16" rotation="-90"/>
-  <object id="321" name="spike" gid="584" x="448" y="1264" width="16" height="16"/>
-  <object id="322" name="spike" gid="584" x="416" y="1264" width="16" height="16"/>
-  <object id="323" name="spike" gid="584" x="464" y="1264" width="16" height="16"/>
-  <object id="324" name="spike" gid="584" x="480" y="1264" width="16" height="16"/>
-  <object id="325" name="spike" gid="584" x="496" y="1264" width="16" height="16"/>
-  <object id="326" name="spike" gid="584" x="512" y="1264" width="16" height="16"/>
-  <object id="327" name="spike" gid="584" x="528" y="1264" width="16" height="16"/>
-  <object id="328" name="spike" gid="1073742408" x="416" y="1344" width="16" height="16"/>
-  <object id="329" name="spike" gid="1073742408" x="432" y="1344" width="16" height="16"/>
-  <object id="330" name="spike" gid="1073742408" x="448" y="1344" width="16" height="16"/>
-  <object id="331" name="spike" gid="1073742408" x="464" y="1344" width="16" height="16"/>
-  <object id="332" name="spike" gid="1073742408" x="480" y="1344" width="16" height="16"/>
-  <object id="333" name="spike" gid="1073742408" x="496" y="1344" width="16" height="16"/>
-  <object id="334" name="spike" gid="1073742408" x="512" y="1344" width="16" height="16"/>
-  <object id="335" name="spike" gid="1073742408" x="528" y="1344" width="16" height="16"/>
-  <object id="336" name="spike" gid="1073742408" x="544" y="1344" width="16" height="16"/>
-  <object id="337" name="spike" gid="1073742408" x="576" y="1344" width="16" height="16"/>
-  <object id="338" name="spike" gid="1073742408" x="560" y="1344" width="16" height="16"/>
-  <object id="339" name="spike" gid="1073742408" x="592" y="1344" width="16" height="16"/>
-  <object id="340" name="spike" gid="1073742408" x="608" y="1344" width="16" height="16"/>
-  <object id="342" name="spike" gid="584" x="1072" y="1792" width="16" height="16"/>
-  <object id="343" name="spike" gid="584" x="1088" y="1792" width="16" height="16"/>
-  <object id="344" name="spike" gid="584" x="1104" y="1792" width="16" height="16"/>
-  <object id="345" name="spike" gid="584" x="1120" y="1792" width="16" height="16"/>
-  <object id="346" name="spike" gid="584" x="1136" y="1792" width="16" height="16"/>
-  <object id="347" name="spike" gid="584" x="1152" y="1792" width="16" height="16"/>
-  <object id="348" name="spike" gid="584" x="1168" y="1792" width="16" height="16"/>
-  <object id="349" name="spike" gid="584" x="1184" y="1792" width="16" height="16"/>
-  <object id="350" name="spike" gid="584" x="1200" y="1792" width="16" height="16"/>
-  <object id="351" name="spike" gid="584" x="1216" y="1792" width="16" height="16"/>
-  <object id="352" name="spike" gid="584" x="1232" y="1792" width="16" height="16"/>
-  <object id="353" name="spike" gid="584" x="992" y="1760" width="16" height="16"/>
-  <object id="354" name="spike" gid="584" x="1008" y="1760" width="16" height="16"/>
-  <object id="355" name="spike" gid="584" x="1024" y="1760" width="16" height="16"/>
-  <object id="356" name="spike" gid="584" x="1040" y="1760" width="16" height="16"/>
-  <object id="357" name="spike" gid="584" x="1056" y="1760" width="16" height="16"/>
-  <object id="360" name="spike" gid="584" x="960" y="1200" width="16" height="16"/>
-  <object id="361" name="spike" gid="584" x="976" y="1200" width="16" height="16"/>
-  <object id="362" name="spike" gid="584" x="992" y="1200" width="16" height="16"/>
-  <object id="363" name="spike" gid="584" x="1008" y="1200" width="16" height="16"/>
-  <object id="364" name="spike" gid="584" x="1024" y="1200" width="16" height="16"/>
-  <object id="365" name="spike" gid="584" x="1040" y="1200" width="16" height="16"/>
-  <object id="366" name="spike" gid="584" x="1056" y="1200" width="16" height="16"/>
-  <object id="367" name="spike" gid="584" x="1072" y="1200" width="16" height="16"/>
-  <object id="368" name="spike" gid="584" x="1088" y="1200" width="16" height="16"/>
-  <object id="369" name="spike" gid="584" x="1120" y="1200" width="16" height="16"/>
-  <object id="370" name="spike" gid="584" x="1136" y="1200" width="16" height="16"/>
-  <object id="375" name="spike" gid="584" x="464" y="240" width="16" height="16"/>
-  <object id="376" name="spike" gid="584" x="480" y="240" width="16" height="16"/>
-  <object id="377" name="spike" gid="584" x="496" y="240" width="16" height="16"/>
-  <object id="378" name="spike" gid="584" x="512" y="240" width="16" height="16"/>
-  <object id="379" name="spike" gid="584" x="528" y="240" width="16" height="16"/>
-  <object id="380" name="spike" gid="584" x="592" y="240" width="16" height="16"/>
-  <object id="381" name="spike" gid="584" x="608" y="240" width="16" height="16"/>
-  <object id="382" name="spike" gid="584" x="624" y="240" width="16" height="16"/>
-  <object id="383" name="spike" gid="584" x="640" y="240" width="16" height="16"/>
-  <object id="384" name="spike" gid="584" x="656" y="240" width="16" height="16"/>
-  <object id="385" name="spike" gid="584" x="672" y="240" width="16" height="16"/>
-  <object id="386" name="spike" gid="584" x="688" y="240" width="16" height="16"/>
-  <object id="387" name="spike" gid="584" x="704" y="240" width="16" height="16"/>
-  <object id="388" name="spike" gid="584" x="720" y="240" width="16" height="16"/>
-  <object id="389" name="spike" gid="584" x="736" y="240" width="16" height="16"/>
-  <object id="390" name="spike" gid="584" x="752" y="240" width="16" height="16"/>
-  <object id="391" name="spike" gid="584" x="768" y="240" width="16" height="16"/>
-  <object id="392" name="spike" gid="584" x="784" y="240" width="16" height="16"/>
-  <object id="393" name="spike" gid="584" x="800" y="240" width="16" height="16"/>
-  <object id="394" name="spike" gid="584" x="816" y="240" width="16" height="16"/>
-  <object id="395" name="spike" gid="584" x="832" y="240" width="16" height="16"/>
-  <object id="396" name="spike" gid="584" x="848" y="240" width="16" height="16"/>
-  <object id="397" name="spike" gid="1073742408" x="384" y="128" width="16" height="16"/>
-  <object id="398" name="spike" gid="1073742408" x="400" y="128" width="16" height="16"/>
-  <object id="399" name="spike" gid="1073742408" x="416" y="128" width="16" height="16"/>
-  <object id="400" name="spike" gid="1073742408" x="432" y="128" width="16" height="16"/>
-  <object id="402" name="spike" gid="1073742408" x="448" y="128" width="16" height="16"/>
-  <object id="403" name="spike" gid="1073742408" x="464" y="128" width="16" height="16"/>
-  <object id="404" name="spike" gid="1073742408" x="480" y="128" width="16" height="16"/>
-  <object id="405" name="spike" gid="1073742408" x="496" y="128" width="16" height="16"/>
-  <object id="406" name="spike" gid="1073742408" x="512" y="128" width="16" height="16"/>
-  <object id="407" name="spike" gid="1073742408" x="528" y="128" width="16" height="16"/>
-  <object id="408" name="spike" gid="1073742408" x="544" y="128" width="16" height="16"/>
-  <object id="409" name="spike" gid="1073742408" x="560" y="128" width="16" height="16"/>
-  <object id="410" name="spike" gid="1073742408" x="576" y="128" width="16" height="16"/>
-  <object id="411" name="spike" gid="1073742408" x="592" y="128" width="16" height="16"/>
-  <object id="412" name="spike" gid="1073742408" x="608" y="128" width="16" height="16"/>
-  <object id="413" name="spike" gid="1073742408" x="624" y="128" width="16" height="16"/>
-  <object id="414" name="spike" gid="1073742408" x="640" y="128" width="16" height="16"/>
-  <object id="415" name="spike" gid="1073742408" x="656" y="128" width="16" height="16"/>
-  <object id="416" name="spike" gid="1073742408" x="672" y="128" width="16" height="16"/>
-  <object id="417" name="spike" gid="1073742408" x="688" y="128" width="16" height="16"/>
-  <object id="418" name="spike" gid="1073742408" x="704" y="128" width="16" height="16"/>
-  <object id="419" name="spike" gid="1073742408" x="720" y="128" width="16" height="16"/>
-  <object id="420" name="spike" gid="1073742408" x="736" y="128" width="16" height="16"/>
-  <object id="421" name="spike" gid="1073742408" x="752" y="128" width="16" height="16"/>
-  <object id="422" name="spike" gid="1073742408" x="768" y="128" width="16" height="16"/>
-  <object id="423" name="spike" gid="1073742408" x="784" y="128" width="16" height="16"/>
-  <object id="424" name="spike" gid="1073742408" x="800" y="128" width="16" height="16"/>
-  <object id="426" name="spike" gid="1073742408" x="816" y="128" width="16" height="16"/>
-  <object id="427" name="spike" gid="1073742408" x="832" y="128" width="16" height="16"/>
-  <object id="428" name="spike" gid="1073742408" x="848" y="128" width="16" height="16"/>
-  <object id="429" name="spike" gid="1073742408" x="864" y="128" width="16" height="16"/>
-  <object id="430" name="spike" gid="1073742408" x="880" y="128" width="16" height="16"/>
-  <object id="431" name="spike" gid="1073742408" x="896" y="128" width="16" height="16"/>
-  <object id="432" name="spike" gid="1073742408" x="912" y="128" width="16" height="16"/>
-  <object id="433" name="spike" gid="1073742408" x="928" y="128" width="16" height="16"/>
-  <object id="434" name="spike" gid="1073742408" x="880" y="272" width="16" height="16" rotation="-90"/>
-  <object id="435" name="spike" gid="1073742408" x="880" y="288" width="16" height="16" rotation="-90"/>
-  <object id="436" name="spike" gid="1073742408" x="880" y="304" width="16" height="16" rotation="-90"/>
-  <object id="437" name="spike" gid="1073742408" x="880" y="256" width="16" height="16" rotation="-90"/>
-  <object id="438" name="spike" gid="1073742408" x="880" y="320" width="16" height="16" rotation="-90"/>
-  <object id="439" name="spike" gid="1073742408" x="880" y="336" width="16" height="16" rotation="-90"/>
-  <object id="440" name="spike" gid="1073742408" x="880" y="352" width="16" height="16" rotation="-90"/>
-  <object id="441" name="spike" gid="1073742408" x="880" y="368" width="16" height="16" rotation="-90"/>
-  <object id="443" name="spike" gid="1073742408" x="880" y="384" width="16" height="16" rotation="-90"/>
-  <object id="444" name="spike" gid="1073742408" x="880" y="400" width="16" height="16" rotation="-90"/>
-  <object id="445" name="spike" gid="1073742408" x="880" y="416" width="16" height="16" rotation="-90"/>
-  <object id="446" name="spike" gid="1073742408" x="880" y="432" width="16" height="16" rotation="-90"/>
-  <object id="447" name="spike" gid="1073742408" x="880" y="448" width="16" height="16" rotation="-90"/>
-  <object id="448" name="spike" gid="1073742408" x="880" y="464" width="16" height="16" rotation="-90"/>
-  <object id="449" name="spike" gid="1073742408" x="880" y="480" width="16" height="16" rotation="-90"/>
-  <object id="450" name="spike" gid="1073742408" x="880" y="496" width="16" height="16" rotation="-90"/>
-  <object id="451" name="spike" gid="1073742408" x="880" y="512" width="16" height="16" rotation="-90"/>
-  <object id="452" name="spike" gid="1073742408" x="880" y="528" width="16" height="16" rotation="-90"/>
-  <object id="453" name="spike" gid="1073742408" x="880" y="544" width="16" height="16" rotation="-90"/>
-  <object id="454" name="spike" gid="1073742408" x="880" y="592" width="16" height="16" rotation="-90"/>
-  <object id="455" name="spike" gid="1073742408" x="880" y="608" width="16" height="16" rotation="-90"/>
-  <object id="456" name="spike" gid="1073742408" x="944" y="368" width="16" height="16" rotation="-90"/>
-  <object id="457" name="spike" gid="1073742408" x="944" y="384" width="16" height="16" rotation="-90"/>
-  <object id="458" name="spike" gid="1073742408" x="880" y="768" width="16" height="16" rotation="-90"/>
-  <object id="459" name="spike" gid="1073742408" x="880" y="784" width="16" height="16" rotation="-90"/>
-  <object id="460" name="spike" gid="584" x="656" y="768" width="16" height="16" rotation="-90"/>
-  <object id="461" name="spike" gid="584" x="656" y="784" width="16" height="16" rotation="-90"/>
-  <object id="462" name="spike" gid="584" x="208" y="400" width="16" height="16" rotation="-90"/>
-  <object id="463" name="spike" gid="1073742408" x="272" y="400" width="16" height="16" rotation="-90"/>
-  <object id="464" name="spike" gid="1073742408" x="416" y="528" width="16" height="16" rotation="-90"/>
-  <object id="465" name="spike" gid="1073742408" x="352" y="576" width="16" height="16" rotation="-90"/>
-  <object id="466" name="spike" gid="584" x="352" y="528" width="16" height="16" rotation="-90"/>
-  <object id="467" name="spike" gid="584" x="304" y="576" width="16" height="16" rotation="-90"/>
-  <object id="468" name="spike" gid="1073742408" x="112" y="1168" width="16" height="16"/>
-  <object id="469" name="spike" gid="1073742408" x="128" y="1168" width="16" height="16"/>
-  <object id="470" name="spike" gid="1073742408" x="144" y="1168" width="16" height="16"/>
-  <object id="471" name="spike" gid="1073742408" x="160" y="1168" width="16" height="16"/>
-  <object id="472" name="spike" gid="1073742408" x="176" y="1168" width="16" height="16"/>
-  <object id="473" name="spike" gid="1073742408" x="192" y="1168" width="16" height="16"/>
-  <object id="474" name="spike" gid="1073742408" x="208" y="1168" width="16" height="16"/>
-  <object id="475" name="spike" gid="1073742408" x="224" y="1168" width="16" height="16"/>
-  <object id="476" name="spike" gid="1073742408" x="240" y="1168" width="16" height="16"/>
-  <object id="477" name="spike" gid="1073742408" x="256" y="1168" width="16" height="16"/>
-  <object id="478" name="spike" gid="1073742408" x="288" y="1168" width="16" height="16"/>
-  <object id="479" name="spike" gid="1073742408" x="272" y="1168" width="16" height="16"/>
-  <object id="480" name="spike" gid="1073742408" x="304" y="1168" width="16" height="16"/>
-  <object id="481" name="spike" gid="1073742408" x="320" y="1168" width="16" height="16"/>
-  <object id="482" name="spike" gid="1073742408" x="336" y="1168" width="16" height="16"/>
-  <object id="483" name="spike" gid="1073742408" x="352" y="1168" width="16" height="16"/>
-  <object id="484" name="spike" gid="1073742408" x="368" y="1168" width="16" height="16"/>
-  <object id="485" name="spike" gid="1073742408" x="384" y="1168" width="16" height="16"/>
+  <object id="177" name="spike" gid="3221226039" x="32" y="1504" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="178" name="spike" gid="3221226039" x="32" y="1488" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="179" name="spike" gid="3221226039" x="32" y="1472" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="180" name="spike" gid="3221226039" x="32" y="1456" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="181" name="spike" gid="3221226039" x="32" y="1440" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="182" name="spike" gid="3221226039" x="32" y="1424" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="183" name="spike" gid="3221226039" x="32" y="1376" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="184" name="spike" gid="3221226039" x="32" y="1360" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="185" name="spike" gid="3221226039" x="32" y="1344" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="186" name="spike" gid="3221226039" x="32" y="1328" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="187" name="spike" gid="3221226039" x="32" y="1312" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="188" name="spike" gid="3221226039" x="32" y="1264" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="189" name="spike" gid="3221226039" x="32" y="1248" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="190" name="spike" gid="3221226039" x="32" y="1232" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="191" name="spike" gid="3221226039" x="32" y="1216" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="192" name="spike" gid="3221226039" x="32" y="1200" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="193" name="spike" gid="3221226039" x="256" y="1808" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="194" name="spike" gid="3221226039" x="272" y="1824" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="195" name="spike" gid="3221226039" x="288" y="1824" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="196" name="spike" gid="3221226039" x="304" y="1840" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="197" name="spike" gid="3221226039" x="320" y="1840" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="198" name="spike" gid="3221226039" x="336" y="1840" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="166"/>
+   </properties>
+  </object>
+  <object id="218" name="spike" gid="584" x="416" y="1856" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="219" name="spike" gid="584" x="432" y="1856" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="220" name="spike" gid="584" x="448" y="1856" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="221" name="spike" gid="584" x="464" y="1856" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="222" name="spike" gid="584" x="480" y="1856" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="223" name="spike" gid="584" x="496" y="1856" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="224" name="spike" gid="584" x="512" y="1856" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="225" name="spike" gid="584" x="528" y="1856" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="226" name="spike" gid="584" x="544" y="1872" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="227" name="spike" gid="584" x="560" y="1872" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="228" name="spike" gid="584" x="576" y="1872" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="229" name="spike" gid="584" x="592" y="1872" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="230" name="spike" gid="584" x="608" y="1872" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="231" name="spike" gid="584" x="624" y="1872" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="232" name="spike" gid="584" x="640" y="1872" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="233" name="spike" gid="584" x="656" y="1872" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="234" name="spike" gid="584" x="672" y="1792" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="235" name="spike" gid="584" x="688" y="1792" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="236" name="spike" gid="584" x="752" y="1792" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="237" name="spike" gid="584" x="768" y="1792" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="238" name="spike" gid="584" x="784" y="1792" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="244" name="spike" gid="2147484232" x="1056" y="1360" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="245" name="spike" gid="2147484232" x="1056" y="1376" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="246" name="spike" gid="2147484232" x="1056" y="1392" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="247" name="spike" gid="2147484232" x="1056" y="1408" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="248" name="spike" gid="2147484232" x="1056" y="1424" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="249" name="spike" gid="2147484232" x="1056" y="1456" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="250" name="spike" gid="2147484232" x="1056" y="1440" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="252" name="spike" gid="3221226056" x="1232" y="1360" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="253" name="spike" gid="3221226056" x="1232" y="1376" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="254" name="spike" gid="3221226056" x="1232" y="1392" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="255" name="spike" gid="3221226056" x="1232" y="1408" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="256" name="spike" gid="3221226056" x="1232" y="1424" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="257" name="spike" gid="3221226056" x="1232" y="1456" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="258" name="spike" gid="3221226056" x="1232" y="1440" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="259" name="spike" gid="3221226056" x="1232" y="1472" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="260" name="spike" gid="3221226056" x="1232" y="1488" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="261" name="spike" gid="3221226056" x="1232" y="1504" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="262" name="spike" gid="3221226056" x="1232" y="1520" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="263" name="spike" gid="3221226056" x="1232" y="1536" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="264" name="spike" gid="3221226056" x="1232" y="1552" width="16" height="16" rotation="90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="265" name="spike" gid="2147484232" x="1088" y="1344" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="266" name="spike" gid="2147484232" x="1104" y="1344" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="267" name="spike" gid="2147484232" x="1120" y="1344" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="268" name="spike" gid="2147484232" x="1152" y="1344" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="269" name="spike" gid="2147484232" x="1168" y="1344" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="270" name="spike" gid="2147484232" x="1184" y="1344" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="271" name="spike" gid="2147484232" x="1200" y="1344" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="272" name="spike" gid="2147484232" x="1216" y="1344" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="273" name="spike" gid="2147484232" x="1232" y="1344" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="274" name="spike" gid="2147484232" x="1072" y="1344" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="275" name="spike" gid="2147484232" x="1248" y="1344" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="276" name="spike" gid="2147484232" x="1056" y="1232" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="277" name="spike" gid="2147484232" x="1072" y="1232" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="278" name="spike" gid="2147484232" x="1088" y="1232" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="279" name="spike" gid="2147484232" x="1104" y="1232" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="280" name="spike" gid="2147484232" x="1136" y="1232" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="281" name="spike" gid="2147484232" x="1152" y="1232" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="282" name="spike" gid="2147484232" x="1168" y="1232" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="283" name="spike" gid="2147484232" x="1184" y="1232" width="16" height="16" rotation="180">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="284" name="spike" gid="584" x="960" y="1216" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="285" name="spike" gid="584" x="960" y="1232" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="286" name="spike" gid="584" x="960" y="1248" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="287" name="spike" gid="584" x="960" y="1296" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="288" name="spike" gid="584" x="960" y="1312" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="289" name="spike" gid="584" x="960" y="1328" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="290" name="spike" gid="584" x="960" y="1344" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="291" name="spike" gid="584" x="960" y="1392" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="292" name="spike" gid="584" x="960" y="1408" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="293" name="spike" gid="584" x="960" y="1424" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="294" name="spike" gid="584" x="960" y="1440" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="295" name="spike" gid="584" x="960" y="1488" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="296" name="spike" gid="584" x="960" y="1504" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="297" name="spike" gid="1073742408" x="832" y="1184" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="298" name="spike" gid="1073742408" x="832" y="1200" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="299" name="spike" gid="1073742408" x="832" y="1216" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="300" name="spike" gid="1073742408" x="832" y="1232" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="301" name="spike" gid="1073742408" x="832" y="1248" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="302" name="spike" gid="1073742408" x="832" y="1264" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="303" name="spike" gid="1073742408" x="832" y="1280" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="304" name="spike" gid="1073742408" x="832" y="1296" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="305" name="spike" gid="1073742408" x="832" y="1344" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="306" name="spike" gid="1073742408" x="832" y="1360" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="307" name="spike" gid="1073742408" x="832" y="1376" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="308" name="spike" gid="1073742408" x="832" y="1392" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="309" name="spike" gid="1073742408" x="832" y="1440" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="310" name="spike" gid="1073742408" x="832" y="1456" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="311" name="spike" gid="1073742408" x="832" y="1472" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="312" name="spike" gid="1073742408" x="832" y="1488" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="313" name="spike" gid="1073742408" x="832" y="1504" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="314" name="spike" gid="1073742408" x="1136" y="880" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="315" name="spike" gid="1073742408" x="1136" y="976" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="317" name="spike" gid="1073742408" x="1136" y="1056" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="319" name="spike" gid="584" x="1184" y="928" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="320" name="spike" gid="584" x="1184" y="1024" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="321" name="spike" gid="584" x="448" y="1264" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="322" name="spike" gid="584" x="416" y="1264" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="323" name="spike" gid="584" x="464" y="1264" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="324" name="spike" gid="584" x="480" y="1264" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="325" name="spike" gid="584" x="496" y="1264" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="326" name="spike" gid="584" x="512" y="1264" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="327" name="spike" gid="584" x="528" y="1264" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="328" name="spike" gid="1073742408" x="416" y="1344" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="329" name="spike" gid="1073742408" x="432" y="1344" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="330" name="spike" gid="1073742408" x="448" y="1344" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="331" name="spike" gid="1073742408" x="464" y="1344" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="332" name="spike" gid="1073742408" x="480" y="1344" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="333" name="spike" gid="1073742408" x="496" y="1344" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="334" name="spike" gid="1073742408" x="512" y="1344" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="335" name="spike" gid="1073742408" x="528" y="1344" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="336" name="spike" gid="1073742408" x="544" y="1344" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="337" name="spike" gid="1073742408" x="576" y="1344" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="338" name="spike" gid="1073742408" x="560" y="1344" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="339" name="spike" gid="1073742408" x="592" y="1344" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="340" name="spike" gid="1073742408" x="608" y="1344" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="342" name="spike" gid="584" x="1072" y="1792" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="343" name="spike" gid="584" x="1088" y="1792" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="344" name="spike" gid="584" x="1104" y="1792" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="345" name="spike" gid="584" x="1120" y="1792" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="346" name="spike" gid="584" x="1136" y="1792" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="347" name="spike" gid="584" x="1152" y="1792" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="348" name="spike" gid="584" x="1168" y="1792" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="349" name="spike" gid="584" x="1184" y="1792" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="350" name="spike" gid="584" x="1200" y="1792" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="351" name="spike" gid="584" x="1216" y="1792" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="352" name="spike" gid="584" x="1232" y="1792" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="353" name="spike" gid="584" x="992" y="1760" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="354" name="spike" gid="584" x="1008" y="1760" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="355" name="spike" gid="584" x="1024" y="1760" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="356" name="spike" gid="584" x="1040" y="1760" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="357" name="spike" gid="584" x="1056" y="1760" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="360" name="spike" gid="584" x="960" y="1200" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="361" name="spike" gid="584" x="976" y="1200" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="362" name="spike" gid="584" x="992" y="1200" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="363" name="spike" gid="584" x="1008" y="1200" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="364" name="spike" gid="584" x="1024" y="1200" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="365" name="spike" gid="584" x="1040" y="1200" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="366" name="spike" gid="584" x="1056" y="1200" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="367" name="spike" gid="584" x="1072" y="1200" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="368" name="spike" gid="584" x="1088" y="1200" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="369" name="spike" gid="584" x="1120" y="1200" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="370" name="spike" gid="584" x="1136" y="1200" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="375" name="spike" gid="584" x="464" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="376" name="spike" gid="584" x="480" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="377" name="spike" gid="584" x="496" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="378" name="spike" gid="584" x="512" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="379" name="spike" gid="584" x="528" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="380" name="spike" gid="584" x="592" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="381" name="spike" gid="584" x="608" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="382" name="spike" gid="584" x="624" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="383" name="spike" gid="584" x="640" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="384" name="spike" gid="584" x="656" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="385" name="spike" gid="584" x="672" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="386" name="spike" gid="584" x="688" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="387" name="spike" gid="584" x="704" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="388" name="spike" gid="584" x="720" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="389" name="spike" gid="584" x="736" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="390" name="spike" gid="584" x="752" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="391" name="spike" gid="584" x="768" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="392" name="spike" gid="584" x="784" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="393" name="spike" gid="584" x="800" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="394" name="spike" gid="584" x="816" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="395" name="spike" gid="584" x="832" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="396" name="spike" gid="584" x="848" y="240" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="397" name="spike" gid="1073742408" x="384" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="398" name="spike" gid="1073742408" x="400" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="399" name="spike" gid="1073742408" x="416" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="400" name="spike" gid="1073742408" x="432" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="402" name="spike" gid="1073742408" x="448" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="403" name="spike" gid="1073742408" x="464" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="404" name="spike" gid="1073742408" x="480" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="405" name="spike" gid="1073742408" x="496" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="406" name="spike" gid="1073742408" x="512" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="407" name="spike" gid="1073742408" x="528" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="408" name="spike" gid="1073742408" x="544" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="409" name="spike" gid="1073742408" x="560" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="410" name="spike" gid="1073742408" x="576" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="411" name="spike" gid="1073742408" x="592" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="412" name="spike" gid="1073742408" x="608" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="413" name="spike" gid="1073742408" x="624" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="414" name="spike" gid="1073742408" x="640" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="415" name="spike" gid="1073742408" x="656" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="416" name="spike" gid="1073742408" x="672" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="417" name="spike" gid="1073742408" x="688" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="418" name="spike" gid="1073742408" x="704" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="419" name="spike" gid="1073742408" x="720" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="420" name="spike" gid="1073742408" x="736" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="421" name="spike" gid="1073742408" x="752" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="422" name="spike" gid="1073742408" x="768" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="423" name="spike" gid="1073742408" x="784" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="424" name="spike" gid="1073742408" x="800" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="426" name="spike" gid="1073742408" x="816" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="427" name="spike" gid="1073742408" x="832" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="428" name="spike" gid="1073742408" x="848" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="429" name="spike" gid="1073742408" x="864" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="430" name="spike" gid="1073742408" x="880" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="431" name="spike" gid="1073742408" x="896" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="432" name="spike" gid="1073742408" x="912" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="433" name="spike" gid="1073742408" x="928" y="128" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="434" name="spike" gid="1073742408" x="880" y="272" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="435" name="spike" gid="1073742408" x="880" y="288" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="436" name="spike" gid="1073742408" x="880" y="304" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="437" name="spike" gid="1073742408" x="880" y="256" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="438" name="spike" gid="1073742408" x="880" y="320" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="439" name="spike" gid="1073742408" x="880" y="336" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="440" name="spike" gid="1073742408" x="880" y="352" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="441" name="spike" gid="1073742408" x="880" y="368" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="443" name="spike" gid="1073742408" x="880" y="384" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="444" name="spike" gid="1073742408" x="880" y="400" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="445" name="spike" gid="1073742408" x="880" y="416" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="446" name="spike" gid="1073742408" x="880" y="432" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="447" name="spike" gid="1073742408" x="880" y="448" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="448" name="spike" gid="1073742408" x="880" y="464" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="449" name="spike" gid="1073742408" x="880" y="480" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="450" name="spike" gid="1073742408" x="880" y="496" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="451" name="spike" gid="1073742408" x="880" y="512" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="452" name="spike" gid="1073742408" x="880" y="528" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="453" name="spike" gid="1073742408" x="880" y="544" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="454" name="spike" gid="1073742408" x="880" y="592" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="455" name="spike" gid="1073742408" x="880" y="608" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="456" name="spike" gid="1073742408" x="944" y="368" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="457" name="spike" gid="1073742408" x="944" y="384" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="458" name="spike" gid="1073742408" x="880" y="768" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="459" name="spike" gid="1073742408" x="880" y="784" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="460" name="spike" gid="584" x="656" y="768" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="461" name="spike" gid="584" x="656" y="784" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="462" name="spike" gid="584" x="208" y="400" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="463" name="spike" gid="1073742408" x="272" y="400" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="464" name="spike" gid="1073742408" x="416" y="528" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="465" name="spike" gid="1073742408" x="352" y="576" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="466" name="spike" gid="584" x="352" y="528" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="467" name="spike" gid="584" x="304" y="576" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="468" name="spike" gid="1073742408" x="112" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="469" name="spike" gid="1073742408" x="128" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="470" name="spike" gid="1073742408" x="144" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="471" name="spike" gid="1073742408" x="160" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="472" name="spike" gid="1073742408" x="176" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="473" name="spike" gid="1073742408" x="192" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="474" name="spike" gid="1073742408" x="208" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="475" name="spike" gid="1073742408" x="224" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="476" name="spike" gid="1073742408" x="240" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="477" name="spike" gid="1073742408" x="256" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="478" name="spike" gid="1073742408" x="288" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="479" name="spike" gid="1073742408" x="272" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="480" name="spike" gid="1073742408" x="304" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="481" name="spike" gid="1073742408" x="320" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="482" name="spike" gid="1073742408" x="336" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="483" name="spike" gid="1073742408" x="352" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="484" name="spike" gid="1073742408" x="368" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
+  <object id="485" name="spike" gid="1073742408" x="384" y="1168" width="16" height="16">
+   <properties>
+    <property name="FrameInt" type="int" value="183"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="6" name="Coins">
   <object id="3" name="coin" gid="403" x="272" y="1664" width="16" height="16"/>
