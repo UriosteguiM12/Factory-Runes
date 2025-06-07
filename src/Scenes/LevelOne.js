@@ -154,7 +154,6 @@ class LevelOne extends Phaser.Scene{
             if (frameInt === 166) {
                 if (obj.flippedVertical && obj.flippedHorizontal && obj.rotation === 0) bodyY = 25, offsetY = -14;
                 else bodyX = 25, bodyY = 32, offsetY = 8;
-
             }
 
             spike.body.setSize(bodyX, bodyY);
@@ -196,7 +195,7 @@ class LevelOne extends Phaser.Scene{
                               { x: 927, y: 2915 }, // Shell beneath spike entrance to tunnel 
                               { x: 670, y: 2395 }, // Fly on top of spike entrance to tunnel
 
-                              { x: 669, y: 2051 }, // Shell on top of two fans
+                              { x: 700, y: 2051 }, // Shell on top of two fans
                               { x: 324, y: 1917 }, // Fly near four stacked fans
                               { x: 290, y: 1571 }, // Shell on top of three fans
                               { x: 1267, y: 2072 }, // Fly in the center opening of the tunnel
@@ -297,7 +296,7 @@ class LevelOne extends Phaser.Scene{
 
         // counters
         this.coinCount = 0;
-        this.health = 5;
+        this.health = 10;
 
         // COIN UI
         this.coin = this.add.image(250, 300, 'coin').setScrollFactor(0).setScale(2);
@@ -314,8 +313,8 @@ class LevelOne extends Phaser.Scene{
         this.heartMultiplier = this.add.image(270, 343, 'multiplier').setScrollFactor(0).setScale(1);
 
         this.heartDigits = [];
-        for (let i = 0; i < 1; i++) {
-            let digit = this.add.image(290 + i * 24, 340, 'digit_5').setScrollFactor(0).setScale(2);
+        for (let i = 1; i >= 0; i--) {
+            let digit = this.add.image(315 - i * 24, 340, (`digit_${i}`)).setScrollFactor(0).setScale(2);
             this.heartDigits.push(digit);
         }
 
@@ -478,7 +477,7 @@ class LevelOne extends Phaser.Scene{
         this.enemies.children.iterate(enemy => {
             if (!enemy) return;
 
-            if (!Phaser.Geom.Intersects.RectangleToRectangle(cam.worldView, enemy.getBounds())) {
+            if (!Phaser.Geom.Intersects.RectangleToRectangle(cam.worldView-20, enemy.getBounds())) {
                 enemy.body.enable = false;
                 enemy.setVisible(false);
             } else {
