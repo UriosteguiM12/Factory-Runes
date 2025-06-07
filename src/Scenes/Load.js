@@ -49,6 +49,16 @@ class Load extends Phaser.Scene {
         });
 
         this.anims.create({
+            key: 'hurt',
+            frames: [
+                {key: 'characters', frame: 0},
+                {key: 'characters', frame: 260}
+            ],
+            frameRate: 10,
+            repeat: 15
+        });
+
+        this.anims.create({
             key: 'shellWalking',
             frames: [
                 {key: 'characters', frame: 360},

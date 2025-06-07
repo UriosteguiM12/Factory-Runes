@@ -254,6 +254,7 @@ class LevelOne extends Phaser.Scene{
         this.physics.add.overlap(this.bullets, this.enemies, (bullet, enemy) => {
             bullet.disableBody(true, true);  // bullet disappears
             enemy.takeDamage();
+
         });
 
         // key collection
@@ -315,6 +316,20 @@ class LevelOne extends Phaser.Scene{
             }
             this.updateDigitImages(this.coinCount, this.coinDigits);
         })
+
+        // player damage cooldowns
+        this.canTakeDamage = true;
+        this.damageCooldown = 5000; // 1 second
+
+        // Handle collision detection with spikes
+        this.physics.add.overlap(this.player, this.spikeGroup, () => {
+            this.playerTakeDamage();
+        });
+
+        // Handle collision detection with enemies
+        this.physics.add.overlap(this.player, this.enemies, () => {
+            this.playerTakeDamage();
+        });
     }
 
     update() {
@@ -376,10 +391,12 @@ class LevelOne extends Phaser.Scene{
             }
         } else {
             // On ground - play walk/idle animations
-            if (this.player.body.velocity.x !== 0) {
-                this.player.anims.play('walk', true);
-            } else {
-                this.player.anims.play('idle', true);
+            if (!this.isHurt) {
+                if (this.player.body.velocity.x !== 0) {
+                    this.player.anims.play('walk', true);
+                } else {
+                    this.player.anims.play('idle', true);
+                }
             }
         }
 
@@ -491,9 +508,28 @@ class LevelOne extends Phaser.Scene{
     }
 
     updateDigitImages(value, imageArray) {
-        const str = value.toString().padStart(imageArray.length, '0');
-        for (let i = 0; i < imageArray.length; i++) {
-            imageArray[i].setTexture(`digit_${str[i]}`);
+        if (value >= 0) {
+            const str = value.toString().padStart(imageArray.length, '0');
+            for (let i = 0; i < imageArray.length; i++) {
+                imageArray[i].setTexture(`digit_${str[i]}`);
+            }
         }
+    }
+
+    playerTakeDamage() {
+        if (this.canTakeDamage) {
+                this.health--;
+                this.updateDigitImages(this.health, this.heartDigits);
+
+                this.canTakeDamage = false;
+                this.isHurt = true;
+                this.player.anims.stop();
+                this.player.anims.play('hurt', true);
+
+                // Reset the flag after a delay
+                this.time.delayedCall(this.damageCooldown, () => {
+                    this.canTakeDamage = true;
+                });
+            }
     }
 }
