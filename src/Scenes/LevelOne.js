@@ -50,6 +50,7 @@ class LevelOne extends Phaser.Scene{
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         this.rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         // Flag to disable player input
         this.inputEnabled = true;
@@ -190,24 +191,28 @@ class LevelOne extends Phaser.Scene{
 
         // enemy setup
         this.enemies = this.physics.add.group(); // this is going to contain all enemies, regardless of type
-        const enemySpawns = [ { x: 200, y: 3500 },
-                              { x: 300, y: 3475 },
-                              { x: 200, y: 3500 },
-                              { x: 300, y: 3475 },
-                              { x: 200, y: 3500 },
-                              { x: 300, y: 3475 },
-                              { x: 200, y: 3500 },
-                              { x: 300, y: 3475 },
-                              { x: 200, y: 3500 },
-                              { x: 300, y: 3475 },
-                              { x: 200, y: 3500 },
-                              { x: 300, y: 3475 },
-                              { x: 200, y: 3500 },
-                              { x: 300, y: 3475 },
-                              { x: 200, y: 3500 },
-                              { x: 300, y: 3475 },
-                              { x: 200, y: 3500 },
-                              { x: 300, y: 3475 },
+        const enemySpawns = [ { x: 654, y: 3331 }, // Shell closest to the spawn point 
+                              { x: 638, y: 2970 }, // Fly on top of box with an X
+                              { x: 927, y: 2915 }, // Shell beneath spike entrance to tunnel 
+                              { x: 670, y: 2395 }, // Fly on top of spike entrance to tunnel
+
+                              { x: 669, y: 2051 }, // Shell on top of two fans
+                              { x: 324, y: 1917 }, // Fly near four stacked fans
+                              { x: 290, y: 1571 }, // Shell on top of three fans
+                              { x: 1267, y: 2072 }, // Fly in the center opening of the tunnel
+
+                              { x: 1632, y: 3235 }, // Shell between bottom left and bottom right
+                              { x: 1887, y: 3332 },  // Fly near 10 coin cave
+                              { x: 1823, y: 1827 },  // Shell on top of fan vertical jump zigzag
+                              { x: 1776, y: 2841 },  // Fly in fan vertical zig zag
+
+                              { x: 367, y: 1315 }, // Shell in the secret middle part
+                              { x: 1520, y: 1240 }, // Fly on the pyramid looking block
+                              { x: 1206, y: 643 }, // Shell in the middle between two elevated platforms (near the top left)
+                              { x: 453, y: 540 }, // Fly at the very top left
+
+                              { x: 2017, y: 1251 }, // Shell on top of the spike vertical jump zig zag (on the middle right)
+                              { x: 2012, y: 189 }, // Fly near the exit
          ];
 
         enemySpawns.forEach((spawnPoint, index) => {
@@ -351,6 +356,10 @@ class LevelOne extends Phaser.Scene{
                 enemy.update();
             }
         });
+
+        if (Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
+            console.log("Player X:", this.player.x, "Player Y:", this.player.y);
+        }
 
         if (this.inputEnabled) {
             // First, handle movement
