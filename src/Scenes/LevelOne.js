@@ -1,4 +1,3 @@
-
 class LevelOne extends Phaser.Scene{
 
     constructor() {
@@ -61,12 +60,15 @@ class LevelOne extends Phaser.Scene{
         const tilesets = [oneBit, oneBitTransparent];
 
         // Create level layers
-        this.groundLayer = this.map.createLayer("Ground-n-Platforms", tilesets, 0, 0);
-        this.groundLayer.setScale(2.0);
-        this.groundLayer.setCollisionByProperty({ collides: true });
         this.bgLayer = this.map.createLayer("Background", tilesets, 0, 0);
         this.bgLayer.setScale(2.0);
         this.bgLayer.setCollisionByProperty({ collides: false });
+        this.foregroundLayer = this.map.createLayer("Foreground", tilesets, 0, 0);
+        this.foregroundLayer.setScale(2.0);
+        this.foregroundLayer.setCollisionByProperty({ collides: false });
+        this.groundLayer = this.map.createLayer("Ground-n-Platforms", tilesets, 0, 0);
+        this.groundLayer.setScale(2.0);
+        this.groundLayer.setCollisionByProperty({ collides: true });
 
 
         // Create coins from objects in the map
@@ -77,19 +79,70 @@ class LevelOne extends Phaser.Scene{
             scale: 2
         });
 
-        // Create spikes from objects in the map
-        this.spikes = this.map.createFromObjects("Spikes", {
-            name: "spike",
-            key: "characters",
-            frame: 2,
-            scale: 2
+        // Add each coin/spike sprite to the physics group
+        this.coinGroup = this.physics.add.staticGroup();
+        this.spikeGroup = this.physics.add.staticGroup();
+
+        const spikeObjects = this.map.getObjectLayer('Spikes').objects;
+
+        // for each spike object
+        spikeObjects.forEach(obj => {
+
+            // get the "frameInt" property from Tiled
+            const frameInt = obj.properties?.find(p => p.name === 'FrameInt')?.value ?? 183;
+
+            // set characteristics
+            const spike = this.spikeGroup.create(
+                obj.x * 2,
+                obj.y * 2,
+                'characters',       
+                frameInt           
+            );
+
+            spike.setOrigin(0, 1);
+            spike.setScale(2.0);
+            spike.angle = obj.rotation;
+
+            // set the object to be flipped horizontal/vertical to match how the map looks in Tiled
+            spike.flipX = obj.flippedHorizontal || false;
+            spike.flipY = obj.flippedVertical || false;
+
+            // manually fix collision boxes based off of horizontal/vertical flips (ughhhhhhhh)
+
+            // default spike collision box (FrameInt: 183, No Vertical, No Horizontal, No Rotation)
+            let bodyX = 32;
+            let bodyY = 16;
+            let offsetX = 10;
+            let offsetY = -10;
+
+            // if FrameInt = 183 (normal Spike)
+            if (frameInt == 183) {
+                // if vertically flipped
+                if (obj.flippedVertical) offsetY = 16;
+                // if horizontally flipped
+                if (obj.flippedHorizontal) offsetX = 16;
+                // if rotated
+                if (obj.rotation === 90 || obj.rotation === 270) spike.body.setSize(16, 32);
+            }
+
+            // if FrameInt =  (pointier Spike)
+            if (frameInt == 166) {
+                // if vertically flipped
+                if (obj.flippedVertical) offsetY = 16;
+                // if horizontally flipped
+                if (obj.flippedHorizontal) offsetX = 16;
+                // if rotated
+                if (obj.rotation === 90 || obj.rotation === 270) spike.body.setSize(16, 32);
+            }
+
+            spike.body.setSize(bodyX, bodyY);
+            spike.body.setOffset(offsetX, offsetY);
+            this.spikeGroup.add(spike);
+
         });
 
-        // Add each coin sprite to the physics group
-        this.coinGroup = this.physics.add.staticGroup();
-
         this.coins.forEach(coin => {
-            coin.setScale(1.8);
+            coin.setScale(2.0);
             coin.setOrigin(0.5, 0.5);
             coin.x *= 2;
             coin.y *= 2;
