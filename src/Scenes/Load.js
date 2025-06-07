@@ -55,7 +55,7 @@ class Load extends Phaser.Scene {
                 {key: 'characters', frame: 260}
             ],
             frameRate: 10,
-            repeat: 15
+            repeat: 25
         });
 
         this.anims.create({
