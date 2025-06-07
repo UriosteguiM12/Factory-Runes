@@ -109,30 +109,39 @@ class LevelOne extends Phaser.Scene{
 
             // manually fix collision boxes based off of horizontal/vertical flips (ughhhhhhhh)
 
-            // default spike collision box (FrameInt: 183, No Vertical, No Horizontal, No Rotation)
+            // default spike collision box (FrameInt: 183, No Vertical, No Horizontal, Rotation 0)
             let bodyX = 32;
             let bodyY = 16;
-            let offsetX = 10;
+            let offsetX = 8;
             let offsetY = -10;
 
             // if FrameInt = 183 (normal Spike)
-            if (frameInt == 183) {
-                // if vertically flipped
-                if (obj.flippedVertical) offsetY = 16;
-                // if horizontally flipped
-                if (obj.flippedHorizontal) offsetX = 16;
-                // if rotated
-                if (obj.rotation === 90 || obj.rotation === 270) spike.body.setSize(16, 32);
+            if (frameInt === 183) {
+
+                // Yes Vertical, Yes Horizontal
+                if (obj.flippedVertical && obj.flippedHorizontal) offsetX = 20, offsetY = 8, bodyX = 16, bodyY = 32;
+                
+                // No Vertical, Yes Horizontal
+                if (!obj.flippedVertical && obj.flippedHorizontal){
+                    // Rotation 180
+                    if (obj.rotation === 180) offsetX = -24, offsetY = 10;
+                    // Rotation 90
+                    else offsetX = 10, offsetY = 8, bodyX = 16, bodyY = 32;
+                }
+                // No Vertical, No Horizontal, Rotation -90
+                if (!obj.flippedVertical && !obj.flippedHorizontal && obj.rotation === -90) bodyX = 16, bodyY = 32, offsetX = -10, offsetY = -24;
+                
+                // Yes Vertical, No Horizontal
+                if (obj.flippedVertical && !obj.flippedHorizontal) {
+                    // Rotation -90
+                    if (obj.rotation === -90) bodyX = 16, bodyY = 32, offsetX = -20, offsetY = -24;
+                    // Rotation 0
+                    else offsetX = 8, offsetY = -20;
+                }
             }
 
-            // if FrameInt =  (pointier Spike)
-            if (frameInt == 166) {
-                // if vertically flipped
-                if (obj.flippedVertical) offsetY = 16;
-                // if horizontally flipped
-                if (obj.flippedHorizontal) offsetX = 16;
-                // if rotated
-                if (obj.rotation === 90 || obj.rotation === 270) spike.body.setSize(16, 32);
+            if (frameInt === 166) {
+                
             }
 
             spike.body.setSize(bodyX, bodyY);
@@ -154,6 +163,11 @@ class LevelOne extends Phaser.Scene{
         this.player.setCollideWorldBounds(true);
         this.player.setScale(1.8);
         this.player.setOrigin(0, 0);
+
+        this.player.body.checkCollision.up = true;
+        this.player.body.checkCollision.down = true;
+        this.player.body.checkCollision.left = true;
+        this.player.body.checkCollision.right = true;
 
         // for key randomization:
         // Pick 4 unique random indices between 1 and 19
@@ -255,10 +269,11 @@ class LevelOne extends Phaser.Scene{
         // camera code
         this.cameras.main.setBounds(0, 0, 2570, 4000);
         this.physics.world.setBounds(0, 0, 2570, 4000);
-        this.cameras.main.startFollow(this.player, true, 0.25, 0.25, 100, 0);
-        this.cameras.main.setDeadzone(50, 50);
+        this.cameras.main.startFollow(this.player, true, 0.08, 0.08, 100, 0);
+        this.cameras.main.setDeadzone(150, 150);
         this.cameras.main.setZoom(2.0);
-        this.cameras.main.followOffset.set(0, 100);
+        this.cameras.main.followOffset.set(-100, 0);
+        this.physics.world.TILE_BIAS = 40; // should help with not having the player go through tiles while falling
 
         // counters
         this.coinCount = 0;
@@ -308,7 +323,9 @@ class LevelOne extends Phaser.Scene{
         if (this.cursors.left.isDown || this.keys.A.isDown) {
             this.player.setAccelerationX(-this.ACCELERATION);
             this.player.setFlip(true, false);
+            this.cameras.main.followOffset.set(100, 50);
         } else if (this.cursors.right.isDown || this.keys.D.isDown) {
+            this.cameras.main.followOffset.set(-100, 50);
             this.player.setAccelerationX(this.ACCELERATION);
             this.player.resetFlip();
         } else {
@@ -324,7 +341,7 @@ class LevelOne extends Phaser.Scene{
         this.player.setDragX(this.player.body.blocked.down ? this.DRAG : 0);
 
         // Gravity
-        this.player.setGravityY(!this.player.body.blocked.down && this.player.body.velocity.y > 0 ? this.physics.world.gravity.y : 0);
+        //this.player.setGravityY(!this.player.body.blocked.down && this.player.body.velocity.y > 0 ? this.physics.world.gravity.y : 0);
 
         // Handle jumping input
         if (this.player.body.blocked.down && (Phaser.Input.Keyboard.JustDown(this.cursors.up) || Phaser.Input.Keyboard.JustDown(this.keys.W))) {
