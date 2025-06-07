@@ -343,8 +343,10 @@ class LevelOne extends Phaser.Scene{
         });
 
         // Handle collision detection with enemies
-        this.physics.add.overlap(this.player, this.enemies, () => {
-            this.playerTakeDamage();
+        this.physics.add.overlap(this.player, this.enemies, (player, enemy) => {
+            if (enemy.alive) {
+                this.playerTakeDamage();
+            }
         });
     }
 

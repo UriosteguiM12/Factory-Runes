@@ -84,6 +84,7 @@ class ShellEnemy extends Enemy {
 
             // play death animation
             this.play('shellDie');
+            this.alive = false;
 
             this.on('animationcomplete', () => {
                 this.disableBody(true, true);  // removes from scene
@@ -145,6 +146,7 @@ class FlyingEnemy extends Enemy {
 
             // play death animation
             this.play('flyingDie');
+            this.alive = false;
 
             this.on('animationcomplete', () => {
                 this.disableBody(true, true);  // removes from scene
