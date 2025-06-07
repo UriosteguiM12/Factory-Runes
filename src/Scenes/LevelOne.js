@@ -326,6 +326,7 @@ class LevelOne extends Phaser.Scene{
                     volume: 0.5
                 });
             this.coinCount ++;
+            // Add health for every 10 coins collected
             if (this.coinCount % 10 == 0) {
                 this.health++;
                 this.updateDigitImages(this.health, this.heartDigits)
@@ -551,6 +552,10 @@ class LevelOne extends Phaser.Scene{
         if (this.canTakeDamage) {
                 this.health--;
                 this.updateDigitImages(this.health, this.heartDigits);
+
+                this.sound.play("hurt", {
+                    volume: 0.5
+                });
 
                 this.canTakeDamage = false;
                 this.isHurt = true;
