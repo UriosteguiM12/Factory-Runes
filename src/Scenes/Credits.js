@@ -21,6 +21,7 @@ class Credits extends Phaser.Scene{
         titleText.setResolution(2); 
 
         const homeButton = this.add.image(450, 950, 'homeButton').setInteractive();
+        homeButton.setScale(4.5);
 
         homeButton.on('pointerdown', () => {
             this.scene.start('TitleScreen');
