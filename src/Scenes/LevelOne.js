@@ -49,6 +49,10 @@ class LevelOne extends Phaser.Scene{
         this.keys = this.input.keyboard.addKeys("W,S,A,D");
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+        this.rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+
+        // Flag to disable player input
+        this.inputEnabled = true;
 
         // Create a new tilemap game object which uses 16x16 pixel tiles, and is
         // 480 tiles wide and 120 tiles tall.
@@ -63,12 +67,17 @@ class LevelOne extends Phaser.Scene{
         this.bgLayer = this.map.createLayer("Background", tilesets, 0, 0);
         this.bgLayer.setScale(2.0);
         this.bgLayer.setCollisionByProperty({ collides: false });
+        this.bgLayer.alpha = 0.5;
+
         this.groundLayer = this.map.createLayer("Ground-n-Platforms", tilesets, 0, 0);
         this.groundLayer.setScale(2.0);
         this.groundLayer.setCollisionByProperty({ collides: true });
+        this.groundLayer.alpha = 1.0;
+
         this.foregroundLayer = this.map.createLayer("Foreground", tilesets, 0, 0);
         this.foregroundLayer.setScale(2.0);
         this.foregroundLayer.setCollisionByProperty({ collides: true });
+        this.foregroundLayer.alpha = 1.0;
 
 
         // Create coins from objects in the map
@@ -101,6 +110,7 @@ class LevelOne extends Phaser.Scene{
 
             spike.setOrigin(0, 1);
             spike.setScale(2.0);
+            spike.alpha = 1.0;
             spike.angle = obj.rotation;
 
             // set the object to be flipped horizontal/vertical to match how the map looks in Tiled
@@ -157,6 +167,7 @@ class LevelOne extends Phaser.Scene{
             coin.setOrigin(0.5, 0.5);
             coin.x *= 2;
             coin.y *= 2;
+            coin.alpha = 1.0;
             this.coinGroup.add(coin);
         });
 
@@ -341,112 +352,115 @@ class LevelOne extends Phaser.Scene{
             }
         });
 
-        // First, handle movement
-        if (this.cursors.left.isDown || this.keys.A.isDown) {
-            this.player.setAccelerationX(-this.ACCELERATION);
-            this.player.setFlip(true, false);
-            this.cameras.main.followOffset.set(100, 50);
-        } else if (this.cursors.right.isDown || this.keys.D.isDown) {
-            this.cameras.main.followOffset.set(-100, 50);
-            this.player.setAccelerationX(this.ACCELERATION);
-            this.player.resetFlip();
-        } else {
-            this.player.setAccelerationX(0);
-        }
-
-        // Apply max speed
-        if (Math.abs(this.player.body.velocity.x) > this.MAX_VELOCITY) {
-            this.player.setVelocityX(Phaser.Math.Clamp(this.player.body.velocity.x, -this.MAX_VELOCITY, this.MAX_VELOCITY));
-        }
-
-        // Grounded drag
-        this.player.setDragX(this.player.body.blocked.down ? this.DRAG : 0);
-
-        // Gravity
-        //this.player.setGravityY(!this.player.body.blocked.down && this.player.body.velocity.y > 0 ? this.physics.world.gravity.y : 0);
-
-        // Handle jumping input
-        if (this.player.body.blocked.down && (Phaser.Input.Keyboard.JustDown(this.cursors.up) || Phaser.Input.Keyboard.JustDown(this.keys.W))) {
-            this.player.setVelocityY(this.JUMP_VELOCITY);
-            this.sound.play("jump", {
-                    volume: 0.5,
-                    rate: Phaser.Math.FloatBetween(0.95, 1.15)
-                });
-        }
-
-        // JUMP FRAME CONTROL
-        if ((!this.player.body.blocked.down) && (!this.gunActive)) {
-            // In air
-            if (this.player.body.velocity.x > 10) {
-                // Jumping right
-                this.player.setFrame(264);
-                this.player.resetFlip(); // facing right
-            } else if (this.player.body.velocity.x < -10) {
-                // Jumping left
-                this.player.setFrame(264);
-                this.player.setFlip(true, false); // facing left
+        if (this.inputEnabled) {
+            // First, handle movement
+            if (this.cursors.left.isDown || this.keys.A.isDown) {
+                this.player.setAccelerationX(-this.ACCELERATION);
+                this.player.setFlip(true, false);
+                this.cameras.main.followOffset.set(100, 50);
+            } else if (this.cursors.right.isDown || this.keys.D.isDown) {
+                this.cameras.main.followOffset.set(-100, 50);
+                this.player.setAccelerationX(this.ACCELERATION);
+                this.player.resetFlip();
             } else {
-                // Jumping straight up
-                this.player.setFrame(265);
+                this.player.setAccelerationX(0);
             }
-        } else {
-            // On ground - play walk/idle animations
-            if (!this.isHurt) {
-                if (this.player.body.velocity.x !== 0) {
-                    this.player.anims.play('walk', true);
+
+            // Apply max speed
+            if (Math.abs(this.player.body.velocity.x) > this.MAX_VELOCITY) {
+                this.player.setVelocityX(Phaser.Math.Clamp(this.player.body.velocity.x, -this.MAX_VELOCITY, this.MAX_VELOCITY));
+            }
+
+            // Grounded drag
+            this.player.setDragX(this.player.body.blocked.down ? this.DRAG : 0);
+
+            // Gravity
+            //this.player.setGravityY(!this.player.body.blocked.down && this.player.body.velocity.y > 0 ? this.physics.world.gravity.y : 0);
+
+            // Handle jumping input
+            if (this.player.body.blocked.down && (Phaser.Input.Keyboard.JustDown(this.cursors.up) || Phaser.Input.Keyboard.JustDown(this.keys.W))) {
+                this.player.setVelocityY(this.JUMP_VELOCITY);
+                this.sound.play("jump", {
+                        volume: 0.5,
+                        rate: Phaser.Math.FloatBetween(0.95, 1.15)
+                    });
+            }
+
+            // JUMP FRAME CONTROL
+            if ((!this.player.body.blocked.down) && (!this.gunActive)) {
+                // In air
+                if (this.player.body.velocity.x > 10) {
+                    // Jumping right
+                    this.player.setFrame(264);
+                    this.player.resetFlip(); // facing right
+                } else if (this.player.body.velocity.x < -10) {
+                    // Jumping left
+                    this.player.setFrame(264);
+                    this.player.setFlip(true, false); // facing left
                 } else {
-                    this.player.anims.play('idle', true);
+                    // Jumping straight up
+                    this.player.setFrame(265);
+                }
+            } else {
+                // On ground - play walk/idle animations
+                if (!this.isHurt) {
+                    if (this.player.body.velocity.x !== 0) {
+                        this.player.anims.play('walk', true);
+                    } else {
+                        this.player.anims.play('idle', true);
+                    }
                 }
             }
-        }
 
-        // If Q is just pressed, enable the gun and reset angle/direction
-        if (Phaser.Input.Keyboard.JustDown(this.keyQ)) {
-            this.gunActive = true;
-            this.gun.currentAngle = 0;
-            this.gun.direction = 1;
-            this.gun.setVisible(true);
-        }
-
-        // If gun is active, keep rotating it
-        if (this.gunActive) {
-            this.player.setTexture('playerGun');
-
-            // Update gun position and flip based on direction
-            if (this.player.flipX) {
-                this.gun.setOrigin(0.8, 0.5);
-                this.gun.setFlipX(true);
-                this.gun.x = this.player.x + 10;
-            } else {
-                this.gun.setOrigin(0.2, 0.5);
-                this.gun.setFlipX(false);
-                this.gun.x = this.player.x + 25;
+            // If Q is just pressed, enable the gun and reset angle/direction
+            if (Phaser.Input.Keyboard.JustDown(this.keyQ)) {
+                this.gunActive = true;
+                this.gun.currentAngle = 0;
+                this.gun.direction = 1;
+                this.gun.setVisible(true);
             }
-            this.gun.y = this.player.y + 20;
 
-            // Rotate the gun
-            this.gun.currentAngle += this.gun.rotationSpeed * this.gun.direction;
-            if (this.gun.currentAngle >= this.gun.maxAngle || this.gun.currentAngle <= this.gun.minAngle) {
-                this.gun.direction *= -1;
+            // If gun is active, keep rotating it
+            if (this.gunActive) {
+                this.player.setTexture('playerGun');
+
+                // Update gun position and flip based on direction
+                if (this.player.flipX) {
+                    this.gun.setOrigin(0.8, 0.5);
+                    this.gun.setFlipX(true);
+                    this.gun.x = this.player.x + 10;
+                } else {
+                    this.gun.setOrigin(0.2, 0.5);
+                    this.gun.setFlipX(false);
+                    this.gun.x = this.player.x + 25;
+                }
+                this.gun.y = this.player.y + 20;
+
+                // Rotate the gun
+                this.gun.currentAngle += this.gun.rotationSpeed * this.gun.direction;
+                if (this.gun.currentAngle >= this.gun.maxAngle || this.gun.currentAngle <= this.gun.minAngle) {
+                    this.gun.direction *= -1;
+                }
+                this.gun.rotation = this.gun.currentAngle;
             }
-            this.gun.rotation = this.gun.currentAngle;
-        }
 
-        if (Phaser.Input.Keyboard.JustUp(this.keyQ)) {
-            this.gunActive = false;
-            this.gun.setVisible(false);
-        }
+            if (Phaser.Input.Keyboard.JustUp(this.keyQ)) {
+                this.gunActive = false;
+                this.gun.setVisible(false);
+            }
 
-        const isShooting = this.keyE.isDown;
-        const now = this.time.now;
+            const isShooting = this.keyE.isDown;
+            const now = this.time.now;
 
-        if (this.gunActive && isShooting && now - this.lastFired > this.fireRate) {
-            this.fireBullet();
-            this.lastFired = now;
-            this.sound.play("shoot", {
-                volume: 0.5
-            });
+            if (this.gunActive && isShooting && now - this.lastFired > this.fireRate) {
+                this.fireBullet();
+                this.lastFired = now;
+                this.sound.play("shoot", {
+                    volume: 0.5
+                });
+            }
         }
+        else this.player.setVelocityX(0);
 
         // OPTIMIZATION: set enemies invisible if they're not close to the player -> lags otherwise
         const cam = this.cameras.main;
@@ -461,7 +475,15 @@ class LevelOne extends Phaser.Scene{
                 enemy.body.enable = true;
                 enemy.setVisible(true);
             }
-        });      
+        });     
+        
+        // WIN / LOSE CONDITIONS
+        if (this.keysCollected == 5) {
+            this.endScreen();
+        }
+        if (this.health <= 0) {
+            this.endScreen();
+        }
     }
 
     fireBullet() {
@@ -529,7 +551,40 @@ class LevelOne extends Phaser.Scene{
                 // Reset the flag after a delay
                 this.time.delayedCall(this.damageCooldown, () => {
                     this.canTakeDamage = true;
+                    this.isHurt = false;
                 });
             }
+    }
+
+    endScreen() {
+
+        // set everything to a lower opcaity so the win screen stands out
+        this.bgLayer.alpha = 0.25;
+        this.groundLayer.alpha = 0.5;
+        this.foregroundLayer = 0.5;
+
+        this.coins.forEach(coin => {
+            coin.alpha = 0.5;
+        });
+        
+        this.spikeGroup.getChildren().forEach(spike => {
+            spike.alpha = 0.5;
+        });
+
+        this.keyGroup.getChildren().forEach(key => {
+            key.alpha = 0.5;
+        });
+
+        this.enemies.getChildren().forEach(enemy => {
+            enemy.alpha = 0.5;
+        });
+
+        // don't let the player provide keyboard input unless it's to restart the game
+        this.inputEnabled = false;
+
+        // restart key
+        if (Phaser.Input.Keyboard.JustDown(this.rKey)) {
+            this.scene.restart();
+        }
     }
 }
