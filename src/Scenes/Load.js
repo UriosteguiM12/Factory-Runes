@@ -8,7 +8,11 @@ class Load extends Phaser.Scene {
 
         // Load tilemap information
         this.load.image("monochrome_tilemap", "monochrome_tilemap_packed.png");
-        this.load.image("monochrome_tilemap_transparent", "monochrome_tilemap_transparent_packed.png"); 
+        this.load.image("monochrome_tilemap_transparent", "monochrome_tilemap_transparent_packed.png");
+
+        //load images
+        this.load.image("coin_particle", "coin_particle.png");
+        this.load.image('key', 'tile_0096.png'); 
         
         this.load.spritesheet('characters', 'monochrome_tilemap_transparent_packed2.png', {
             frameWidth: 16,  
@@ -16,7 +20,7 @@ class Load extends Phaser.Scene {
         });
         
         // Packed tilemap
-        this.load.tilemapTiledJSON("level-one", "final_game.tmj");   // Tilemap in JSON
+        this.load.tilemapTiledJSON("level-one", "final_game.json");   // Tilemap in JSON
 
         // Load audio
         this.load.audio("coinCollect", "coin_collect.mp3");

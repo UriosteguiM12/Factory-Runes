@@ -18,7 +18,8 @@ class LevelOne extends Phaser.Scene{
 
         this.load.setPath("./assets/");
 
-        this.load.image('key', 'tile_0096.png');
+        //loading animatedTiles plugin
+        this.load.scenePlugin('AnimatedTiles', './lib/AnimatedTiles.js', 'animatedTiles', 'animatedTiles');
 
         // enemy animations
         this.load.image('shellIdle', 'tile_1365.png');
@@ -175,6 +176,19 @@ class LevelOne extends Phaser.Scene{
 
         console.log(coinounter);
 
+        // vfx for collecting coins
+        this.coinCollectParticles = this.add.particles(0, 0, "coin_particle", {
+            quantity: 10,
+            lifespan: 600,
+            speed: { min: 50, max: 100 },
+            angle: { min: 0, max: 360 },
+            scale: { start: 1.0, end: 0.0 },
+            alpha: { start: 1, end: 0 },
+            gravityY: -100,
+            //rotate: { min: -180, max: 180 },
+            emitting: false // only triggered manually with explode 
+        });
+
         // player setup
         this.player = this.physics.add.sprite(160, 3500, "characters", 260);
         this.player.setCollideWorldBounds(true);
@@ -327,11 +341,15 @@ class LevelOne extends Phaser.Scene{
 
         // Handle collision detection with coins
         this.physics.add.overlap(this.player, this.coinGroup, (obj1, obj2) => {
-            obj2.destroy(); // remove coin on overlap
+            //trigger particle effect
+            this.coinCollectParticles.explode(10, obj2.x, obj2.y);
+            // remove coin on overlap
+            obj2.destroy(); 
+            this.coinCount ++;
             this.sound.play("coinCollect", {
                     volume: 0.5
                 });
-            this.coinCount ++;
+                
             // Add health for every 10 coins collected
             if (this.coinCount % 10 == 0) {
                 this.health++;
@@ -358,6 +376,10 @@ class LevelOne extends Phaser.Scene{
                 this.playerTakeDamage();
             }
         });
+
+        // finally, initialize the animated tiles plugin
+        // broken rn tho
+        //this.animatedTiles.init(this.map);
     }
 
     update() {
