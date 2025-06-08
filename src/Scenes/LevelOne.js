@@ -162,7 +162,9 @@ class LevelOne extends Phaser.Scene{
 
         });
 
+        let coinounter = 0;
         this.coins.forEach(coin => {
+            coinounter++;
             coin.setScale(2.0);
             coin.setOrigin(0.5, 0.5);
             coin.x *= 2;
@@ -170,6 +172,8 @@ class LevelOne extends Phaser.Scene{
             coin.alpha = 1.0;
             this.coinGroup.add(coin);
         });
+
+        console.log(coinounter);
 
         // player setup
         this.player = this.physics.add.sprite(160, 3500, "characters", 260);
@@ -306,7 +310,7 @@ class LevelOne extends Phaser.Scene{
         this.coinMultiplier = this.add.image(270, 303, 'multiplier').setScrollFactor(0).setScale(1);
 
         this.coinDigits = [];
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < 3; i++) {
             let digit = this.add.image(290 + i * 24, 300, 'digit_0').setScrollFactor(0).setScale(2.0);
             this.coinDigits.push(digit);
         }
