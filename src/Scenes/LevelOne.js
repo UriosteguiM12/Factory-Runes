@@ -281,6 +281,9 @@ class LevelOne extends Phaser.Scene{
             key.destroy();
             this.keysCollected++;
             console.log('key has been collected!');
+            this.sound.play("keyCollect", {
+                    volume: 0.5
+                });
 
             // add a condition for when the player collects all 5 keys
         });

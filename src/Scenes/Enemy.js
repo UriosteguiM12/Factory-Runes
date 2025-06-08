@@ -72,6 +72,10 @@ class ShellEnemy extends Enemy {
         if (!this.alive) return;
 
         this.health -= 100;
+        // play hurt sound
+        this.scene.sound.play("enemyHurt", {
+            volume: 0.5
+        });
 
         if (this.health <= 0) {
             this.alive = false;
@@ -86,6 +90,11 @@ class ShellEnemy extends Enemy {
             this.play('shellDie');
             this.alive = false;
 
+            // play death sound
+            this.scene.sound.play("enemyDeath", {
+                volume: 0.5
+            });
+
             this.on('animationcomplete', () => {
                 this.disableBody(true, true);  // removes from scene
 
@@ -94,6 +103,9 @@ class ShellEnemy extends Enemy {
                     key.setScale(2);
                     key.setBounce(0.2);
                     key.setCollideWorldBounds(true);
+                    this.scene.sound.play("keyDrop", {
+                        volume: 0.5
+                    });
                 }
 
                 this.destroy();
@@ -134,6 +146,10 @@ class FlyingEnemy extends Enemy {
         if (!this.alive) return;
 
         this.health -= 100;
+        // play hurt sound
+        this.scene.sound.play("enemyHurt", {
+            volume: 0.5
+        });
 
         if (this.health <= 0) {
             this.alive = false;
@@ -148,6 +164,11 @@ class FlyingEnemy extends Enemy {
             this.play('flyingDie');
             this.alive = false;
 
+            // play death sound
+            this.scene.sound.play("enemyDeath", {
+                volume: 0.5
+            });
+
             this.on('animationcomplete', () => {
                 this.disableBody(true, true);  // removes from scene
                 // if the enemy has a key, it will spawn after the death animation
@@ -156,6 +177,9 @@ class FlyingEnemy extends Enemy {
                     key.setScale(2);
                     key.setBounce(0.2);
                     key.setCollideWorldBounds(true);
+                    this.scene.sound.play("keyDrop", {
+                        volume: 0.5
+                    });
                 }
 
                 this.destroy();
