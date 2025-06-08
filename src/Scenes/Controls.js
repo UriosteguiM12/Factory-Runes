@@ -19,7 +19,14 @@ class Controls extends Phaser.Scene{
             color: '#ffffff'
         }).setOrigin(1.0);
 
-        titleText.setResolution(2); 
+        titleText.setResolution(2);
+        
+        const bodyText = this.add.text(425, 350, 'A+D or arrow keys ---- Move\n\n\nW, Space, Up arrow key --- Jump\n\n\nQ (Hold) -------- Aim\n\n\nE ------- Fire', {
+            fontFamily: 'PressStart',
+            fontSize: '12px',
+            color: '#ffffff'
+        }).setOrigin(0.9);
+        bodyText.setResolution(2);
 
         const homeButton = this.add.image(450, 950, 'homeButton').setInteractive();
         homeButton.setScale(4.5);

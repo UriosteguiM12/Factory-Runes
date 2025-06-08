@@ -46,11 +46,18 @@ class TitleScreen extends Phaser.Scene{
         graphics.lineTo(1000, 750);     // end point
         graphics.strokePath();
 
-        this.add.text(70, 100, 'Factory Runes', {
+        this.add.text(460, 130, 'Factory Runes', {
             fontFamily: 'Alagard',
             fontSize: '120px',
             color: '#ffffff'
-        });
+        }).setOrigin(0.5);
+
+        this.add.text(460, 640, 'Kill enemies to collect keys!\n\n\nYou need 5 keys to escape!', {
+            fontFamily: 'PressStart',
+            fontSize: '25px',
+            color: '#ffffff',
+            align: 'center'
+        }).setOrigin(0.5);
 
     }
 

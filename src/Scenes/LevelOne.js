@@ -336,6 +336,9 @@ class LevelOne extends Phaser.Scene{
             if (this.coinCount % 10 == 0) {
                 this.health++;
                 this.updateDigitImages(this.health, this.heartDigits)
+                this.sound.play("heal", {
+                    volume: 0.5
+                });
             }
             this.updateDigitImages(this.coinCount, this.coinDigits);
         })
