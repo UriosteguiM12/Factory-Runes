@@ -69,7 +69,7 @@ class LevelOne extends Phaser.Scene{
         this.bgLayer = this.map.createLayer("Background", tilesets, 0, 0);
         this.bgLayer.setScale(2.0);
         this.bgLayer.setCollisionByProperty({ collides: false });
-        this.bgLayer.alpha = 0.5;
+        this.bgLayer.alpha = 0.35;
 
         this.groundLayer = this.map.createLayer("Ground-n-Platforms", tilesets, 0, 0);
         this.groundLayer.setScale(2.0);
@@ -443,7 +443,7 @@ class LevelOne extends Phaser.Scene{
                     // Jumping straight up
                     this.player.setFrame(265);
                 }
-                
+
             } else {
                 // On ground - play walk/idle animations
                 if (!this.isHurt) {
@@ -613,7 +613,7 @@ class LevelOne extends Phaser.Scene{
         // set everything to a lower opcaity so the win screen stands out
         this.bgLayer.alpha = 0.25;
         this.groundLayer.alpha = 0.5;
-        this.foregroundLayer = 0.5;
+        this.foregroundLayer.alpha = 0.5;
 
         this.coins.forEach(coin => {
             coin.alpha = 0.5;
