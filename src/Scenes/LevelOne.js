@@ -10,6 +10,7 @@ class LevelOne extends Phaser.Scene{
         this.ACCELERATION = 1000;
         this.MAX_VELOCITY = 250;
         this.DRAG = 5000;
+        this.AIR_DRAG = 1500;
         this.JUMP_VELOCITY = -530;
         this.physics.world.gravity.y = 1000;
     }
@@ -411,7 +412,7 @@ class LevelOne extends Phaser.Scene{
             }
 
             // Grounded drag
-            this.player.setDragX(this.player.body.blocked.down ? this.DRAG : 0);
+            this.player.setDragX(this.player.body.blocked.down ? this.DRAG : this.AIR_DRAG);
 
             // Gravity
             //this.player.setGravityY(!this.player.body.blocked.down && this.player.body.velocity.y > 0 ? this.physics.world.gravity.y : 0);
