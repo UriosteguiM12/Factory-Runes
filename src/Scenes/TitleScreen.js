@@ -59,6 +59,11 @@ class TitleScreen extends Phaser.Scene{
             align: 'center'
         }).setOrigin(0.5);
 
+        //player avatar for title screen
+        this.menuCharacter = this.add.sprite(450, 400, "characters", 260);
+        this.menuCharacter.setScale(10);
+        this.menuCharacter.anims.play('walk', true);
+
     }
 
     update() {

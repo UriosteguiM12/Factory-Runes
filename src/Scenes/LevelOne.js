@@ -436,6 +436,8 @@ class LevelOne extends Phaser.Scene{
                     // Jumping left
                     this.player.setFrame(264);
                     this.player.setFlip(true, false); // facing left
+                ////////This seems to not be triggering, or only triggering under very specific circumstances?//////////
+                ////////Only ocurrs if the player starts a jump *while moving* left or right, then has their momentum reduced to zero in midair///////
                 } else {
                     // Jumping straight up
                     this.player.setFrame(265);
