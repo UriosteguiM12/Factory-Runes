@@ -438,10 +438,12 @@ class LevelOne extends Phaser.Scene{
                     this.player.setFlip(true, false); // facing left
                 ////////This seems to not be triggering, or only triggering under very specific circumstances?//////////
                 ////////Only ocurrs if the player starts a jump *while moving* left or right, then has their momentum reduced to zero in midair///////
+                /////// Also only triggers properly when the player is in the flashing state after taking damage?/////
                 } else {
                     // Jumping straight up
                     this.player.setFrame(265);
                 }
+                
             } else {
                 // On ground - play walk/idle animations
                 if (!this.isHurt) {
