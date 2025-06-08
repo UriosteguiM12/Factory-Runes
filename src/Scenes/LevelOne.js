@@ -491,9 +491,13 @@ class LevelOne extends Phaser.Scene{
             }
         });     
         
+        let allKeysCollected = false;
+
         // WIN / LOSE CONDITIONS
         if (this.keysCollected == 5) {
-            this.health += 5;
+            allKeysCollected = true;
+            if (allKeysCollected) this.health += 5;
+            allKeysCollected = false;
             this.endScreen();
         }
         if (this.health <= 0) {
