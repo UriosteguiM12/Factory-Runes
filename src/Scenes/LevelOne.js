@@ -96,13 +96,37 @@ class LevelOne extends Phaser.Scene{
         this.spikeGroup = this.physics.add.staticGroup();
         this.lockGroup = this.physics.add.staticGroup();
 
-        // Create locks from objects in the map
-        this.locks = this.map.createFromObjects("Gate", {
-            name: "lock",
-            key: "characters",
-            frame: 2,
-            scale: 2
+
+        const lockObjects = this.map.getObjectLayer('Gate').objects;
+        // for each lock object
+        lockObjects.forEach(obj => {
+
+            // get the "frameInt" property from Tiled
+            let frameInt = obj.properties?.find(p => p.name === 'FrameInt')?.value ?? 47;
+
+            // set characteristics
+            const lock = this.lockGroup.create(
+                obj.x * 2,
+                obj.y * 2,
+                'characters',       
+                frameInt           
+            );
+
+            lock.setOrigin(0, 1);
+            lock.setScale(2.0);
+            lock.alpha = 1.0;
+
+            // Lock collision box
+            let bodyX = 32;
+            let bodyY = 32;
+            let offsetX = 8;
+            let offsetY = -24;
+
+            lock.body.setSize(bodyX, bodyY);
+            lock.body.setOffset(offsetX, offsetY);
+            this.lockGroup.add(lock);
         });
+
 
         const spikeObjects = this.map.getObjectLayer('Spikes').objects;
 
@@ -209,6 +233,9 @@ class LevelOne extends Phaser.Scene{
         this.player.body.checkCollision.down = true;
         this.player.body.checkCollision.left = true;
         this.player.body.checkCollision.right = true;
+
+        // Make the locks collideable (needs to go after player is created)
+        this.physics.add.collider(this.player, this.lockGroup);
 
         // for key randomization:
         // Pick 4 unique random indices between 1 and 19
@@ -446,9 +473,6 @@ class LevelOne extends Phaser.Scene{
                     // Jumping left
                     this.player.setFrame(264);
                     this.player.setFlip(true, false); // facing left
-                ////////This seems to not be triggering, or only triggering under very specific circumstances?//////////
-                ////////Only ocurrs if the player starts a jump *while moving* left or right, then has their momentum reduced to zero in midair///////
-                /////// Also only triggers properly when the player is in the flashing state after taking damage?/////
                 } else {
                     // Jumping straight up
                     this.player.setFrame(265);

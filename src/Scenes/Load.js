@@ -16,7 +16,7 @@ class Load extends Phaser.Scene {
         this.load.image('idle_1', 'idle_1.png'); 
         this.load.image('idle_2', 'idle_2.png'); 
         
-        this.load.spritesheet('characters', 'monochrome_tilemap_transparent_packed2.png', {
+        this.load.spritesheet('characters', 'monochrome_tilemap_transparent_packed.png', {
             frameWidth: 16,  
             frameHeight: 16
         });
@@ -53,8 +53,8 @@ class Load extends Phaser.Scene {
         this.anims.create({
             key: 'idle',
             frames: [
-                {key: 'idle_1'},
-                {key: 'idle_2'}
+                {key: 'characters', frame: 260},
+                {key: 'characters', frame: 280}
             ],
             frameRate: 1,
             repeat: -1
