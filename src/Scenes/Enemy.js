@@ -94,20 +94,15 @@ class ShellEnemy extends Enemy {
             this.scene.sound.play("enemyDeath", {
                 volume: 0.5
             });
+            this.scene.enemiesKilled++;
+            console.log(this.scene.enemiesKilled);
 
             this.on('animationcomplete', () => {
                 this.disableBody(true, true);  // removes from scene
 
                 if (this.hasKey) {
-                    const key = this.scene.keyGroup.create(this.x, this.y, 'key');
-                    key.setScale(2);
-                    key.setBounce(0.2);
-                    key.setCollideWorldBounds(true);
-                    this.scene.sound.play("keyDrop", {
-                        volume: 0.5
-                    });
+                    this.scene.spawnKey(this.x, this.y);
                 }
-
                 this.destroy();
             });
         }
@@ -169,17 +164,14 @@ class FlyingEnemy extends Enemy {
                 volume: 0.5
             });
 
+            this.scene.enemiesKilled++;
+            console.log(this.scene.enemiesKilled);
+
             this.on('animationcomplete', () => {
                 this.disableBody(true, true);  // removes from scene
                 // if the enemy has a key, it will spawn after the death animation
                 if (this.hasKey) {
-                    const key = this.scene.keyGroup.create(this.x, this.y, 'key');
-                    key.setScale(2);
-                    key.setBounce(0.2);
-                    key.setCollideWorldBounds(true);
-                    this.scene.sound.play("keyDrop", {
-                        volume: 0.5
-                    });
+                    this.scene.spawnKey(this.x, this.y);
                 }
 
                 this.destroy();

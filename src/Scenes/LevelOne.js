@@ -18,6 +18,7 @@ class LevelOne extends Phaser.Scene{
         this.coinCount = 0;
         this.health = 7;
         this.keysCollected = 0;
+        this.enemiesKilled = 0;
     }
 
     preload() {
@@ -265,7 +266,7 @@ class LevelOne extends Phaser.Scene{
         Phaser.Utils.Array.Shuffle(remainingKeyIndices);  // randomize order
         let keyIndices = remainingKeyIndices.slice(0, 4);  // pick first 4
 
-        // enemy setup
+        // enemy setup (18 total)
         this.enemies = this.physics.add.group(); // this is going to contain all enemies, regardless of type
         const enemySpawns = [ { x: 654, y: 3331 }, // Shell closest to the spawn point 
                               { x: 638, y: 2970 }, // Fly on top of box with an X
@@ -357,7 +358,6 @@ class LevelOne extends Phaser.Scene{
             key.destroy();
             this.keysCollected++;
             this.keyCount.setText('x ' + this.keysCollected);
-            console.log('key has been collected!');
             this.sound.play("keyCollect", {
                     volume: 0.5
                 });
@@ -381,7 +381,7 @@ class LevelOne extends Phaser.Scene{
             this.coinCollectParticles.explode(10, obj2.x, obj2.y);
             // remove coin on overlap
             obj2.destroy(); 
-            this.coinCount ++;
+            this.coinCount++;
             this.coinScore.setText('x ' + this.coinCount);
             this.sound.play("coinCollect", {
                     volume: 0.5
@@ -565,6 +565,17 @@ class LevelOne extends Phaser.Scene{
         if (this.health <= 0) {
             this.endScreen();
         }
+    }
+
+    spawnKey(x, y) {
+        const key = this.keyGroup.create(x, y, 'key');
+        key.setScale(2.0);
+        key.setBounce(0.3);
+        key.setCollideWorldBounds(true);
+        this.sound.play("keyDrop", {
+            volume: 0.5
+        });
+        console.log("Spawned key!");
     }
 
     fireBullet() {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="80" height="120" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="556">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="80" height="120" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="558">
  <editorsettings>
   <export target="final_game.json" format="json"/>
  </editorsettings>
@@ -2770,6 +2770,8 @@
   <object id="543" name="coin" gid="3" x="960" y="928" width="16" height="16"/>
   <object id="544" name="coin" gid="3" x="960" y="384" width="16" height="16"/>
   <object id="555" name="coin" gid="3" x="432" y="1184" width="16" height="16"/>
+  <object id="556" name="coin" gid="3" x="272" y="1888" width="16" height="16"/>
+  <object id="557" name="coin" gid="3" x="304" y="1888" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="8" name="Gate">
   <object id="550" name="lock" gid="48" x="1120" y="112" width="16" height="16"/>
