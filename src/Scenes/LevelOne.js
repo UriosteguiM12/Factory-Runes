@@ -13,6 +13,11 @@ class LevelOne extends Phaser.Scene{
         this.AIR_DRAG = 1500;
         this.JUMP_VELOCITY = -530;
         this.physics.world.gravity.y = 1000;
+
+        // counters
+        this.coinCount = 0;
+        this.health = 7;
+        this.keysCollected = 0;
     }
 
     preload() {
@@ -35,12 +40,7 @@ class LevelOne extends Phaser.Scene{
         // counters
         this.load.image('heart', 'tile_0041.png')
         this.load.image('coin', 'tile_0002.png')
-
-        // digits
-        for (let i = 0; i <= 9; i++) {
-            this.load.image(`digit_${i}`, `tile_016${i}.png`);
-        }
-        this.load.image('multiplier', 'tile_0158.png');
+        this.load.image('key', 'tile_0096.png')
     }
 
     create() {
@@ -83,19 +83,10 @@ class LevelOne extends Phaser.Scene{
         this.foregroundLayer.alpha = 1.0;
 
 
-        // Create coins from objects in the map
-        this.coins = this.map.createFromObjects("Coins", {
-            name: "coin",
-            key: "characters",
-            frame: 2,
-            scale: 2
-        });
-
         // Add each coin/spike/lock sprite to the physics group
-        this.coinGroup = this.physics.add.staticGroup();
-        this.spikeGroup = this.physics.add.staticGroup();
         this.lockGroup = this.physics.add.staticGroup();
-
+        this.spikeGroup = this.physics.add.staticGroup();
+        this.coinGroup = this.physics.add.staticGroup();
 
         const lockObjects = this.map.getObjectLayer('Gate').objects;
         // for each lock object
@@ -129,7 +120,6 @@ class LevelOne extends Phaser.Scene{
 
 
         const spikeObjects = this.map.getObjectLayer('Spikes').objects;
-
         // for each spike object
         spikeObjects.forEach(obj => {
 
@@ -197,6 +187,14 @@ class LevelOne extends Phaser.Scene{
 
         });
 
+        // Create coins from objects in the map
+        this.coins = this.map.createFromObjects("Coins", {
+            name: "coin",
+            key: "characters",
+            frame: 2,
+            scale: 2
+        });
+
         let coinounter = 0;
         this.coins.forEach(coin => {
             coinounter++;
@@ -219,9 +217,33 @@ class LevelOne extends Phaser.Scene{
             scale: { start: 1.0, end: 0.0 },
             alpha: { start: 1, end: 0 },
             gravityY: -100,
-            //rotate: { min: -180, max: 180 },
             emitting: false // only triggered manually with explode 
         });
+
+        // COIN UI
+        this.coin = this.add.image(250, 300, 'coin').setScrollFactor(0).setScale(2);
+        this.coinScore = this.add.text(this.cameras.main.centerX - 150, this.cameras.main.centerY - 236, 'x ' + this.coinCount, {
+            fontFamily: 'Alagard',
+            fontSize: '16px',
+            color: '#ffffff'
+        }).setOrigin(0.5).setScale(2.0).setScrollFactor(0);
+        
+        // HEALTH UI
+        this.heart = this.add.image(250, 340, 'heart').setScrollFactor(0).setScale(2);
+        this.healthCounter = this.add.text(this.cameras.main.centerX - 150, this.cameras.main.centerY - 197, 'x ' + this.health, {
+            fontFamily: 'Alagard',
+            fontSize: '16px',
+            color: '#ffffff'
+        }).setOrigin(0.5).setScale(2.0).setScrollFactor(0);
+
+        // KEY UI
+        this.keyImage = this.add.image(600, 300, 'key').setScrollFactor(0).setScale(2);
+        this.keyCount = this.add.text(this.cameras.main.centerX + 200, this.cameras.main.centerY - 236, 'x ' + this.keysCollected, {
+            fontFamily: 'Alagard',
+            fontSize: '16px',
+            color: '#ffffff'
+        }).setOrigin(0.5).setScale(2.0).setScrollFactor(0);
+
 
         // player setup
         this.player = this.physics.add.sprite(160, 3500, "characters", 260);
@@ -330,11 +352,11 @@ class LevelOne extends Phaser.Scene{
         // key collection
         this.keyGroup = this.physics.add.group();
         this.physics.add.collider(this.keyGroup, this.groundLayer);
-        this.keysCollected = 0;
 
         this.physics.add.overlap(this.player, this.keyGroup, (player, key) => {
             key.destroy();
             this.keysCollected++;
+            this.keyCount.setText('x ' + this.keysCollected);
             console.log('key has been collected!');
             this.sound.play("keyCollect", {
                     volume: 0.5
@@ -352,29 +374,6 @@ class LevelOne extends Phaser.Scene{
         this.cameras.main.followOffset.set(-100, 0);
         this.physics.world.TILE_BIAS = 40; // should help with not having the player go through tiles while falling
 
-        // counters
-        this.coinCount = 0;
-        this.health = 10;
-
-        // COIN UI
-        this.coin = this.add.image(250, 300, 'coin').setScrollFactor(0).setScale(2);
-        this.coinMultiplier = this.add.image(270, 303, 'multiplier').setScrollFactor(0).setScale(1);
-
-        this.coinDigits = [];
-        for (let i = 0; i < 3; i++) {
-            let digit = this.add.image(290 + i * 24, 300, 'digit_0').setScrollFactor(0).setScale(2.0);
-            this.coinDigits.push(digit);
-        }
-
-        // HEALTH UI
-        this.heart = this.add.image(250, 340, 'heart').setScrollFactor(0).setScale(2);
-        this.heartMultiplier = this.add.image(270, 343, 'multiplier').setScrollFactor(0).setScale(1);
-
-        this.heartDigits = [];
-        for (let i = 1; i >= 0; i--) {
-            let digit = this.add.image(315 - i * 24, 340, (`digit_${i}`)).setScrollFactor(0).setScale(2);
-            this.heartDigits.push(digit);
-        }
 
         // Handle collision detection with coins
         this.physics.add.overlap(this.player, this.coinGroup, (obj1, obj2) => {
@@ -383,6 +382,7 @@ class LevelOne extends Phaser.Scene{
             // remove coin on overlap
             obj2.destroy(); 
             this.coinCount ++;
+            this.coinScore.setText('x ' + this.coinCount);
             this.sound.play("coinCollect", {
                     volume: 0.5
                 });
@@ -390,12 +390,11 @@ class LevelOne extends Phaser.Scene{
             // Add health for every 10 coins collected
             if (this.coinCount % 10 == 0) {
                 this.health++;
-                this.updateDigitImages(this.health, this.heartDigits)
+                this.healthCounter.setText('x ' + this.health);
                 this.sound.play("heal", {
                     volume: 0.5
                 });
             }
-            this.updateDigitImages(this.coinCount, this.coinDigits);
         })
 
         // player damage cooldowns
@@ -611,19 +610,10 @@ class LevelOne extends Phaser.Scene{
         bullet.setActive(true);
     }
 
-    updateDigitImages(value, imageArray) {
-        if (value >= 0) {
-            const str = value.toString().padStart(imageArray.length, '0');
-            for (let i = 0; i < imageArray.length; i++) {
-                imageArray[i].setTexture(`digit_${str[i]}`);
-            }
-        }
-    }
-
     playerTakeDamage() {
         if (this.canTakeDamage) {
                 this.health--;
-                this.updateDigitImages(this.health, this.heartDigits);
+                this.healthCounter.setText('x ' + this.health);
 
                 this.sound.play("hurt", {
                     volume: 0.5
