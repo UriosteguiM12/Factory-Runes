@@ -91,9 +91,18 @@ class LevelOne extends Phaser.Scene{
             scale: 2
         });
 
-        // Add each coin/spike sprite to the physics group
+        // Add each coin/spike/lock sprite to the physics group
         this.coinGroup = this.physics.add.staticGroup();
         this.spikeGroup = this.physics.add.staticGroup();
+        this.lockGroup = this.physics.add.staticGroup();
+
+        // Create locks from objects in the map
+        this.locks = this.map.createFromObjects("Gate", {
+            name: "lock",
+            key: "characters",
+            frame: 2,
+            scale: 2
+        });
 
         const spikeObjects = this.map.getObjectLayer('Spikes').objects;
 
