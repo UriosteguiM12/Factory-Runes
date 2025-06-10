@@ -19,6 +19,9 @@ class LevelOne extends Phaser.Scene{
         this.health = 7;
         this.keysCollected = 0;
         this.enemiesKilled = 0;
+
+        // stores locks that will be unlocked once player gets near
+        this.pendingUnlocks = [];
     }
 
     preload() {
@@ -89,6 +92,8 @@ class LevelOne extends Phaser.Scene{
         this.spikeGroup = this.physics.add.staticGroup();
         this.coinGroup = this.physics.add.staticGroup();
 
+
+        this.lockArray = [];
         const lockObjects = this.map.getObjectLayer('Gate').objects;
         // for each lock object
         lockObjects.forEach(obj => {
@@ -117,6 +122,8 @@ class LevelOne extends Phaser.Scene{
             lock.body.setSize(bodyX, bodyY);
             lock.body.setOffset(offsetX, offsetY);
             this.lockGroup.add(lock);
+
+            this.lockArray.push(lock);
         });
 
 
@@ -362,6 +369,9 @@ class LevelOne extends Phaser.Scene{
                     volume: 0.5
                 });
 
+            // 🔓 Unlock a lock
+            this.unlockNextLock();
+
             // add a condition for when the player collects all 5 keys
         });
 
@@ -551,7 +561,24 @@ class LevelOne extends Phaser.Scene{
                 enemy.body.enable = true;
                 enemy.setVisible(true);
             }
-        });     
+        });
+        
+        
+        // Check for nearby pending locks to unlock
+        this.pendingUnlocks = this.pendingUnlocks.filter(lock => {
+            const distance = Phaser.Math.Distance.Between(
+                this.player.x, this.player.y,
+                lock.x, lock.y
+            );
+
+            if (distance < 100) { // adjust proximity as needed
+                this.lockGroup.remove(lock, true, true);
+                //this.sound.play("unlock", { volume: 0.5 });
+                this.coinCollectParticles.explode(10, lock.x + 18, lock.y - 20);
+                return false; // remove from pendingUnlocks
+            }
+            return true; // keep it in the list if still too far
+        });
         
         let allKeysCollected = false;
 
@@ -578,6 +605,18 @@ class LevelOne extends Phaser.Scene{
         console.log("Spawned key!");
     }
 
+
+    unlockNextLock() {
+        if (this.keysCollected <= this.lockArray.length) {
+            const lockToUnlock = this.lockArray[this.lockArray.length - this.keysCollected]; // reverse order
+            if (lockToUnlock) {
+            // Queue it for unlocking when the player gets close
+            this.pendingUnlocks.push(lockToUnlock);
+            }
+        }  
+    }
+
+    
     fireBullet() {
         const bullet = this.bullets.get();
 
