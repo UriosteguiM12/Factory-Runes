@@ -269,7 +269,7 @@ class LevelOne extends Phaser.Scene{
 
         // for key randomization:
         // Pick 4 unique random indices between 1 and 19
-        let remainingKeyIndices = Phaser.Utils.Array.NumberArray(1, 19);
+        let remainingKeyIndices = Phaser.Utils.Array.NumberArray(1, 17);
         Phaser.Utils.Array.Shuffle(remainingKeyIndices);  // randomize order
         let keyIndices = remainingKeyIndices.slice(0, 4);  // pick first 4
 
