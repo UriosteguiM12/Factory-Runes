@@ -20,9 +20,9 @@ class Credits extends Phaser.Scene{
 
         titleText.setResolution(2);
         
-        const bodyText = this.add.text(425, 300, 'Sound effects and assets by Kenny\n\n\nGo check out http://support.kenney.nl!!', {
+        const bodyText = this.add.text(425, 400, 'A game by Marina Uriostegui and Erin Casey\n\n\nSound effects and assets by Kenny\n\n\nGo check out http://support.kenney.nl!!\n\n\nAlagard font by Hewett Tsoi from\nhttps://www.dafont.com/alagard.font\n\n\nPress Start 2P font from\nhttps://www.dafont.com/press-start-2p.font', {
             fontFamily: 'PressStart',
-            fontSize: '11px',
+            fontSize: '10px',
             color: '#ffffff'
         }).setOrigin(0.9);
         bodyText.setResolution(2);
@@ -36,9 +36,6 @@ class Credits extends Phaser.Scene{
                 volume: 0.5
             });
         });
-
-
-
     }
 
     update() {
