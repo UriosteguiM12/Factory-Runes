@@ -158,7 +158,7 @@ class LevelOne extends Phaser.Scene{
             const lock = this.lockGroup.create(
                 obj.x * 2,
                 obj.y * 2,
-                'monochrome_tilemap',       
+                'characters',       
                 frameInt           
             );
 
@@ -322,7 +322,7 @@ class LevelOne extends Phaser.Scene{
         this.physics.add.collider(this.player, this.lockGroup);
 
         // for key randomization:
-        // Pick 4 unique random indices between 1 and 19
+        // Pick 4 unique random indices between 1 and 17
         let remainingKeyIndices = Phaser.Utils.Array.NumberArray(1, 17);
         Phaser.Utils.Array.Shuffle(remainingKeyIndices);  // randomize order
         let keyIndices = remainingKeyIndices.slice(0, 4);  // pick first 4
@@ -423,7 +423,6 @@ class LevelOne extends Phaser.Scene{
                     volume: 0.5
                 });
 
-            // 🔓 Unlock a lock
             this.unlockNextLock();
 
             // add a condition for when the player collects all 5 keys
