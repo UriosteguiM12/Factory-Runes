@@ -19,6 +19,7 @@ class LevelOne extends Phaser.Scene{
         this.health = 7;
         this.keysCollected = 0;
         this.enemiesKilled = 0;
+        this.playerAlive = true;
 
         // stores locks that will be unlocked once player gets near
         this.pendingUnlocks = [];
@@ -620,6 +621,7 @@ class LevelOne extends Phaser.Scene{
 
         // LOSE CONDITIONS
         if (this.health <= 0) {
+            this.playerAlive = false;
             this.endScreen();
         }
     }
@@ -692,6 +694,7 @@ class LevelOne extends Phaser.Scene{
 
     playerTakeDamage() {
         if (this.canTakeDamage) {
+            if (this.playerAlive){
                 this.health--;
                 this.healthCounter.setText('x ' + this.health);
 
@@ -710,6 +713,7 @@ class LevelOne extends Phaser.Scene{
                     this.isHurt = false;
                 });
             }
+        }
     }
 
     endScreen() {
