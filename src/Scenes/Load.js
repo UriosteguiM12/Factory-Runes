@@ -7,6 +7,7 @@ class Load extends Phaser.Scene {
         this.load.setPath("./assets/");
 
         // Load tilemap information
+        this.load.image("monochrome_tilemap", "monochrome_tilemap_packed.png");
         this.load.image("monochrome_tilemap_transparent", "monochrome_tilemap_transparent_packed.png");
 
         //load images
@@ -19,7 +20,7 @@ class Load extends Phaser.Scene {
             frameWidth: 16,  
             frameHeight: 16
         });
-        this.load.spritesheet('monochrome_tilemap', 'monochrome_tilemap_packed.png', {
+        this.load.spritesheet('monochrome_tilemap_spritesheet', 'monochrome_tilemap_packed.png', {
             frameWidth: 16,  
             frameHeight: 16
         });
