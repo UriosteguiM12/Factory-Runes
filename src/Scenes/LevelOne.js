@@ -87,23 +87,6 @@ class LevelOne extends Phaser.Scene{
         this.foregroundLayer.alpha = 1.0;
 
 
-
-        //const doorObject = this.map.getObjectLayer('Door').objects.find(obj => obj.name === 'door');
-
-        //if (doorObject) {
-            //this.door = this.physics.add.sprite(doorObject.x * 2, doorObject.y * 2, 'characters', /* frame ID */ 48);
-            /*this.door.setScale(2.0);
-            this.door.setOrigin(0, 1);
-            this.door.body.setAllowGravity(false);
-            this.door.body.setImmovable(true);
-
-            this.physics.add.overlap(this.player, this.door, this.showWinScreen, null, this);
-        }
-        else {
-        console.warn("Door object is missing or malformed. Check its 'name', 'x', and 'y' properties in Tiled.");
-        }*/
-
-
         // Add each coin/spike/lock sprite to the physics group
         this.lockGroup = this.physics.add.staticGroup();
         this.spikeGroup = this.physics.add.staticGroup();
@@ -138,13 +121,6 @@ class LevelOne extends Phaser.Scene{
             door.body.setOffset(offsetX, offsetY);
             this.doorGroup.add(door);
         });
-        //const doorObject = doorObjectLayer.objects.find(obj => obj.name === 'door');
-        /*console.log("Door object:", doorObject);
-        this.door = this.add.sprite(doorObject.x * 2, doorObject.y * 2, 'monochrome_tilemap', 56);
-        this.door.setScale(2.0);
-        this.door.setOrigin(0, 1);*/
-        //this.physics.add.overlap(this.player, this.door, this.showWinScreen, null, this);
-
 
         this.lockArray = [];
         const lockObjects = this.map.getObjectLayer('Gate').objects;
@@ -158,7 +134,7 @@ class LevelOne extends Phaser.Scene{
             const lock = this.lockGroup.create(
                 obj.x * 2,
                 obj.y * 2,
-                'characters',       
+                'monochrome_tilemap_spritesheet',       
                 frameInt           
             );
 
@@ -411,7 +387,7 @@ class LevelOne extends Phaser.Scene{
 
         });
 
-        // key collection
+        // handle collision with keys
         this.keyGroup = this.physics.add.group();
         this.physics.add.collider(this.keyGroup, this.groundLayer);
 
@@ -424,41 +400,30 @@ class LevelOne extends Phaser.Scene{
                 });
 
             this.unlockNextLock();
-
-            // add a condition for when the player collects all 5 keys
         });
-
-        // camera code
-        this.cameras.main.setBounds(0, 0, 2570, 4000);
-        this.physics.world.setBounds(0, 0, 2570, 4000);
-        this.cameras.main.startFollow(this.player, true, 0.08, 0.08, 100, 0);
-        this.cameras.main.setDeadzone(150, 150);
-        this.cameras.main.setZoom(2.0);
-        this.cameras.main.followOffset.set(-100, 0);
-        this.physics.world.TILE_BIAS = 40; // should help with not having the player go through tiles while falling
 
 
         // Handle collision detection with coins
-        this.physics.add.overlap(this.player, this.coinGroup, (obj1, obj2) => {
-            //trigger particle effect
-            this.coinCollectParticles.explode(10, obj2.x, obj2.y);
-            // remove coin on overlap
-            obj2.destroy(); 
-            this.coinCount++;
-            this.coinScore.setText('x ' + this.coinCount);
-            this.sound.play("coinCollect", {
-                    volume: 0.5
-                });
-                
-            // Add health for every 10 coins collected
-            if (this.coinCount % 10 == 0) {
-                this.health++;
-                this.healthCounter.setText('x ' + this.health);
-                this.sound.play("heal", {
-                    volume: 0.5
-                });
-            }
-        })
+                this.physics.add.overlap(this.player, this.coinGroup, (obj1, obj2) => {
+                    //trigger particle effect
+                    this.coinCollectParticles.explode(10, obj2.x, obj2.y);
+                    // remove coin on overlap
+                    obj2.destroy(); 
+                    this.coinCount++;
+                    this.coinScore.setText('x ' + this.coinCount);
+                    this.sound.play("coinCollect", {
+                            volume: 0.5
+                        });
+                        
+                    // Add health for every 10 coins collected
+                    if (this.coinCount % 10 == 0) {
+                        this.health++;
+                        this.healthCounter.setText('x ' + this.health);
+                        this.sound.play("heal", {
+                            volume: 0.5
+                        });
+                    }
+                })
 
         // player damage cooldowns
         this.canTakeDamage = true;
@@ -475,6 +440,25 @@ class LevelOne extends Phaser.Scene{
                 this.playerTakeDamage();
             }
         });
+        
+        //handle collision with door
+        this.physics.add.overlap(this.player, this.doorGroup, () => {
+            /*this.sound.play("keyCollect", {
+                    volume: 0.5
+                });*/
+            // Can have it take you to the menu screen immediately since you need 5 keys to access anyways
+            this.showWinScreen();
+        });
+        
+        // camera code
+        this.cameras.main.setBounds(0, 0, 2570, 4000);
+        this.physics.world.setBounds(0, 0, 2570, 4000);
+        this.cameras.main.startFollow(this.player, true, 0.08, 0.08, 100, 0);
+        this.cameras.main.setDeadzone(150, 150);
+        this.cameras.main.setZoom(2.0);
+        this.cameras.main.followOffset.set(-100, 0);
+        this.physics.world.TILE_BIAS = 40; // should help with not having the player go through tiles while falling
+
 
         // finally, initialize the animated tiles plugin
         // broken rn tho
@@ -635,16 +619,10 @@ class LevelOne extends Phaser.Scene{
         
         let allKeysCollected = false;
 
-        // WIN / LOSE CONDITIONS
-        /*if (this.keysCollected == 5) {
-            allKeysCollected = true;
-            if (allKeysCollected) this.health += 5;
-            allKeysCollected = false;
-            this.endScreen();
-        }
+        // LOSE CONDITIONS
         if (this.health <= 0) {
             this.endScreen();
-        }*/
+        }
     }
 
     spawnKey(x, y) {
@@ -736,30 +714,32 @@ class LevelOne extends Phaser.Scene{
     }
 
     endScreen() {
+        // Dim background layers
+        this.bgLayer.alpha = 0.15;
+        this.groundLayer.alpha = 0.3;
+        this.foregroundLayer.alpha = 0.3;
 
-        // set everything to a lower opcaity so the end screen stands out
-        this.bgLayer.alpha = 0.25;
-        this.groundLayer.alpha = 0.5;
-        this.foregroundLayer.alpha = 0.5;
-
-        this.coins.forEach(coin => coin.alpha = 0.5);
-        this.spikeGroup.getChildren().forEach(spike => spike.alpha = 0.5);
-        this.keyGroup.getChildren().forEach(key => key.alpha = 0.5);
-        this.enemies.getChildren().forEach(enemy => enemy.alpha = 0.5);
+        this.coins.forEach(coin => coin.alpha = 0.3);
+        this.spikeGroup.getChildren().forEach(spike => spike.alpha = 0.3);
+        this.keyGroup.getChildren().forEach(key => key.alpha = 0.3);
+        this.enemies.getChildren().forEach(enemy => enemy.alpha = 0.3);
+        if (this.door) this.door.alpha = 0.3;
 
         // don't let the player provide keyboard input unless it's to restart the game
         this.inputEnabled = false;
 
+        const { centerX, centerY } = this.cameras.main;
+
         // Add game over text
         this.add.text(centerX, centerY - 50, "Game Over", {
             fontFamily: 'Alagard',
-            fontSize: '32px',
-            color: '#ffff00'
+            fontSize: '75px',
+            color: '#ffffff'
         }).setOrigin(0.5).setScrollFactor(0);
 
         this.add.text(centerX, centerY + 50, `Press R to Restart`, {
             fontFamily: 'Alagard',
-            fontSize: '18px',
+            fontSize: '38px',
             color: '#ffffff'
         }).setOrigin(0.5).setScrollFactor(0);
 
@@ -773,34 +753,34 @@ class LevelOne extends Phaser.Scene{
         this.inputEnabled = false;
 
         // Dim background layers
-        this.bgLayer.alpha = 0.25;
-        this.groundLayer.alpha = 0.5;
-        this.foregroundLayer.alpha = 0.5;
+        this.bgLayer.alpha = 0.15;
+        this.groundLayer.alpha = 0.3;
+        this.foregroundLayer.alpha = 0.3;
 
-        this.coins.forEach(coin => coin.alpha = 0.5);
-        this.spikeGroup.getChildren().forEach(spike => spike.alpha = 0.5);
-        this.keyGroup.getChildren().forEach(key => key.alpha = 0.5);
-        this.enemies.getChildren().forEach(enemy => enemy.alpha = 0.5);
-        if (this.door) this.door.alpha = 0.5;
+        this.coins.forEach(coin => coin.alpha = 0.3);
+        this.spikeGroup.getChildren().forEach(spike => spike.alpha = 0.3);
+        this.keyGroup.getChildren().forEach(key => key.alpha = 0.3);
+        this.enemies.getChildren().forEach(enemy => enemy.alpha = 0.3);
+        if (this.door) this.door.alpha = 0.3;
 
         const { centerX, centerY } = this.cameras.main;
 
         // Add win text
-        this.add.text(centerX, centerY - 50, "You Won!", {
+        this.add.text(centerX, centerY - 100, "You Won!", {
             fontFamily: 'Alagard',
-            fontSize: '32px',
-            color: '#ffff00'
+            fontSize: '75px',
+            color: '#ffffff'
         }).setOrigin(0.5).setScrollFactor(0);
 
         this.add.text(centerX, centerY, `Coins Collected: ${this.coinCount}`, {
             fontFamily: 'Alagard',
-            fontSize: '24px',
+            fontSize: '38px',
             color: '#ffffff'
         }).setOrigin(0.5).setScrollFactor(0);
 
-        this.add.text(centerX, centerY + 50, `Press R to Restart`, {
+        this.add.text(centerX, centerY + 70, `Press R to Restart`, {
             fontFamily: 'Alagard',
-            fontSize: '18px',
+            fontSize: '32px',
             color: '#ffffff'
         }).setOrigin(0.5).setScrollFactor(0);
 
