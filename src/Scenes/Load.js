@@ -7,7 +7,6 @@ class Load extends Phaser.Scene {
         this.load.setPath("./assets/");
 
         // Load tilemap information
-        this.load.image("monochrome_tilemap", "monochrome_tilemap_packed.png");
         this.load.image("monochrome_tilemap_transparent", "monochrome_tilemap_transparent_packed.png");
 
         //load images
