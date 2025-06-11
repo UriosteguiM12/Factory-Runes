@@ -29,7 +29,7 @@ class LevelOne extends Phaser.Scene{
         this.load.setPath("./assets/");
 
         //loading animatedTiles plugin
-        this.load.scenePlugin('AnimatedTiles', './lib/AnimatedTiles.js', 'animatedTiles', 'animatedTiles');
+        //this.load.scenePlugin('AnimatedTiles', './lib/AnimatedTiles.js', 'animatedTiles', 'animatedTiles');
 
         // enemy animations
         this.load.image('shellIdle', 'tile_1365.png');
