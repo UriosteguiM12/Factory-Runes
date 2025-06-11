@@ -283,8 +283,7 @@ class LevelOne extends Phaser.Scene{
 
 
         // player setup
-        //this.player = this.physics.add.sprite(160, 3500, "characters", 260);
-        this.player = this.physics.add.sprite(2020, 189, "characters", 260);
+        this.player = this.physics.add.sprite(160, 3500, "characters", 260);
         this.player.setCollideWorldBounds(true);
         this.player.setScale(1.8);
         this.player.setOrigin(0, 0);
@@ -545,7 +544,7 @@ class LevelOne extends Phaser.Scene{
 
             // If gun is active, keep rotating it
             if (this.gunActive) {
-                this.player.setTexture('playerGun');
+                //this.player.setTexture('playerGun');
 
                 // Update gun position and flip based on direction
                 if (this.player.flipX) {
