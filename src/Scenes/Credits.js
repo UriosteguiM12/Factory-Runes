@@ -32,6 +32,9 @@ class Credits extends Phaser.Scene{
 
         homeButton.on('pointerdown', () => {
             this.scene.start('TitleScreen');
+            this.sound.play("select_1", {
+                volume: 0.5
+            });
         });
 
 

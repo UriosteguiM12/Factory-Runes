@@ -13,10 +13,14 @@ class Load extends Phaser.Scene {
         //load images
         this.load.image("coin_particle", "coin_particle.png");
         this.load.image('key', 'tile_0096.png'); 
-        this.load.image('idle_1', 'idle_1.png'); 
-        this.load.image('idle_2', 'idle_2.png'); 
+        this.load.image('aiming', 'tile_266.png');
+        this.load.image('helmetEnemy', 'tile_1360.png');
         
         this.load.spritesheet('characters', 'monochrome_tilemap_transparent_packed.png', {
+            frameWidth: 16,  
+            frameHeight: 16
+        });
+        this.load.spritesheet('monochrome_tilemap', 'monochrome_tilemap_packed.png', {
             frameWidth: 16,  
             frameHeight: 16
         });
@@ -34,6 +38,8 @@ class Load extends Phaser.Scene {
         this.load.audio("enemyHurt", "enemy_damage.mp3");
         this.load.audio("enemyDeath", "enemy_death.mp3");
         this.load.audio("keyDrop", "key_drop.mp3");
+        this.load.audio("select_1", "select_1.mp3");
+        this.load.audio("select_2", "select_2.mp3");
     }
 
     create() {

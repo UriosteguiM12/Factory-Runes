@@ -33,7 +33,14 @@ class Controls extends Phaser.Scene{
 
         homeButton.on('pointerdown', () => {
             this.scene.start('TitleScreen');
+            this.sound.play("select_1", {
+                volume: 0.5
+            });
         });
+
+        //character for controls screen
+        this.controlsCharacter = this.add.sprite(200, 650, "aiming").setScale(12);;
+        this.controlsCharacter = this.add.sprite(700, 650, "helmetEnemy").setScale(12);;
 
     }
 

@@ -24,14 +24,23 @@ class TitleScreen extends Phaser.Scene{
 
         controlButton.on('pointerdown', () => {
             this.scene.start('Controls');
+            this.sound.play("select_2", {
+                volume: 0.5
+            });
         });
         
         creditButton.on('pointerdown', () => {
             this.scene.start('Credits');
+            this.sound.play("select_2", {
+                volume: 0.5
+            });
         });
 
         startButton.on('pointerdown', () => {
             this.scene.start('LevelOne');
+            this.sound.play("select_2", {
+                volume: 0.5
+            });
         });
 
         // Create a graphics object
