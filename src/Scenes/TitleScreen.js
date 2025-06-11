@@ -74,9 +74,4 @@ class TitleScreen extends Phaser.Scene{
         this.menuCharacter.anims.play('walk', true);
 
     }
-
-    update() {
-
-    }
-
 }
