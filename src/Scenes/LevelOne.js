@@ -134,7 +134,7 @@ class LevelOne extends Phaser.Scene{
             const lock = this.lockGroup.create(
                 obj.x * 2,
                 obj.y * 2,
-                'monochrome_tilemap',       
+                'monochrome_tilemap_spritesheet',       
                 frameInt           
             );
 
