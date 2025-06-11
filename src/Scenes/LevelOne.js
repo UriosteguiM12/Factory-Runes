@@ -16,7 +16,7 @@ class LevelOne extends Phaser.Scene{
 
         // counters
         this.coinCount = 0;
-        this.health = 7;
+        this.health = 3;
         this.keysCollected = 0;
         this.enemiesKilled = 0;
         this.playerAlive = true;
@@ -748,6 +748,9 @@ class LevelOne extends Phaser.Scene{
 
         // restart key
         if (Phaser.Input.Keyboard.JustDown(this.rKey)) {
+            this.sound.play("select_2", {
+                volume: 0.5
+            });
             this.scene.restart();
         }
     }
@@ -789,6 +792,9 @@ class LevelOne extends Phaser.Scene{
 
         // Listen for restart key
         this.input.keyboard.once('keydown-R', () => {
+            this.sound.play("select_2", {
+                volume: 0.5
+            });
             this.scene.restart();
         });
 }
