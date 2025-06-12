@@ -14,6 +14,9 @@ class LevelOne extends Phaser.Scene{
         this.JUMP_VELOCITY = -530;
         this.physics.world.gravity.y = 1000;
 
+        // turn off debug
+        this.physics.world.drawDebug = this.physics.world.drawDebug ? false : true;
+
         // counters
         this.coinCount = 0;
         this.health = 3;
