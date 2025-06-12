@@ -35,6 +35,9 @@ class Load extends Phaser.Scene {
         this.load.audio("shoot", "laser.mp3");
         this.load.audio("hurt", "take_damage.mp3");
         this.load.audio("heal", "health_up.ogg");
+        this.load.audio("death", "death.mp3");
+        this.load.audio("unlock", "unlock.mp3");
+        this.load.audio("win", "win.mp3");
         this.load.audio("enemyHurt", "enemy_damage.mp3");
         this.load.audio("enemyDeath", "enemy_death.mp3");
         this.load.audio("keyDrop", "key_drop.mp3");

@@ -14,12 +14,16 @@ class LevelOne extends Phaser.Scene{
         this.JUMP_VELOCITY = -530;
         this.physics.world.gravity.y = 1000;
 
+        // turn off debug
+        this.physics.world.drawDebug = this.physics.world.drawDebug ? false : true;
+
         // counters
         this.coinCount = 0;
-        this.health = 7;
+        this.health = 3;
         this.keysCollected = 0;
         this.enemiesKilled = 0;
         this.playerAlive = true;
+        this.gameOver = false
 
         // stores locks that will be unlocked once player gets near
         this.pendingUnlocks = [];
@@ -459,6 +463,15 @@ class LevelOne extends Phaser.Scene{
         this.cameras.main.followOffset.set(-100, 0);
         this.physics.world.TILE_BIAS = 40; // should help with not having the player go through tiles while falling
 
+        // Allow restarting the game
+        this.input.keyboard.on('keydown-R', () => {
+            if (this.gameOver) {
+                this.sound.play("select_2", { volume: 0.5 });
+                this.isHurt = false;
+                this.scene.restart();
+            }
+        });
+
 
         // finally, initialize the animated tiles plugin
         // broken rn tho
@@ -610,7 +623,7 @@ class LevelOne extends Phaser.Scene{
 
             if (distance < 200) { // adjust proximity as needed
                 this.lockGroup.remove(lock, true, true);
-                //this.sound.play("unlock", { volume: 0.5 });
+                this.sound.play("unlock", { volume: 0.5 });
                 this.coinCollectParticles.explode(10, lock.x + 18, lock.y - 20);
                 return false; // remove from pendingUnlocks
             }
@@ -698,9 +711,7 @@ class LevelOne extends Phaser.Scene{
                 this.health--;
                 this.healthCounter.setText('x ' + this.health);
 
-                this.sound.play("hurt", {
-                    volume: 0.5
-                });
+                this.sound.play("hurt", { volume: 0.5 });
 
                 this.canTakeDamage = false;
                 this.isHurt = true;
@@ -717,6 +728,14 @@ class LevelOne extends Phaser.Scene{
     }
 
     endScreen() {
+        // prevent repeat execution
+        if (this.gameOver) return;
+        this.gameOver = true;
+
+        this.inputEnabled = false;
+        this.player.setAccelerationX(0);
+        this.sound.play("death", { volume: 0.5 });
+
         // Dim background layers
         this.bgLayer.alpha = 0.15;
         this.groundLayer.alpha = 0.3;
@@ -729,7 +748,7 @@ class LevelOne extends Phaser.Scene{
         if (this.door) this.door.alpha = 0.3;
 
         // don't let the player provide keyboard input unless it's to restart the game
-        this.inputEnabled = false;
+        
 
         const { centerX, centerY } = this.cameras.main;
 
@@ -745,15 +764,15 @@ class LevelOne extends Phaser.Scene{
             fontSize: '38px',
             color: '#ffffff'
         }).setOrigin(0.5).setScrollFactor(0);
-
-        // restart key
-        if (Phaser.Input.Keyboard.JustDown(this.rKey)) {
-            this.scene.restart();
-        }
     }
 
     showWinScreen() {
+        if (this.gameOver) return;
+        this.gameOver = true;
+
         this.inputEnabled = false;
+        this.player.setAccelerationX(0);
+        this.sound.play("win", { volume: 0.5 });
 
         // Dim background layers
         this.bgLayer.alpha = 0.15;
@@ -786,12 +805,5 @@ class LevelOne extends Phaser.Scene{
             fontSize: '32px',
             color: '#ffffff'
         }).setOrigin(0.5).setScrollFactor(0);
-
-        // Listen for restart key
-        this.input.keyboard.once('keydown-R', () => {
-            this.scene.restart();
-        });
-}
-
-
+    }
 }
