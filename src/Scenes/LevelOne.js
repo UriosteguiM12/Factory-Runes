@@ -9,8 +9,8 @@ class LevelOne extends Phaser.Scene{
         // modify values to modify player jump
         this.ACCELERATION = 1000;
         this.MAX_VELOCITY = 250;
-        this.DRAG = 5000;
-        this.AIR_DRAG = 5000;
+        this.DRAG = 10000;
+        this.AIR_DRAG = 10000;
         this.JUMP_VELOCITY = -530;
         this.physics.world.gravity.y = 1000;
 
