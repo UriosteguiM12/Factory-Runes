@@ -10,7 +10,7 @@ class LevelOne extends Phaser.Scene{
         this.ACCELERATION = 1000;
         this.MAX_VELOCITY = 250;
         this.DRAG = 5000;
-        this.AIR_DRAG = 2700;
+        this.AIR_DRAG = 5000;
         this.JUMP_VELOCITY = -530;
         this.physics.world.gravity.y = 1000;
 
