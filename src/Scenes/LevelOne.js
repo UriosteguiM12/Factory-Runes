@@ -386,8 +386,11 @@ class LevelOne extends Phaser.Scene{
         this.fireRate = 150;
 
         this.physics.add.overlap(this.bullets, this.enemies, (bullet, enemy) => {
-            bullet.disableBody(true, true);  // bullet disappears
-            enemy.takeDamage();
+            if (!enemy.shellOnly) {
+                bullet.disableBody(true, true);  // bullet disappears
+                enemy.takeDamage();
+            }
+            else this.sound.play('ricochet');
 
         });
 

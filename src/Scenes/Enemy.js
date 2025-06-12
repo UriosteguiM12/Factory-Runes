@@ -10,6 +10,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.startY = y;
         this.patrolDistance = patrolDistance; // how far left/right to move
         this.direction = 1;  // 1 = right, -1 = left
+        this.shellOnly = false;
 
         // collision stuff
         this.health = 500;
@@ -45,6 +46,7 @@ class ShellEnemy extends Enemy {
 
         // if the player is too close to the enemy, hide
         if (this.closeProximity(this.scene.player)) {
+            this.shellOnly = true;
             this.setTexture('shellIdle');
             this.setVelocityX(0); // stop all movement
         }
@@ -52,6 +54,7 @@ class ShellEnemy extends Enemy {
         else {
             // WALKING
             // set the velocity in the direction that the enemy is moving
+            this.shellOnly = false;
             this.setVelocityX(this.speed * this.direction);
 
             // Check if enemy has reached patrol limit
