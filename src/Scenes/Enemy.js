@@ -5,35 +5,35 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, texture);
         this.scene = scene;
 
-        // pathing stuff
+        // PATHING
         this.startX = x;     // save original spawn point
         this.startY = y;
         this.patrolDistance = patrolDistance; // how far left/right to move
         this.direction = 1;  // 1 = right, -1 = left
-        this.shellOnly = false;
+        this.shellOnly = false; // flag for ricochet mechanic
 
-        // collision stuff
+        // COLLISION FLAGS
         this.health = 500;
         this.hasKey = false;
         this.alive = true;
 
+        // PHYSICS
         scene.add.existing(this);
         scene.physics.add.existing(this);
-
         this.setCollideWorldBounds(true);
     }
 
-    // function to determine the proximity between the enemy and player
-    // if true is returned, the player is too close to the enemy and that may cause something to happen...
-    // shellEnemy will hide and the flyingEnemy will speed up?
+    // Function to determine if the player is too close to the enemy
     closeProximity(player) {
         if (Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y) < 100) {
             return true;
         }
     }
+
 }
 
 class ShellEnemy extends Enemy {
+    
     constructor(scene, x, y, texture, patrolDistance) {
         super(scene, x, y, texture, patrolDistance);
         this.speed = 50;   // pixels per sec
@@ -41,10 +41,10 @@ class ShellEnemy extends Enemy {
 
     update() {
 
-        // if the enemy isn't alive, return
+        // If the enemy isn't alive, return
         if (!this.alive) return;
 
-        // if the player is too close to the enemy, hide
+        // If the player is too close to the enemy, hide
         if (this.closeProximity(this.scene.player)) {
             this.shellOnly = true;
             this.setTexture('shellIdle');
@@ -53,7 +53,7 @@ class ShellEnemy extends Enemy {
 
         else {
             // WALKING
-            // set the velocity in the direction that the enemy is moving
+            // Set the velocity in the direction that the enemy is moving
             this.shellOnly = false;
             this.setVelocityX(this.speed * this.direction);
 
@@ -72,14 +72,17 @@ class ShellEnemy extends Enemy {
     }
 
     takeDamage() {
+
+        // If the enemy isn't alive, return
         if (!this.alive) return;
 
+        // Reduce health + play sound
         this.health -= 100;
-        // play hurt sound
         this.scene.sound.play("enemyHurt", {
             volume: 0.5
         });
 
+        // Delete the enemy once it's dead
         if (this.health <= 0) {
             this.alive = false;
 
@@ -97,9 +100,8 @@ class ShellEnemy extends Enemy {
             this.scene.sound.play("enemyDeath", {
                 volume: 0.5
             });
-            this.scene.enemiesKilled++;
-            console.log(this.scene.enemiesKilled);
 
+            // Check if enemy has a key and spawn it
             this.on('animationcomplete', () => {
                 this.disableBody(true, true);  // removes from scene
 
@@ -113,6 +115,7 @@ class ShellEnemy extends Enemy {
 }
 
 class FlyingEnemy extends Enemy {
+
     constructor(scene, x, y, texture, patrolDistance) {
         super(scene, x, y, texture, patrolDistance);
         this.speed = 50;   // pixels per sec
@@ -120,7 +123,7 @@ class FlyingEnemy extends Enemy {
 
     update() {
 
-        // if the enemy isn't alive, return
+        // If the enemy isn't alive, return
         if (!this.alive) return;
 
         else {
@@ -141,14 +144,17 @@ class FlyingEnemy extends Enemy {
     }
 
     takeDamage() {
+
+        // If the enemy isn't alive, return
         if (!this.alive) return;
 
+        // Reduce health + play sound
         this.health -= 100;
-        // play hurt sound
         this.scene.sound.play("enemyHurt", {
             volume: 0.5
         });
 
+        // Delete the enemy once it's dead
         if (this.health <= 0) {
             this.alive = false;
 
@@ -167,16 +173,13 @@ class FlyingEnemy extends Enemy {
                 volume: 0.5
             });
 
-            this.scene.enemiesKilled++;
-            console.log(this.scene.enemiesKilled);
-
+            // Check if enemy has a key and spawn it
             this.on('animationcomplete', () => {
                 this.disableBody(true, true);  // removes from scene
-                // if the enemy has a key, it will spawn after the death animation
+                
                 if (this.hasKey) {
                     this.scene.spawnKey(this.x, this.y);
                 }
-
                 this.destroy();
             });
         }

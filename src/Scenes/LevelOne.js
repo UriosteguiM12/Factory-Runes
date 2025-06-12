@@ -6,7 +6,7 @@ class LevelOne extends Phaser.Scene{
 
     init() {
 
-        // modify values to modify player jump
+        // PLAYER JUMP VALUES
         this.ACCELERATION = 1000;
         this.MAX_VELOCITY = 250;
         this.DRAG = 10000;
@@ -17,7 +17,7 @@ class LevelOne extends Phaser.Scene{
         // turn off debug
         this.physics.world.drawDebug = this.physics.world.drawDebug ? false : true;
 
-        // counters
+        // COUNTERS
         this.coinCount = 0;
         this.health = 3;
         this.keysCollected = 0;
@@ -33,29 +33,25 @@ class LevelOne extends Phaser.Scene{
 
         this.load.setPath("./assets/");
 
-        //loading animatedTiles plugin
-        //this.load.scenePlugin('AnimatedTiles', './lib/AnimatedTiles.js', 'animatedTiles', 'animatedTiles');
-
-        // enemy animations
+        // Enemy animations
         this.load.image('shellIdle', 'tile_1365.png');
         this.load.image('shellEnemy', 'tile_1360.png')
         this.load.image('flyingEnemy', 'tile_0381.png')
 
-        // gun related assets
+        // Gun related assets
         this.load.image('gun', 'tile_0261.png');
         this.load.image('playerGun', 'tile_1261.png');
         this.load.image('bullet', 'tile_0001.png');
 
-        // counters
+        // Counters
         this.load.image('heart', 'tile_0041.png')
         this.load.image('coin', 'tile_0002.png')
         this.load.image('key', 'tile_0096.png')
     }
 
     create() {
-        console.log("loaded the Level!");
 
-        // keyboard input
+        // KEYBOARD INPUT
         this.cursors = this.input.keyboard.createCursorKeys();
         this.keys = this.input.keyboard.addKeys("W,S,A,D");
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
@@ -63,9 +59,14 @@ class LevelOne extends Phaser.Scene{
         this.rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-        // Flag to disable player input
-        this.inputEnabled = true;
 
+        // FLAGS
+        this.inputEnabled = true; // disables user input
+        this.canTakeDamage = true;
+        this.damageCooldown = 5000; // 1 second
+
+
+        // TILEMAP SETUP
         // Create a new tilemap game object which uses 16x16 pixel tiles, and is
         // 480 tiles wide and 120 tiles tall.
         this.map = this.add.tilemap("level-one", 16, 16, 80, 120);
@@ -75,6 +76,8 @@ class LevelOne extends Phaser.Scene{
         const oneBitTransparent = this.map.addTilesetImage("1-bit-transparent", "monochrome_tilemap_transparent");
         const tilesets = [oneBit, oneBitTransparent];
 
+
+        // LAYER SETUP
         // Create level layers
         this.bgLayer = this.map.createLayer("Background", tilesets, 0, 0);
         this.bgLayer.setScale(2.0);
@@ -92,202 +95,7 @@ class LevelOne extends Phaser.Scene{
         this.foregroundLayer.alpha = 1.0;
 
 
-        // Add each coin/spike/lock sprite to the physics group
-        this.lockGroup = this.physics.add.staticGroup();
-        this.spikeGroup = this.physics.add.staticGroup();
-        this.coinGroup = this.physics.add.staticGroup();
-        this.doorGroup = this.physics.add.staticGroup();
-
-        const doorObject = this.map.getObjectLayer('Exit').objects;
-        doorObject.forEach(obj => {
-
-            // get the "frameInt" property from Tiled
-            let frameInt = obj.properties?.find(p => p.name === 'FrameInt')?.value ?? 56;
-
-            // set characteristics
-            const door = this.doorGroup.create(
-                obj.x * 2,
-                obj.y * 2,
-                'characters',       
-                frameInt           
-            );
-
-            door.setOrigin(0, 1);
-            door.setScale(2.0);
-            door.alpha = 1.0;
-
-            // door collision box
-            let bodyX = 32;
-            let bodyY = 32;
-            let offsetX = 8;
-            let offsetY = -24;
-
-            door.body.setSize(bodyX, bodyY);
-            door.body.setOffset(offsetX, offsetY);
-            this.doorGroup.add(door);
-        });
-
-        this.lockArray = [];
-        const lockObjects = this.map.getObjectLayer('Gate').objects;
-        // for each lock object
-        lockObjects.forEach(obj => {
-
-            // get the "frameInt" property from Tiled
-            let frameInt = obj.properties?.find(p => p.name === 'FrameInt')?.value ?? 47;
-
-            // set characteristics
-            const lock = this.lockGroup.create(
-                obj.x * 2,
-                obj.y * 2,
-                'monochrome_tilemap_spritesheet',       
-                frameInt           
-            );
-
-            lock.setOrigin(0, 1);
-            lock.setScale(2.0);
-            lock.alpha = 1.0;
-
-            // Lock collision box
-            let bodyX = 32;
-            let bodyY = 32;
-            let offsetX = 8;
-            let offsetY = -24;
-
-            lock.body.setSize(bodyX, bodyY);
-            lock.body.setOffset(offsetX, offsetY);
-            this.lockGroup.add(lock);
-
-            this.lockArray.push(lock);
-        });
-
-
-        const spikeObjects = this.map.getObjectLayer('Spikes').objects;
-        // for each spike object
-        spikeObjects.forEach(obj => {
-
-            // get the "frameInt" property from Tiled
-            const frameInt = obj.properties?.find(p => p.name === 'FrameInt')?.value ?? 183;
-
-            // set characteristics
-            const spike = this.spikeGroup.create(
-                obj.x * 2,
-                obj.y * 2,
-                'characters',       
-                frameInt           
-            );
-
-            spike.setOrigin(0, 1);
-            spike.setScale(2.0);
-            spike.alpha = 1.0;
-            spike.angle = obj.rotation;
-
-            // set the object to be flipped horizontal/vertical to match how the map looks in Tiled
-            spike.flipX = obj.flippedHorizontal || false;
-            spike.flipY = obj.flippedVertical || false;
-
-            // manually fix collision boxes based off of horizontal/vertical flips (ughhhhhhhh)
-
-            // default spike collision box (FrameInt: 183, No Vertical, No Horizontal, Rotation 0)
-            let bodyX = 32;
-            let bodyY = 16;
-            let offsetX = 8;
-            let offsetY = -10;
-
-            // if FrameInt = 183 (normal Spike)
-            if (frameInt === 183) {
-
-                // Yes Vertical, Yes Horizontal
-                if (obj.flippedVertical && obj.flippedHorizontal) offsetX = 20, offsetY = 8, bodyX = 16, bodyY = 32;
-                
-                // No Vertical, Yes Horizontal
-                if (!obj.flippedVertical && obj.flippedHorizontal){
-                    // Rotation 180
-                    if (obj.rotation === 180) offsetX = -24, offsetY = 10;
-                    // Rotation 90
-                    else offsetX = 10, offsetY = 8, bodyX = 16, bodyY = 32;
-                }
-                // No Vertical, No Horizontal, Rotation -90
-                if (!obj.flippedVertical && !obj.flippedHorizontal && obj.rotation === -90) bodyX = 16, bodyY = 32, offsetX = -10, offsetY = -24;
-                
-                // Yes Vertical, No Horizontal
-                if (obj.flippedVertical && !obj.flippedHorizontal) {
-                    // Rotation -90
-                    if (obj.rotation === -90) bodyX = 16, bodyY = 32, offsetX = -20, offsetY = -24;
-                    // Rotation 0
-                    else offsetX = 8, offsetY = -20;
-                }
-            }
-
-            if (frameInt === 166) {
-                if (obj.flippedVertical && obj.flippedHorizontal && obj.rotation === 0) bodyY = 25, offsetY = -14;
-                else bodyX = 25, bodyY = 32, offsetY = 8;
-            }
-
-            spike.body.setSize(bodyX, bodyY);
-            spike.body.setOffset(offsetX, offsetY);
-            this.spikeGroup.add(spike);
-
-        });
-
-        // Create coins from objects in the map
-        this.coins = this.map.createFromObjects("Coins", {
-            name: "coin",
-            key: "characters",
-            frame: 2,
-            scale: 2
-        });
-
-        let coinounter = 0;
-        this.coins.forEach(coin => {
-            coinounter++;
-            coin.setScale(2.0);
-            coin.setOrigin(0.5, 0.5);
-            coin.x *= 2;
-            coin.y *= 2;
-            coin.alpha = 1.0;
-            this.coinGroup.add(coin);
-        });
-
-        console.log(coinounter);
-
-        // vfx for collecting coins
-        this.coinCollectParticles = this.add.particles(0, 0, "coin_particle", {
-            quantity: 10,
-            lifespan: 600,
-            speed: { min: 50, max: 100 },
-            angle: { min: 0, max: 360 },
-            scale: { start: 1.0, end: 0.0 },
-            alpha: { start: 1, end: 0 },
-            gravityY: -100,
-            emitting: false // only triggered manually with explode 
-        });
-
-        // COIN UI
-        this.coin = this.add.image(250, 300, 'coin').setScrollFactor(0).setScale(2);
-        this.coinScore = this.add.text(this.cameras.main.centerX - 150, this.cameras.main.centerY - 236, 'x ' + this.coinCount, {
-            fontFamily: 'Alagard',
-            fontSize: '16px',
-            color: '#ffffff'
-        }).setOrigin(0.5).setScale(2.0).setScrollFactor(0);
-        
-        // HEALTH UI
-        this.heart = this.add.image(250, 340, 'heart').setScrollFactor(0).setScale(2);
-        this.healthCounter = this.add.text(this.cameras.main.centerX - 150, this.cameras.main.centerY - 197, 'x ' + this.health, {
-            fontFamily: 'Alagard',
-            fontSize: '16px',
-            color: '#ffffff'
-        }).setOrigin(0.5).setScale(2.0).setScrollFactor(0);
-
-        // KEY UI
-        this.keyImage = this.add.image(600, 300, 'key').setScrollFactor(0).setScale(2);
-        this.keyCount = this.add.text(this.cameras.main.centerX + 200, this.cameras.main.centerY - 236, 'x ' + this.keysCollected, {
-            fontFamily: 'Alagard',
-            fontSize: '16px',
-            color: '#ffffff'
-        }).setOrigin(0.5).setScale(2.0).setScrollFactor(0);
-
-
-        // player setup
+        // PLAYER SETUP
         this.player = this.physics.add.sprite(160, 3500, "characters", 260);
         this.player.setCollideWorldBounds(true);
         this.player.setScale(1.8);
@@ -298,16 +106,14 @@ class LevelOne extends Phaser.Scene{
         this.player.body.checkCollision.left = true;
         this.player.body.checkCollision.right = true;
 
-        // Make the locks collideable (needs to go after player is created)
-        this.physics.add.collider(this.player, this.lockGroup);
+        // KEY RANDOMIZATION
 
-        // for key randomization:
         // Pick 4 unique random indices between 1 and 17
         let remainingKeyIndices = Phaser.Utils.Array.NumberArray(1, 17);
         Phaser.Utils.Array.Shuffle(remainingKeyIndices);  // randomize order
         let keyIndices = remainingKeyIndices.slice(0, 4);  // pick first 4
 
-        // enemy setup (18 total)
+        // ENEMY SETUP (18 total)
         this.enemies = this.physics.add.group(); // this is going to contain all enemies, regardless of type
         const enemySpawns = [ { x: 654, y: 3331 }, // Shell closest to the spawn point 
                               { x: 638, y: 2970 }, // Fly on top of box with an X
@@ -355,12 +161,192 @@ class LevelOne extends Phaser.Scene{
             this.enemies.add(enemy);
         });
 
-        // collisions
+
+        // LAYER COLLISIONS
         this.physics.add.collider(this.player, this.groundLayer);
         this.physics.add.collider(this.player, this.foregroundLayer);
         this.physics.add.collider(this.enemies, this.groundLayer);
 
-        // gun setup
+
+        // PHYSICS GROUPS
+        this.lockGroup = this.physics.add.staticGroup();
+        this.spikeGroup = this.physics.add.staticGroup();
+        this.coinGroup = this.physics.add.staticGroup();
+        this.doorGroup = this.physics.add.staticGroup();
+
+
+        /////////////// ***OBJECT CREATION*** ///////////////
+
+        // DOOR OBJECT
+        const doorObject = this.map.getObjectLayer('Exit').objects;
+        doorObject.forEach(obj => {
+
+            // get the "frameInt" property from Tiled
+            let frameInt = obj.properties?.find(p => p.name === 'FrameInt')?.value ?? 56;
+
+            // set characteristics
+            const door = this.doorGroup.create(
+                obj.x * 2,
+                obj.y * 2,
+                'characters',       
+                frameInt           
+            );
+
+            door.setOrigin(0, 1);
+            door.setScale(2.0);
+            door.alpha = 1.0;
+
+            // door collision box
+            let bodyX = 32;
+            let bodyY = 32;
+            let offsetX = 8;
+            let offsetY = -24;
+
+            door.body.setSize(bodyX, bodyY);
+            door.body.setOffset(offsetX, offsetY);
+            this.doorGroup.add(door);
+        });
+
+
+        // LOCK OBJECTS
+        this.lockArray = [];
+        const lockObjects = this.map.getObjectLayer('Gate').objects;
+        // for each lock object
+        lockObjects.forEach(obj => {
+
+            // get the "frameInt" property from Tiled
+            let frameInt = obj.properties?.find(p => p.name === 'FrameInt')?.value ?? 47;
+
+            // set characteristics
+            const lock = this.lockGroup.create(
+                obj.x * 2,
+                obj.y * 2,
+                'monochrome_tilemap_spritesheet',       
+                frameInt           
+            );
+
+            lock.setOrigin(0, 1);
+            lock.setScale(2.0);
+            lock.alpha = 1.0;
+
+            // Lock collision box
+            let bodyX = 32;
+            let bodyY = 32;
+            let offsetX = 8;
+            let offsetY = -24;
+
+            lock.body.setSize(bodyX, bodyY);
+            lock.body.setOffset(offsetX, offsetY);
+            this.lockGroup.add(lock);
+
+            this.lockArray.push(lock);
+        });
+
+
+        // SPIKE OBJECTS
+        const spikeObjects = this.map.getObjectLayer('Spikes').objects;
+        // for each spike object
+        spikeObjects.forEach(obj => {
+
+            // get the "frameInt" property from Tiled
+            const frameInt = obj.properties?.find(p => p.name === 'FrameInt')?.value ?? 183;
+
+            // set characteristics
+            const spike = this.spikeGroup.create(
+                obj.x * 2,
+                obj.y * 2,
+                'characters',       
+                frameInt           
+            );
+
+            spike.setOrigin(0, 1);
+            spike.setScale(2.0);
+            spike.alpha = 1.0;
+            spike.angle = obj.rotation;
+
+            // set the object to be flipped horizontal/vertical to match how the map looks in Tiled
+            spike.flipX = obj.flippedHorizontal || false;
+            spike.flipY = obj.flippedVertical || false;
+
+            // MANUAL COLLISIONS
+
+            // default spike collision box (FrameInt: 183, No Vertical, No Horizontal, Rotation 0)
+            let bodyX = 32;
+            let bodyY = 16;
+            let offsetX = 8;
+            let offsetY = -10;
+
+            // if FrameInt = 183 (normal Spike)
+            if (frameInt === 183) {
+
+                // Yes Vertical, Yes Horizontal
+                if (obj.flippedVertical && obj.flippedHorizontal) offsetX = 20, offsetY = 8, bodyX = 16, bodyY = 32;
+                
+                // No Vertical, Yes Horizontal
+                if (!obj.flippedVertical && obj.flippedHorizontal){
+                    // Rotation 180
+                    if (obj.rotation === 180) offsetX = -24, offsetY = 10;
+                    // Rotation 90
+                    else offsetX = 10, offsetY = 8, bodyX = 16, bodyY = 32;
+                }
+                // No Vertical, No Horizontal, Rotation -90
+                if (!obj.flippedVertical && !obj.flippedHorizontal && obj.rotation === -90) bodyX = 16, bodyY = 32, offsetX = -10, offsetY = -24;
+                
+                // Yes Vertical, No Horizontal
+                if (obj.flippedVertical && !obj.flippedHorizontal) {
+                    // Rotation -90
+                    if (obj.rotation === -90) bodyX = 16, bodyY = 32, offsetX = -20, offsetY = -24;
+                    // Rotation 0
+                    else offsetX = 8, offsetY = -20;
+                }
+            }
+
+            if (frameInt === 166) {
+                if (obj.flippedVertical && obj.flippedHorizontal && obj.rotation === 0) bodyY = 25, offsetY = -14;
+                else bodyX = 25, bodyY = 32, offsetY = 8;
+            }
+
+            spike.body.setSize(bodyX, bodyY);
+            spike.body.setOffset(offsetX, offsetY);
+            this.spikeGroup.add(spike);
+
+        });
+
+
+        // COIN OBJECTS
+        this.coins = this.map.createFromObjects("Coins", {
+            name: "coin",
+            key: "characters",
+            frame: 2,
+            scale: 2
+        });
+
+        let coinounter = 0;
+        this.coins.forEach(coin => {
+            coinounter++;
+            coin.setScale(2.0);
+            coin.setOrigin(0.5, 0.5);
+            coin.x *= 2;
+            coin.y *= 2;
+            coin.alpha = 1.0;
+            this.coinGroup.add(coin);
+        });
+
+        // vfx for collecting coins
+        this.coinCollectParticles = this.add.particles(0, 0, "coin_particle", {
+            quantity: 10,
+            lifespan: 600,
+            speed: { min: 50, max: 100 },
+            angle: { min: 0, max: 360 },
+            scale: { start: 1.0, end: 0.0 },
+            alpha: { start: 1, end: 0 },
+            gravityY: -100,
+            emitting: false // only triggered manually with explode 
+        });
+
+        /////////////// ***OBJECT CREATION END*** ///////////////
+
+        // GUN SETUP
         this.gun = this.add.sprite(this.player.x + 25, this.player.y + 20, 'gun');
         this.gunActive = false;
         this.gun.setScale(2.5);
@@ -372,19 +358,25 @@ class LevelOne extends Phaser.Scene{
         this.gun.currentAngle = 0;
         this.gun.direction = 1;
 
-        // bullets group
+        this.lastFired = 0;
+        this.fireRate = 150;
+
+        // BULLETS GROUP
         this.bullets = this.physics.add.group({
             classType: Phaser.Physics.Arcade.Image,
             maxSize: 3
         });
 
+
+        /////////////// *** COLLISION DETECTION*** ///////////////
+
+        // BULLET COLLISION WITH GROUND
         this.physics.add.collider(this.bullets, this.groundLayer, (bullet, tile) => {
             bullet.disableBody(true, true);
         });
 
-        this.lastFired = 0;
-        this.fireRate = 150;
 
+        // BULLET COLLISION WITH PLAYER
         this.physics.add.overlap(this.bullets, this.enemies, (bullet, enemy) => {
             if (!enemy.shellOnly) {
                 bullet.disableBody(true, true);  // bullet disappears
@@ -394,7 +386,11 @@ class LevelOne extends Phaser.Scene{
 
         });
 
-        // handle collision with keys
+
+        // Add a collider for locks
+        this.physics.add.collider(this.player, this.lockGroup);
+
+        // PLAYER COLLISION WITH KEYS
         this.keyGroup = this.physics.add.group();
         this.physics.add.collider(this.keyGroup, this.groundLayer);
 
@@ -410,54 +406,77 @@ class LevelOne extends Phaser.Scene{
         });
 
 
-        // Handle collision detection with coins
-                this.physics.add.overlap(this.player, this.coinGroup, (obj1, obj2) => {
-                    //trigger particle effect
-                    this.coinCollectParticles.explode(10, obj2.x, obj2.y);
-                    // remove coin on overlap
-                    obj2.destroy(); 
-                    this.coinCount++;
-                    this.coinScore.setText('x ' + this.coinCount);
-                    this.sound.play("coinCollect", {
-                            volume: 0.5
-                        });
-                        
-                    // Add health for every 10 coins collected
-                    if (this.coinCount % 10 == 0) {
-                        this.health++;
-                        this.healthCounter.setText('x ' + this.health);
-                        this.sound.play("heal", {
-                            volume: 0.5
-                        });
-                    }
-                })
+        // PLAYER COLLISION WITH COINS
+        this.physics.add.overlap(this.player, this.coinGroup, (obj1, obj2) => {
+            //trigger particle effect
+            this.coinCollectParticles.explode(10, obj2.x, obj2.y);
+            // remove coin on overlap
+            obj2.destroy(); 
+            this.coinCount++;
+            this.coinScore.setText('x ' + this.coinCount);
+            this.sound.play("coinCollect", {
+                    volume: 0.5
+                });
+                
+            // Add health for every 10 coins collected
+            if (this.coinCount % 10 == 0) {
+                this.health++;
+                this.healthCounter.setText('x ' + this.health);
+                this.sound.play("heal", {
+                    volume: 0.5
+                });
+            }
+        })
 
-        // player damage cooldowns
-        this.canTakeDamage = true;
-        this.damageCooldown = 5000; // 1 second
 
-        // Handle collision detection with spikes
+        // PLAYER COLLISION WITH SPIKES
         this.physics.add.overlap(this.player, this.spikeGroup, () => {
             this.playerTakeDamage();
         });
 
-        // Handle collision detection with enemies
+        // PLAYER COLLISION WITH ENEMIES
         this.physics.add.overlap(this.player, this.enemies, (player, enemy) => {
             if (enemy.alive) {
                 this.playerTakeDamage();
             }
         });
         
-        //handle collision with door
+        // PLAYER COLLISION WITH DOOR
         this.physics.add.overlap(this.player, this.doorGroup, () => {
-            /*this.sound.play("keyCollect", {
-                    volume: 0.5
-                });*/
-            // Can have it take you to the menu screen immediately since you need 5 keys to access anyways
             this.showWinScreen();
         });
         
-        // camera code
+        /////////////// *** COLLISION DETECTION END *** ///////////////
+
+
+        // COIN UI
+        this.coin = this.add.image(250, 300, 'coin').setScrollFactor(0).setScale(2);
+        this.coinScore = this.add.text(this.cameras.main.centerX - 150, this.cameras.main.centerY - 236, 'x ' + this.coinCount, {
+            fontFamily: 'Alagard',
+            fontSize: '16px',
+            color: '#ffffff'
+        }).setOrigin(0.5).setScale(2.0).setScrollFactor(0);
+
+        
+        // HEALTH UI
+        this.heart = this.add.image(250, 340, 'heart').setScrollFactor(0).setScale(2);
+        this.healthCounter = this.add.text(this.cameras.main.centerX - 150, this.cameras.main.centerY - 197, 'x ' + this.health, {
+            fontFamily: 'Alagard',
+            fontSize: '16px',
+            color: '#ffffff'
+        }).setOrigin(0.5).setScale(2.0).setScrollFactor(0);
+
+
+        // KEY UI
+        this.keyImage = this.add.image(600, 300, 'key').setScrollFactor(0).setScale(2);
+        this.keyCount = this.add.text(this.cameras.main.centerX + 200, this.cameras.main.centerY - 236, 'x ' + this.keysCollected, {
+            fontFamily: 'Alagard',
+            fontSize: '16px',
+            color: '#ffffff'
+        }).setOrigin(0.5).setScale(2.0).setScrollFactor(0);
+
+
+        // CAMERA SETUP
         this.cameras.main.setBounds(0, 0, 2570, 4000);
         this.physics.world.setBounds(0, 0, 2570, 4000);
         this.cameras.main.startFollow(this.player, true, 0.08, 0.08, 100, 0);
@@ -466,7 +485,8 @@ class LevelOne extends Phaser.Scene{
         this.cameras.main.followOffset.set(-100, 0);
         this.physics.world.TILE_BIAS = 40; // should help with not having the player go through tiles while falling
 
-        // Allow restarting the game
+        
+        // GAME RESTART
         this.input.keyboard.on('keydown-R', () => {
             if (this.gameOver) {
                 this.sound.play("select_2", { volume: 0.5 });
@@ -474,11 +494,6 @@ class LevelOne extends Phaser.Scene{
                 this.scene.restart();
             }
         });
-
-
-        // finally, initialize the animated tiles plugin
-        // broken rn tho
-        //this.animatedTiles.init(this.map);
     }
 
     update() {
@@ -490,6 +505,7 @@ class LevelOne extends Phaser.Scene{
             }
         });
 
+        // PLAYER MOVEMENT
         if (this.inputEnabled) {
             // First, handle movement
             if (this.cursors.left.isDown || this.keys.A.isDown) {
@@ -583,11 +599,13 @@ class LevelOne extends Phaser.Scene{
                 this.gun.rotation = this.gun.currentAngle;
             }
 
+            // Stop rotating if Q isn't pressed
             if (Phaser.Input.Keyboard.JustUp(this.keyQ)) {
                 this.gunActive = false;
                 this.gun.setVisible(false);
             }
 
+            // PROJECTILES
             const isShooting = this.keyE.isDown;
             const now = this.time.now;
 
@@ -632,8 +650,6 @@ class LevelOne extends Phaser.Scene{
             }
             return true; // keep it in the list if still too far
         });
-        
-        let allKeysCollected = false;
 
         // LOSE CONDITIONS
         if (this.health <= 0) {
@@ -642,6 +658,7 @@ class LevelOne extends Phaser.Scene{
         }
     }
 
+    // Spawns key after enemy dies if the flag hasKey is true
     spawnKey(x, y) {
         const key = this.keyGroup.create(x, y, 'key');
         key.setScale(2.0);
@@ -650,10 +667,9 @@ class LevelOne extends Phaser.Scene{
         this.sound.play("keyDrop", {
             volume: 0.5
         });
-        console.log("Spawned key!");
     }
 
-
+    // Makes the locks disappear as the player collects the keys
     unlockNextLock() {
         if (this.keysCollected <= this.lockArray.length) {
             const lockToUnlock = this.lockArray[this.lockArray.length - this.keysCollected]; // reverse order
@@ -664,12 +680,11 @@ class LevelOne extends Phaser.Scene{
         }  
     }
 
-    
+    // Fire projectiles at enemies if they are available
     fireBullet() {
         const bullet = this.bullets.get();
 
         if (!bullet) {
-            console.warn("No bullets available in pool!");
             return;
         }
 
@@ -749,9 +764,6 @@ class LevelOne extends Phaser.Scene{
         this.keyGroup.getChildren().forEach(key => key.alpha = 0.3);
         this.enemies.getChildren().forEach(enemy => enemy.alpha = 0.3);
         if (this.door) this.door.alpha = 0.3;
-
-        // don't let the player provide keyboard input unless it's to restart the game
-        
 
         const { centerX, centerY } = this.cameras.main;
 

@@ -10,12 +10,13 @@ class Load extends Phaser.Scene {
         this.load.image("monochrome_tilemap", "monochrome_tilemap_packed.png");
         this.load.image("monochrome_tilemap_transparent", "monochrome_tilemap_transparent_packed.png");
 
-        //load images
+        // Load images
         this.load.image("coin_particle", "coin_particle.png");
         this.load.image('key', 'tile_0096.png'); 
         this.load.image('aiming', 'tile_266.png');
         this.load.image('helmetEnemy', 'tile_1360.png');
-        
+
+        // Load spritesheets
         this.load.spritesheet('characters', 'monochrome_tilemap_transparent_packed.png', {
             frameWidth: 16,  
             frameHeight: 16
@@ -48,6 +49,7 @@ class Load extends Phaser.Scene {
 
     create() {
     
+        // ANIMATIONS
         this.anims.create({
             key: 'walk',
             frames: [

@@ -14,6 +14,7 @@ class TitleScreen extends Phaser.Scene{
 
     create() {
 
+        // BUTTONS
         const controlButton = this.add.image(290, 950, 'controlButton').setInteractive();
         const creditButton = this.add.image(600, 950, 'creditButton').setInteractive();
         const startButton = this.add.image(450, 850, 'startButton').setInteractive();
@@ -43,11 +44,12 @@ class TitleScreen extends Phaser.Scene{
             });
         });
 
+        // LINE
         // Create a graphics object
         const graphics = this.add.graphics();
 
-        // Set line style: width, color, alpha
-        graphics.lineStyle(4, 0xffffff, 1);  // 4px wide, white, full opacity
+        // Line style
+        graphics.lineStyle(4, 0xffffff, 1);  // width, color, opacity
 
         // Draw the line from (x1, y1) to (x2, y2)
         graphics.beginPath();
@@ -55,6 +57,7 @@ class TitleScreen extends Phaser.Scene{
         graphics.lineTo(1000, 750);     // end point
         graphics.strokePath();
 
+        // TEXT
         this.add.text(460, 130, 'Factory Runes', {
             fontFamily: 'Alagard',
             fontSize: '120px',
@@ -68,10 +71,9 @@ class TitleScreen extends Phaser.Scene{
             align: 'center'
         }).setOrigin(0.5);
 
-        //player avatar for title screen
+        // PLAYER AVATAR
         this.menuCharacter = this.add.sprite(450, 400, "characters", 260);
         this.menuCharacter.setScale(10);
         this.menuCharacter.anims.play('walk', true);
-
     }
 }
